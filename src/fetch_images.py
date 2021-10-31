@@ -30,8 +30,11 @@ config = load_config(os.path.join(
 
 def fetch_assets(params, opensea_url: str = opensea_url):
     res = requests.get(opensea_url, params)
-    json = res.json()
-    return json['assets']
+    try:
+        json = res.json()
+        return json['assets']
+    except:
+        return None
 
 
 def to_fetch(n, fulfilled, target):
@@ -57,6 +60,9 @@ if __name__ == '__main__':
                     'limit': n
                 }
             )
+            if assets is None:
+                continue
+
             offset += n
 
             collection_dir = f"{config['save_dir']}/{collection}"
