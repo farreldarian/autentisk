@@ -1,0 +1,12 @@
+save_dir: dataset
+allowed_extensions: ["png", "jpg", "jpeg"]
+
+target:
+  image_per_collection: 20
+
+collections:
+  # PFP
+  - cryptopunks
+  - incognito-nft
+  - boredapeyachtclub
+  - pudgypenguins
