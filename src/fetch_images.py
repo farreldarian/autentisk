@@ -2,6 +2,7 @@ import os
 import yaml
 import requests
 import filetype
+from helpers.dataset import Dataset
 
 from helpers.utils import make_dir_if_not_exists
 
@@ -9,23 +10,13 @@ from helpers.utils import make_dir_if_not_exists
 # Constants
 #
 
-dataset_config_path = '../configs/dataset.yml'
 opensea_url = "https://api.opensea.io/api/v1/assets"
 n_fetch = 5
 
 #
 
 
-def load_config(config_path):
-    if not os.path.isfile(config_path):
-        raise Exception(f"Can't locate config path in {config_path}")
-
-    with open(config_path) as f:
-        return yaml.load(f, Loader=yaml.FullLoader)
-
-
-config = load_config(os.path.join(
-    os.path.dirname(__file__), dataset_config_path))
+dataset = Dataset()
 
 
 def fetch_assets(params, opensea_url: str = opensea_url):
@@ -42,10 +33,10 @@ def to_fetch(n, fulfilled, target):
 
 
 if __name__ == '__main__':
-    target_per_collection = config['target']['image_per_collection']
-    make_dir_if_not_exists(config['save_dir'])
+    target_per_collection = dataset.target_image_per_collection()
+    make_dir_if_not_exists(dataset.save_dir())
 
-    for collection in config['collections']:
+    for collection in dataset.all_collections():
         fulfilled = 0
         offset = 0
 
@@ -65,7 +56,7 @@ if __name__ == '__main__':
 
             offset += n
 
-            collection_dir = f"{config['save_dir']}/{collection}"
+            collection_dir = f"{dataset.save_dir()}/{collection}"
             make_dir_if_not_exists(collection_dir)
 
             for asset in assets:
@@ -74,7 +65,7 @@ if __name__ == '__main__':
                 content = requests.get(image_url).content
                 ext = filetype.guess_extension(content)
 
-                if ext not in config['allowed_extensions']:
+                if ext not in dataset.allowed_extensions():
                     continue
 
                 file_path = f"{collection_dir}/{asset['token_id']}.{ext}"
