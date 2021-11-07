@@ -5,6 +5,8 @@ import augly.image as imaugs
 import matplotlib.image as mpimg
 
 from .dataset import Dataset
+from .distance import euclidian_distance
+from .utils import clamp_minimum
 
 
 def augment(image):
@@ -42,3 +44,13 @@ def generate_quadlet(collection: str, image_name: str):
     negative = dataset.load_image(negative_collection, negative_image_file)
 
     return [anchor, positive, intermediate, negative]
+
+
+def quadlet_loss(query, positive, intermediate, negative, g1=0.7, g2=0.3, g3=0.5):
+    loss_1 = clamp_minimum(g1 + np.sum(euclidian_distance(query, positive) -
+                                       euclidian_distance(query, negative)))
+    loss_2 = clamp_minimum(g2 + np.sum(euclidian_distance(query, positive) -
+                                       euclidian_distance(query, intermediate)))
+    loss_3 = clamp_minimum(g3 + np.sum(euclidian_distance(query, intermediate) -
+                                       euclidian_distance(query, negative)))
+    return loss_1 + loss_2 + loss_3

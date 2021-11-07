@@ -119,3 +119,7 @@ def show_image_list(list_images, list_titles=None, list_cmaps=None, grid=True, n
 
     fig.tight_layout()
     _ = plt.show()
+
+
+def clamp_minimum(num, minimum=0):
+    return np.max([num, minimum])
