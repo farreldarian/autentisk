@@ -57,7 +57,8 @@ class Dataset:
         image_path = self.resolve_image_path(collection, image_file)
         image = Image.open(image_path)
         image = image.resize(target_size)
-        return np.array(image)
+        np_image = np.array(image)
+        return np_image[:, :, :3] if np_image.shape[-1] > 3 else np_image
 
     def save_dir(self):
         return self.yaml_config['save_dir']
