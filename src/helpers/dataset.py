@@ -53,9 +53,11 @@ class Dataset:
             images = [image for image in images if image not in ignores]
         return images
 
-    def load_image(self, collection: str, image_file: str):
+    def load_image(self, collection: str, image_file: str, target_size=(224, 224)):
         image_path = self.resolve_image_path(collection, image_file)
-        return np.array(Image.open(image_path))
+        image = Image.open(image_path)
+        image.resize(target_size)
+        return np.array(image)
 
     def save_dir(self):
         return self.yaml_config['save_dir']
