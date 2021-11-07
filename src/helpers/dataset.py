@@ -56,7 +56,7 @@ class Dataset:
     def load_image(self, collection: str, image_file: str, target_size=(224, 224)):
         image_path = self.resolve_image_path(collection, image_file)
         image = Image.open(image_path)
-        image.resize(target_size)
+        image = image.resize(target_size)
         return np.array(image)
 
     def save_dir(self):
