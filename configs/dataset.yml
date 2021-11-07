@@ -4,9 +4,15 @@ allowed_extensions: ["png", "jpg", "jpeg"]
 target:
   image_per_collection: 20
 
-collections:
-  # PFP
-  - cryptopunks
-  - incognito-nft
-  - boredapeyachtclub
-  - pudgypenguins
+collections_per_category:
+  pfp:
+    - cryptopunks
+    - incognito-nft
+    - boredapeyachtclub
+    - pudgypenguins
+  art:
+    - art-blocks-factory
+
+negatives:
+  pfp: ["art"]
+  art: ["pfp"]
