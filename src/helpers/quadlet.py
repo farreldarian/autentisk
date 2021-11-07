@@ -12,7 +12,7 @@ from .utils import clamp_minimum
 def augment(image):
     augment = random.choice([imaugs.meme_format, imaugs.overlay_text])
     pil_image = Image.fromarray(image)
-    augmented_image = augment(pil_image)
+    augmented_image = augment(pil_image).resize(image.shape[:2])
     return np.array(augmented_image)
 
 
