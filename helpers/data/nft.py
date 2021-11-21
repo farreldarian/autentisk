@@ -1,5 +1,5 @@
 class NFT:
-    def __init__(self, image_path: str, collection: str, category: str) -> None:
-        self.image_path = image_path
+    def __init__(self, image_name: str, collection: str, category: str) -> None:
+        self.image_name = image_name
         self.collection = collection
         self.category = category

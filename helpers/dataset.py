@@ -19,8 +19,8 @@ class Dataset:
         self.yaml_config = self.__load_config(path)
         for category in self.categories:
             for column in self.collections():
-                for path in self.collection_images(column):
-                    self.nfts.append(NFT(path, column, category))
+                for image_name in self.collection_images(column):
+                    self.nfts.append(NFT(image_name, column, category))
 
     @staticmethod
     def resolve_collection_path(collection: str):
