@@ -31,6 +31,12 @@ class Dataset:
     def collections(self, category: str):
         return list(self.yaml_config['collections_per_category'][category])
 
+    def all_images(self):
+        images = []
+        for collection in self.all_collections():
+            images += self.collection_images(collection)
+        return images
+
     def all_collections(self):
         collections = []
         for category in self.categories():
