@@ -6,7 +6,7 @@ from PIL import Image
 from .utils import listdir
 
 HELPERS_FOLDER = Path(__file__).parent
-CONFIG_PATH = HELPERS_FOLDER.joinpath('../../configs/dataset.yml')
+CONFIG_PATH = HELPERS_FOLDER.joinpath('../configs/dataset.yml')
 
 
 class Dataset:
