@@ -75,6 +75,9 @@ class Dataset:
         np_image = np.array(image)
         return np_image[:, :, :3] if np_image.shape[-1] > 3 else np_image
 
+    def load_nft(self, nft: NFT, target_size=(224, 224)) -> np.ndarray:
+        return self.load_image(nft.collection, nft.image_path, target_size)
+
     def save_dir(self):
         return self.yaml_config['save_dir']
 
