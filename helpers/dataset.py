@@ -1,8 +1,11 @@
 import os
+from typing import List
 import yaml
 import numpy as np
 from pathlib import Path
 from PIL import Image
+
+from helpers.data.nft import NFT
 from .utils import listdir
 
 HELPERS_FOLDER = Path(__file__).parent
@@ -10,8 +13,14 @@ CONFIG_PATH = HELPERS_FOLDER.joinpath('../configs/dataset.yml')
 
 
 class Dataset:
+    nfts: List[NFT]
+
     def __init__(self, path=CONFIG_PATH):
         self.yaml_config = self.__load_config(path)
+        for category in self.categories:
+            for column in self.collections():
+                for path in self.collection_images(column):
+                    self.nfts.append(NFT(path, column, category))
 
     @staticmethod
     def resolve_collection_path(collection: str):
