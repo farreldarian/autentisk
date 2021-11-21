@@ -13,7 +13,7 @@ CONFIG_PATH = HELPERS_FOLDER.joinpath('../configs/dataset.yml')
 
 
 class Dataset:
-    nfts: List[NFT]
+    nfts: List[NFT] = []
 
     def __init__(self, path=CONFIG_PATH):
         self.yaml_config = self.__load_config(path)
