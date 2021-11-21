@@ -18,7 +18,7 @@ class Dataset:
     def __init__(self, path=CONFIG_PATH):
         self.yaml_config = self.__load_config(path)
         for category in self.categories():
-            for column in self.collections():
+            for column in self.collections(category):
                 for image_name in self.collection_images(column):
                     self.nfts.append(NFT(image_name, column, category))
 
