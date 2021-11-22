@@ -20,10 +20,9 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         start = idx * self.batch_size
         end = (idx + 1) * self.batch_size
 
-        batch_x = [
-            self.__generate_quadlet(nft)
-            for nft in self.dataset.nfts[start:end]
-        ]
+        batch_x = []
+        for nft in self.dataset.nfts[start:end]:
+            batch_x += self.__generate_quadlet(nft)
 
         # Not used
         batch_y = [[0]] * len(batch_x)
