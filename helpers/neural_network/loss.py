@@ -19,7 +19,7 @@ ZERO_TENSOR = tf.constant(0.0, shape=[1], dtype=tf.float32)
 
 def loss(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     loss1, loss2, loss3 = 0, 0, 0
-    length = y_pred.shape[0]
+    length = y_true.shape[0]
 
     for i_ in range(0, length, N_SAMPLE):
         # Do we need a try catch here?
@@ -51,7 +51,7 @@ def loss(y_true: np.ndarray, y_pred: np.ndarray) -> float:
 def loss_tensor(y_true: Tensor, y_pred: Tensor) -> Tensor:
     y_pred = K.clip(y_pred, EPSILON, 1.0-EPSILON)
 
-    length = y_pred.shape[0]
+    length = y_true.shape[0]
 
     loss1: Tensor = tf.convert_to_tensor(0, dtype=tf.float32)
     loss2: Tensor = tf.convert_to_tensor(0, dtype=tf.float32)
