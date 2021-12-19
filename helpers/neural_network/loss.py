@@ -9,7 +9,6 @@ N_SAMPLE: int = 4
 G1 = 0.7
 G2 = 0.3
 G3 = 0.5
-DEFAULT_BATCH_SIZE = 64
 G1_TENSOR: Tensor = tf.constant(G1, shape=[1], dtype=tf.float32)
 G2_TENSOR: Tensor = tf.constant(G2, shape=[1], dtype=tf.float32)
 G3_TENSOR: Tensor = tf.constant(G3, shape=[1], dtype=tf.float32)
@@ -18,10 +17,11 @@ EPSILON: float = K.epsilon()
 ZERO_TENSOR = tf.constant(0.0, shape=[1], dtype=tf.float32)
 
 
-def loss(y_true: np.ndarray, y_pred: np.ndarray, batch_size: int = DEFAULT_BATCH_SIZE) -> float:
+def loss(y_true: np.ndarray, y_pred: np.ndarray) -> float:
     loss1, loss2, loss3 = 0, 0, 0
+    length = y_pred.shape[0]
 
-    for i_ in range(0, batch_size, N_SAMPLE):
+    for i_ in range(0, length, N_SAMPLE):
         # Do we need a try catch here?
         # try:
         q = y_pred[i_+0]
@@ -41,21 +41,23 @@ def loss(y_true: np.ndarray, y_pred: np.ndarray, batch_size: int = DEFAULT_BATCH
         # except:
         #     continue
 
-    loss1 = loss1/(batch_size/N_SAMPLE)
-    loss2 = loss2/(batch_size/N_SAMPLE)
-    loss3 = loss3/(batch_size/N_SAMPLE)
+    loss1 = loss1/(length/N_SAMPLE)
+    loss2 = loss2/(length/N_SAMPLE)
+    loss3 = loss3/(length/N_SAMPLE)
 
     return np.max(loss1, 0) + np.max(loss2, 0) + np.max(loss3, 0)
 
 
-def loss_tensor(y_true: Tensor, y_pred: Tensor, batch_size: int = DEFAULT_BATCH_SIZE) -> Tensor:
+def loss_tensor(y_true: Tensor, y_pred: Tensor) -> Tensor:
     y_pred = K.clip(y_pred, EPSILON, 1.0-EPSILON)
+
+    length = y_pred.shape[0]
 
     loss1: Tensor = tf.convert_to_tensor(0, dtype=tf.float32)
     loss2: Tensor = tf.convert_to_tensor(0, dtype=tf.float32)
     loss3: Tensor = tf.convert_to_tensor(0, dtype=tf.float32)
 
-    for i_ in range(0, batch_size, N_SAMPLE):
+    for i_ in range(0, length, N_SAMPLE):
         # Do we need a try catch here?
         # try:
         q: Tensor = y_pred[i_+0]
@@ -75,8 +77,8 @@ def loss_tensor(y_true: Tensor, y_pred: Tensor, batch_size: int = DEFAULT_BATCH_
         # except:
         #     continue
 
-    loss1 = loss1/(batch_size/N_SAMPLE)
-    loss2 = loss2/(batch_size/N_SAMPLE)
-    loss3 = loss3/(batch_size/N_SAMPLE)
+    loss1 = loss1/(length/N_SAMPLE)
+    loss2 = loss2/(length/N_SAMPLE)
+    loss3 = loss3/(length/N_SAMPLE)
 
     return tf.maximum(loss1, ZERO_TENSOR) + tf.maximum(loss2, ZERO_TENSOR) + tf.maximum(loss3, ZERO_TENSOR)
