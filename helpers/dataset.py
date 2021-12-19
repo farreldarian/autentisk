@@ -24,10 +24,30 @@ class Dataset:
 
     @staticmethod
     def resolve_collection_path(collection: str):
+        """
+        Resolves collection folder path relative to project's root folder.
+
+        Parameters
+        ----------
+        collection : str
+            collection name
+        """
         return f'dataset/{collection}'
 
     @staticmethod
     def resolve_image_path(collection: str, image_file: str):
+        """
+        Resolves image file path relative to project's root folder.
+
+        Collection can be retrieved by using `collections()` or `all_collections()`.
+
+        Parameters
+        ----------
+        collection : str
+            collection name
+        image_file : str
+            image file name with extension
+        """
         return f'{Dataset.resolve_collection_path(collection)}/{image_file}'
 
     def categories(self, ignores=None):
