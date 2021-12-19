@@ -14,7 +14,7 @@ G1_TENSOR: Tensor = tf.constant(G1, shape=[1], dtype=tf.float32)
 G2_TENSOR: Tensor = tf.constant(G2, shape=[1], dtype=tf.float32)
 G3_TENSOR: Tensor = tf.constant(G3, shape=[1], dtype=tf.float32)
 
-EPSILON: float = K.epsilon(0)
+EPSILON: float = K.epsilon()
 ZERO_TENSOR = tf.constant(0.0, shape=[1], dtype=tf.float32)
 
 
