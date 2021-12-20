@@ -116,6 +116,8 @@ if __name__ == '__main__':
                     pass
                 except InvalidFileType:
                     continue
+                except:
+                    continue
 
                 n_stored += 1
                 pbar.update(1)
