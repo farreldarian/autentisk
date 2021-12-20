@@ -18,8 +18,16 @@ n_fetch = 25
 config = load_dataset_config()
 
 
-def fetch_assets(params, opensea_url: str = opensea_url):
-    res = requests.get(opensea_url, params)
+def fetch_assets(collection_name: str, api_offset: int, limit: int, opensea_url: str = opensea_url):
+    res = requests.get(opensea_url,
+                       {
+                           'collection': collection_name,
+                           'order_by': 'sale_price',
+                           'order_direction': 'desc',
+                           'offset': api_offset,
+                           'limit': limit
+                       }
+                       )
     try:
         json = res.json()
         return json['assets']
@@ -64,15 +72,7 @@ if __name__ == '__main__':
         pbar = tqdm(total=target_per_collection, desc=collection)
         while n_stored < target_per_collection:
             n = to_fetch(n_fetch, n_stored, target_per_collection)
-            assets = fetch_assets(
-                {
-                    'collection': collection,
-                    'order_by': 'sale_price',
-                    'order_direction': 'desc',
-                    'offset': api_offset,
-                    'limit': n
-                }
-            )
+            assets = fetch_assets(collection, api_offset, n)
             if assets is None:
                 continue
 
