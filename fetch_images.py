@@ -11,7 +11,7 @@ from helpers.utils import make_dir_if_not_exists
 #
 
 opensea_url = "https://api.opensea.io/api/v1/assets"
-n_fetch = 5
+n_fetch = 100
 
 #
 
