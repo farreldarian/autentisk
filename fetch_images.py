@@ -3,7 +3,7 @@ import requests
 import filetype
 from tqdm import tqdm
 
-from helpers.utils import make_dir_if_not_exists
+from helpers.utils import listdir, make_dir_if_not_exists
 from helpers.config_loaders import load_dataset_config
 
 #
@@ -47,6 +47,13 @@ if __name__ == '__main__':
         fulfilled = 0
         offset = 0
 
+        collection_dir = f"{config['save_dir']}/{collection}"
+        make_dir_if_not_exists(collection_dir)
+
+        target_reached = len(listdir(collection_dir)) == target_per_collection
+        if target_reached:
+            continue
+
         pbar = tqdm(total=target_per_collection, desc=collection)
         while fulfilled < target_per_collection:
             n = to_fetch(n_fetch, fulfilled, target_per_collection)
@@ -63,9 +70,6 @@ if __name__ == '__main__':
                 continue
 
             offset += n
-
-            collection_dir = f"{config['save_dir']}/{collection}"
-            make_dir_if_not_exists(collection_dir)
 
             for asset in assets:
                 image_url = asset['image_url']
