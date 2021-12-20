@@ -2,7 +2,7 @@ save_dir: dataset
 allowed_extensions: ["png", "jpg", "jpeg"]
 
 target:
-  image_per_collection: 20
+  image_per_collection: 2500
 
 collections_per_category:
   pfp:
@@ -10,8 +10,24 @@ collections_per_category:
     - incognito-nft
     - boredapeyachtclub
     - pudgypenguins
+    - clonex
+    - doodles-official
+    - mutant-ape-yacht-club
+    - mypethooligan
+    - slotienft
   art:
-    - art-blocks-factory
+    - subscapes-by-matt-deslauriers
+    - 720-minutes-by-alexis-andre
+    - nimbuds-by-bryan-brinkman
+    - fidenza-by-tyler-hobbs
+    - dreams-by-joshua-bagley
+    - algobots-by-stina-jones
+    - aerial-view-by-dalenz
+    - singularity-by-hideki-tsukamoto
+    - fragments-of-an-infinite-field-by-monica-rizzolli
+    - geometry-runners-by-rich-lord-1
+  collectibles:
+    - town-star
 
 negatives:
   pfp: ["art"]
