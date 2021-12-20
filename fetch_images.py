@@ -72,7 +72,9 @@ def handle_image(collection_name: str, image_url: str, token_id: str):
     ext = filetype.guess_extension(content)
 
     if ext not in config['allowed_extensions']:
-        raise InvalidFileType('Asset is not an image')
+        message = f"{ext} isn't allowed, only accept {config['allowed_extensions']}"
+        print(message)
+        raise InvalidFileType(message)
 
     file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
 
