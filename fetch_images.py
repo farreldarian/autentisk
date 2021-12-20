@@ -71,12 +71,12 @@ if __name__ == '__main__':
         api_offset = 0
         pbar = tqdm(total=target_per_collection, desc=collection)
         while n_stored < target_per_collection:
-            n = calc_to_fetch(n_fetch, n_stored, target_per_collection)
-            assets = fetch_assets(collection, api_offset, n)
+            n_to_fetch = calc_to_fetch(n_fetch, n_stored, target_per_collection)
+            assets = fetch_assets(collection, api_offset, n_to_fetch)
             if assets is None:
                 continue
 
-            api_offset += n
+            api_offset += n_to_fetch
 
             for asset in assets:
                 image_url = asset['image_url']
