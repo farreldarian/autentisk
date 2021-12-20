@@ -1,10 +1,9 @@
-import os
-import yaml
+from typing import List
 import requests
 import filetype
-from helpers.dataset import Dataset
 
 from helpers.utils import make_dir_if_not_exists
+from helpers.config_loaders import load_dataset_config
 
 #
 # Constants
@@ -15,8 +14,7 @@ n_fetch = 100
 
 #
 
-
-dataset = Dataset()
+config = load_dataset_config()
 
 
 def fetch_assets(params, opensea_url: str = opensea_url):
@@ -32,11 +30,18 @@ def to_fetch(n, fulfilled, target):
     return n - ((target - fulfilled) % n)
 
 
-if __name__ == '__main__':
-    target_per_collection = dataset.target_image_per_collection()
-    make_dir_if_not_exists(dataset.save_dir())
+def get_collections() -> List[str]:
+    collections: List[str] = []
+    for category in config['collections_per_category']:
+        collections += config['collections_per_category'][category]
+    return collections
 
-    for collection in dataset.all_collections():
+
+if __name__ == '__main__':
+    target_per_collection = config['target']['image_per_collection']
+    make_dir_if_not_exists(config['save_dir'])
+
+    for collection in get_collections():
         fulfilled = 0
         offset = 0
 
@@ -56,7 +61,7 @@ if __name__ == '__main__':
 
             offset += n
 
-            collection_dir = f"{dataset.save_dir()}/{collection}"
+            collection_dir = f"{config['save_dir']}/{collection}"
             make_dir_if_not_exists(collection_dir)
 
             for asset in assets:
@@ -65,7 +70,7 @@ if __name__ == '__main__':
                 content = requests.get(image_url).content
                 ext = filetype.guess_extension(content)
 
-                if ext not in dataset.allowed_extensions():
+                if ext not in config['allowed_extensions']:
                     continue
 
                 file_path = f"{collection_dir}/{asset['token_id']}.{ext}"
