@@ -2,11 +2,9 @@ from pathlib import Path
 import yaml
 from os.path import isfile
 
-DATASET_CONFIG_PATH = '../../configs/dataset.yml'
-
 
 def load_dataset_config():
-    path = Path(__file__).parent.joinpath(DATASET_CONFIG_PATH)
+    path = Path(__file__).parent.joinpath('../configs/dataset.yml')
     if not isfile(path):
         raise Exception(f"Can't locate config path in {path}")
 
