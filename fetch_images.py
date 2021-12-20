@@ -59,11 +59,11 @@ if __name__ == '__main__':
 
         make_dir_if_not_exists(collection_dir)
 
-        stored_images = 0
+        n_stored = 0
         api_offset = 0
         pbar = tqdm(total=target_per_collection, desc=collection)
-        while stored_images < target_per_collection:
-            n = to_fetch(n_fetch, stored_images, target_per_collection)
+        while n_stored < target_per_collection:
+            n = to_fetch(n_fetch, n_stored, target_per_collection)
             assets = fetch_assets(
                 {
                     'collection': collection,
@@ -91,7 +91,7 @@ if __name__ == '__main__':
                 with open(file_path, 'wb') as f:
                     f.write(content)
 
-                stored_images += 1
+                n_stored += 1
                 pbar.update(1)
 
         pbar.close()
