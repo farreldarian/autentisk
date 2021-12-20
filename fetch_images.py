@@ -52,31 +52,30 @@ if __name__ == '__main__':
 
     print('Fetching images...')
     for collection in get_collections():
-        fulfilled = 0
-        offset = 0
-
         collection_dir = resolve_collection_dir(collection)
         make_dir_if_not_exists(collection_dir)
 
         if is_target_reached(collection):
             continue
 
+        stored_images = 0
+        api_offset = 0
         pbar = tqdm(total=target_per_collection, desc=collection)
-        while fulfilled < target_per_collection:
-            n = to_fetch(n_fetch, fulfilled, target_per_collection)
+        while stored_images < target_per_collection:
+            n = to_fetch(n_fetch, stored_images, target_per_collection)
             assets = fetch_assets(
                 {
                     'collection': collection,
                     'order_by': 'sale_price',
                     'order_direction': 'desc',
-                    'offset': offset,
+                    'offset': api_offset,
                     'limit': n
                 }
             )
             if assets is None:
                 continue
 
-            offset += n
+            api_offset += n
 
             for asset in assets:
                 image_url = asset['image_url']
@@ -91,7 +90,7 @@ if __name__ == '__main__':
                 with open(file_path, 'wb') as f:
                     f.write(content)
 
-                fulfilled += 1
+                stored_images += 1
                 pbar.update(1)
 
         pbar.close()
