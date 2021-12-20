@@ -1,6 +1,7 @@
 from typing import List
 import requests
 import filetype
+from tqdm import tqdm
 
 from helpers.utils import make_dir_if_not_exists
 from helpers.config_loaders import load_dataset_config
@@ -41,10 +42,12 @@ if __name__ == '__main__':
     target_per_collection = config['target']['image_per_collection']
     make_dir_if_not_exists(config['save_dir'])
 
+    print('Fetching images...')
     for collection in get_collections():
         fulfilled = 0
         offset = 0
 
+        pbar = tqdm(total=target_per_collection, desc=collection)
         while fulfilled < target_per_collection:
             n = to_fetch(n_fetch, fulfilled, target_per_collection)
             assets = fetch_assets(
@@ -78,3 +81,6 @@ if __name__ == '__main__':
                     f.write(content)
 
                 fulfilled += 1
+                pbar.update(1)
+
+        pbar.close()
