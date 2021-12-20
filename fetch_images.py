@@ -16,7 +16,7 @@ from helpers.config_loaders import load_dataset_config
 #
 
 opensea_url = "https://api.opensea.io/api/v1/assets"
-n_fetch = 25
+n_fetch = 50
 
 #
 
