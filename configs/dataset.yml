@@ -15,19 +15,17 @@ collections_per_category:
     - mutant-ape-yacht-club
     - mypethooligan
     - slotienft
-  art:
-    - subscapes-by-matt-deslauriers
-    - 720-minutes-by-alexis-andre
-    - nimbuds-by-bryan-brinkman
-    - fidenza-by-tyler-hobbs
-    - dreams-by-joshua-bagley
-    - algobots-by-stina-jones
-    - aerial-view-by-dalenz
-    - singularity-by-hideki-tsukamoto
-    - fragments-of-an-infinite-field-by-monica-rizzolli
-    - geometry-runners-by-rich-lord-1
-  collectibles:
-    - town-star
+    - projectnanopass
+    - cyberkongz
+    - collectvox
+    - terraforms
+    - cool-cats-nft
+    - cryptoadz-by-gremplin
+    - lazy-lions
+    - the-doge-pound
+    - lostpoets
+    - sappy-seals
+    - fnd
 
 negatives:
   pfp: ["art"]
