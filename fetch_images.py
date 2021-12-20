@@ -152,6 +152,7 @@ if __name__ == '__main__':
             for asset in assets:
                 try:
                     handle_image(collection, asset)
+                    n_stored += 1
                 except FileAlreadyExists:
                     pass
                 except InvalidFileType:
@@ -159,7 +160,6 @@ if __name__ == '__main__':
                 except:
                     continue
 
-                n_stored += 1
                 pbar.update(1)
 
         pbar.close()
