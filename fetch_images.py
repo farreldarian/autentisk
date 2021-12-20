@@ -53,10 +53,11 @@ if __name__ == '__main__':
     print('Fetching images...')
     for collection in get_collections():
         collection_dir = resolve_collection_dir(collection)
-        make_dir_if_not_exists(collection_dir)
 
         if is_target_reached(collection):
             continue
+
+        make_dir_if_not_exists(collection_dir)
 
         stored_images = 0
         api_offset = 0
