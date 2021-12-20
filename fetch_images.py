@@ -62,10 +62,6 @@ def resolve_image_path(collection_name: str, image_file: str):
     return f"{resolve_collection_dir(collection_name)}/{image_file}"
 
 
-def is_target_reached(collection_name: str):
-    return len(listdir(resolve_collection_dir(collection_name))) >= target_per_collection
-
-
 class InvalidFileType(ValueError):
     pass
 
@@ -138,12 +134,10 @@ if __name__ == '__main__':
 
     print('Fetching images...')
     for collection in get_collections():
-        if is_target_reached(collection):
-            continue
-
         make_dir_if_not_exists(resolve_collection_dir(collection))
 
-        n_stored = 0
+        n_stored = len(listdir(resolve_collection_dir(collection)))
+
         api_offset = 0
         pbar = tqdm(total=target_per_collection, desc=collection)
         while n_stored < target_per_collection:
