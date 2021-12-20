@@ -59,17 +59,25 @@ def is_target_reached(collection_name: str):
     return len(listdir(resolve_collection_dir(collection_name))) >= target_per_collection
 
 
+class InvalidFileType(ValueError):
+    pass
+
+
+class FileAlreadyExists(Exception):
+    pass
+
+
 def handle_image(collection_name: str, image_url: str, token_id: str):
     content = requests.get(image_url).content
     ext = filetype.guess_extension(content)
 
     if ext not in config['allowed_extensions']:
-        raise Exception('Asset is not an image')
+        raise InvalidFileType('Asset is not an image')
 
     file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
 
     if isfile(file_path):
-        raise Exception('Image already exists')
+        raise FileAlreadyExists('Image already exists')
 
     with open(file_path, 'wb') as f:
         f.write(content)
@@ -102,7 +110,9 @@ if __name__ == '__main__':
                 try:
                     handle_image(
                         collection, asset['image_url'], asset['token_id'])
-                except:
+                except FileAlreadyExists:
+                    pass
+                except InvalidFileType:
                     continue
 
                 n_stored += 1
