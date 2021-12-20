@@ -54,24 +54,35 @@ def is_target_reached(collection_name: str):
     return len(listdir(resolve_collection_dir(collection_name))) >= target_per_collection
 
 
+def handle_image(collection_name: str, image_url: str):
+    content = requests.get(image_url).content
+    ext = filetype.guess_extension(content)
+
+    if ext not in config['allowed_extensions']:
+        raise Exception('Asset is not an image')
+
+    file_path = f"{resolve_collection_dir(collection_name)}/{asset['token_id']}.{ext}"
+    with open(file_path, 'wb') as f:
+        f.write(content)
+
+
 if __name__ == '__main__':
     target_per_collection = config['target']['image_per_collection']
     make_dir_if_not_exists(config['save_dir'])
 
     print('Fetching images...')
     for collection in get_collections():
-        collection_dir = resolve_collection_dir(collection)
-
         if is_target_reached(collection):
             continue
 
-        make_dir_if_not_exists(collection_dir)
+        make_dir_if_not_exists(resolve_collection_dir(collection))
 
         n_stored = 0
         api_offset = 0
         pbar = tqdm(total=target_per_collection, desc=collection)
         while n_stored < target_per_collection:
-            n_to_fetch = calc_to_fetch(n_fetch, n_stored, target_per_collection)
+            n_to_fetch = calc_to_fetch(
+                n_fetch, n_stored, target_per_collection)
             assets = fetch_assets(collection, api_offset, n_to_fetch)
             if assets is None:
                 continue
@@ -79,17 +90,10 @@ if __name__ == '__main__':
             api_offset += n_to_fetch
 
             for asset in assets:
-                image_url = asset['image_url']
-
-                content = requests.get(image_url).content
-                ext = filetype.guess_extension(content)
-
-                if ext not in config['allowed_extensions']:
+                try:
+                    handle_image(collection, asset['image_url'])
+                except:
                     continue
-
-                file_path = f"{collection_dir}/{asset['token_id']}.{ext}"
-                with open(file_path, 'wb') as f:
-                    f.write(content)
 
                 n_stored += 1
                 pbar.update(1)
