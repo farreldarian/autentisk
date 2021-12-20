@@ -41,7 +41,10 @@ def fetch_assets(collection_name: str, api_offset: int, limit: int, opensea_url:
 
 
 def calc_to_fetch(n, fulfilled, target):
-    return n - ((target - fulfilled) % n)
+    remaining = target - fulfilled
+    if remaining > n:
+        return n
+    return remaining
 
 
 def get_collections() -> List[str]:
