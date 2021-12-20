@@ -3,6 +3,9 @@ from typing import List
 import requests
 import filetype
 from tqdm import tqdm
+from PIL import Image
+from io import BytesIO
+import cv2
 
 from helpers.utils import listdir, make_dir_if_not_exists
 from helpers.config_loaders import load_dataset_config
@@ -72,9 +75,18 @@ def handle_image(collection_name: str, image_url: str, token_id: str):
     ext = filetype.guess_extension(content)
 
     if ext not in config['allowed_extensions']:
-        message = f"{ext} isn't allowed, only accept {config['allowed_extensions']}"
-        print(message)
-        raise InvalidFileType(message)
+        if ext in ['mp4', 'gif']:
+            cap = cv2.VideoCapture(image_url)
+            _, image = cap.read()
+
+            cv2.imwrite(resolve_image_path(
+                collection_name, f"{token_id}.jpg"), image)
+
+            cap.release()
+        else:
+            message = f"{ext} isn't allowed, only accept {config['allowed_extensions']}"
+            print(message)
+            raise InvalidFileType(message)
 
     file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
 
