@@ -50,18 +50,22 @@ def resolve_collection_dir(collection_name: str):
     return f"{config['save_dir']}/{collection_name}"
 
 
+def resolve_image_path(collection_name: str, image_file: str):
+    return f"{resolve_collection_dir(collection_name)}/{image_file}"
+
+
 def is_target_reached(collection_name: str):
     return len(listdir(resolve_collection_dir(collection_name))) >= target_per_collection
 
 
-def handle_image(collection_name: str, image_url: str):
+def handle_image(collection_name: str, image_url: str, token_id: str):
     content = requests.get(image_url).content
     ext = filetype.guess_extension(content)
 
     if ext not in config['allowed_extensions']:
         raise Exception('Asset is not an image')
 
-    file_path = f"{resolve_collection_dir(collection_name)}/{asset['token_id']}.{ext}"
+    file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
     with open(file_path, 'wb') as f:
         f.write(content)
 
@@ -91,7 +95,8 @@ if __name__ == '__main__':
 
             for asset in assets:
                 try:
-                    handle_image(collection, asset['image_url'])
+                    handle_image(
+                        collection, asset['image_url'], asset['token_id'])
                 except:
                     continue
 
