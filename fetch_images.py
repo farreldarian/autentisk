@@ -38,6 +38,14 @@ def get_collections() -> List[str]:
     return collections
 
 
+def resolve_collection_dir(collection_name: str):
+    return f"{config['save_dir']}/{collection_name}"
+
+
+def is_target_reached(collection_name: str):
+    return len(listdir(resolve_collection_dir(collection_name))) >= target_per_collection
+
+
 if __name__ == '__main__':
     target_per_collection = config['target']['image_per_collection']
     make_dir_if_not_exists(config['save_dir'])
@@ -47,11 +55,10 @@ if __name__ == '__main__':
         fulfilled = 0
         offset = 0
 
-        collection_dir = f"{config['save_dir']}/{collection}"
+        collection_dir = resolve_collection_dir(collection)
         make_dir_if_not_exists(collection_dir)
 
-        target_reached = len(listdir(collection_dir)) == target_per_collection
-        if target_reached:
+        if is_target_reached(collection):
             continue
 
         pbar = tqdm(total=target_per_collection, desc=collection)
