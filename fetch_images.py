@@ -35,7 +35,7 @@ def fetch_assets(collection_name: str, api_offset: int, limit: int, opensea_url:
         return None
 
 
-def to_fetch(n, fulfilled, target):
+def calc_to_fetch(n, fulfilled, target):
     return n - ((target - fulfilled) % n)
 
 
@@ -71,7 +71,7 @@ if __name__ == '__main__':
         api_offset = 0
         pbar = tqdm(total=target_per_collection, desc=collection)
         while n_stored < target_per_collection:
-            n = to_fetch(n_fetch, n_stored, target_per_collection)
+            n = calc_to_fetch(n_fetch, n_stored, target_per_collection)
             assets = fetch_assets(collection, api_offset, n)
             if assets is None:
                 continue
