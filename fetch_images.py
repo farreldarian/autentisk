@@ -1,3 +1,4 @@
+from genericpath import isfile
 from typing import List
 import requests
 import filetype
@@ -66,6 +67,10 @@ def handle_image(collection_name: str, image_url: str, token_id: str):
         raise Exception('Asset is not an image')
 
     file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
+
+    if isfile(file_path):
+        raise Exception('Image already exists')
+
     with open(file_path, 'wb') as f:
         f.write(content)
 
