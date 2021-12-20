@@ -1,5 +1,6 @@
 from genericpath import isfile
-from typing import List
+from typing import Any, Dict, List
+from filetype.types import VIDEO
 import requests
 import filetype
 from tqdm import tqdm
@@ -70,23 +71,54 @@ class FileAlreadyExists(Exception):
     pass
 
 
-def handle_image(collection_name: str, image_url: str, token_id: str):
+def naively_get_extension(image_path: str):
+    splits = image_path.split('/')[-1].split('.')[-1]
+    if len(splits) < 2:
+        return None
+    return splits[-1]
+
+
+VIDEO_EXTENSIONS = ['mp4', 'gif']
+
+
+def save_image_from_video(video_url: str, image_path: str):
+    cap = cv2.VideoCapture(video_url)
+    _, image = cap.read()
+
+    cv2.imwrite(image_path, image)
+
+    cap.release()
+
+
+def handle_image(collection_name: str, asset: Dict):
+    image_url: str = asset['image_url']
+    token_id: str = asset['token_id']
+    allowed_extensions: List[str] = config['allowed_extensions'] + \
+        VIDEO_EXTENSIONS
+
+    ext = naively_get_extension(asset['image_original_url'])
+    if ext is not None and ext in allowed_extensions:
+        file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
+        if isfile(file_path):
+            raise FileAlreadyExists('Image already exists')
+
+        if ext in VIDEO_EXTENSIONS:
+            save_image_from_video(image_url, resolve_image_path(
+                collection_name, f"{token_id}.jpg"))
+            return
+
     content = requests.get(image_url).content
     ext = filetype.guess_extension(content)
 
-    if ext not in config['allowed_extensions']:
-        if ext in ['mp4', 'gif']:
-            cap = cv2.VideoCapture(image_url)
-            _, image = cap.read()
+    if ext in VIDEO_EXTENSIONS:
+        save_image_from_video(image_url, resolve_image_path(
+            collection_name, f"{token_id}.jpg"))
+        return
 
-            cv2.imwrite(resolve_image_path(
-                collection_name, f"{token_id}.jpg"), image)
-
-            cap.release()
-        else:
-            message = f"{ext} isn't allowed, only accept {config['allowed_extensions']}"
-            print(message)
-            raise InvalidFileType(message)
+    if ext not in allowed_extensions:
+        message = f"{ext} isn't allowed, only accept {config['allowed_extensions']}"
+        print(message)
+        raise InvalidFileType(message)
 
     file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
 
@@ -122,8 +154,7 @@ if __name__ == '__main__':
 
             for asset in assets:
                 try:
-                    handle_image(
-                        collection, asset['image_url'], asset['token_id'])
+                    handle_image(collection, asset)
                 except FileAlreadyExists:
                     pass
                 except InvalidFileType:
