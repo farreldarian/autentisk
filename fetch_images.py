@@ -136,10 +136,12 @@ if __name__ == '__main__':
     for collection in get_collections():
         make_dir_if_not_exists(resolve_collection_dir(collection))
 
+        pbar = tqdm(total=target_per_collection, desc=collection)
+
         n_stored = len(listdir(resolve_collection_dir(collection)))
+        pbar.update(n_stored)
 
         api_offset = 0
-        pbar = tqdm(total=target_per_collection, desc=collection)
         while n_stored < target_per_collection:
             n_to_fetch = calc_to_fetch(
                 n_fetch, n_stored, target_per_collection)
