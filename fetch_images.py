@@ -141,7 +141,7 @@ if __name__ == '__main__':
         n_stored = len(listdir(resolve_collection_dir(collection)))
         pbar.update(n_stored)
 
-        api_offset = 0
+        api_offset = n_stored - (n_stored % n_fetch)
         while n_stored < target_per_collection:
             n_to_fetch = calc_to_fetch(
                 n_fetch, n_stored, target_per_collection)
