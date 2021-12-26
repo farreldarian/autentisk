@@ -140,11 +140,12 @@ if __name__ == '__main__':
 
     print('Fetching images...')
     for collection in get_collections():
-        make_dir_if_not_exists(resolve_collection_dir(collection))
+        collection_dir = resolve_collection_dir(collection)
+        make_dir_if_not_exists(collection_dir)
 
         pbar = tqdm(total=TARGET_PER_COLLECTION, desc=collection)
 
-        n_stored = len(listdir(resolve_collection_dir(collection)))
+        n_stored = len(listdir(collection_dir))
         pbar.update(n_stored)
 
         api_offset = 0
