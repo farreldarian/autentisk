@@ -40,11 +40,8 @@ def fetch_assets(collection_name: str, api_offset: int, limit: int, opensea_url:
                            'limit': limit
                        }
                        )
-    try:
-        json = res.json()
-        return json['assets']
-    except:
-        return None
+    json = res.json()
+    return json['assets']
 
 
 def calc_to_fetch(n, fulfilled, target):
@@ -157,8 +154,6 @@ if __name__ == '__main__':
             n_to_fetch = calc_to_fetch(
                 n_fetch, n_stored, TARGET_PER_COLLECTION)
             assets = fetch_assets(collection, api_offset, n_to_fetch)
-            if assets is None:
-                continue
 
             api_offset += n_to_fetch
 
