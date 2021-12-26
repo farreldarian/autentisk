@@ -89,7 +89,7 @@ def save_image_from_video(video_url: str, image_path: str):
     cap.release()
 
 
-def handle_image(collection_name: str, asset: Dict):
+def handle_asset(collection_name: str, asset: Dict):
     image_url: str = asset['image_url']
     token_id: str = asset['token_id']
     allowed_extensions: List[str] = config['allowed_extensions'] + \
@@ -153,7 +153,7 @@ if __name__ == '__main__':
 
             for asset in assets:
                 try:
-                    handle_image(collection, asset)
+                    handle_asset(collection, asset)
                     n_stored += 1
                 except FileAlreadyExists:
                     pass
