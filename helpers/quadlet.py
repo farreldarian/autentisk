@@ -23,10 +23,9 @@ def intermediate_image(collection, image_file):
 
 def negative_image(collection):
     dataset = Dataset()
-    collection_category = dataset.collection_category(collection)
 
-    chosen_category = random.choice(dataset.categories([collection_category]))
-    chosen_collection = random.choice(dataset.collections(chosen_category))
+    chosen_collection = random.choice(
+        dataset.all_collections(ignores=[collection]))
     yield chosen_collection
     yield random.choice(dataset.collection_images(chosen_collection))
 
