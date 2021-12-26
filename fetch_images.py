@@ -147,10 +147,10 @@ if __name__ == '__main__':
         collection_dir = resolve_collection_dir(collection)
         make_dir_if_not_exists(collection_dir)
 
-        pbar = tqdm(total=TARGET_PER_COLLECTION, desc=collection)
-
         n_stored = get_number_of_files(collection_dir)
-        pbar.update(n_stored)
+        pbar = tqdm(initial=n_stored,
+                    total=TARGET_PER_COLLECTION,
+                    desc=collection)
 
         api_offset = 0
         while n_stored < TARGET_PER_COLLECTION:
