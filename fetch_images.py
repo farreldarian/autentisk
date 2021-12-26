@@ -135,6 +135,10 @@ def handle_asset(collection_name: str, asset: Dict):
         f.write(content)
 
 
+def get_number_of_files(dir: str):
+    return len(listdir(dir))
+
+
 if __name__ == '__main__':
     make_dir_if_not_exists(SAVE_DIR)
 
@@ -145,7 +149,7 @@ if __name__ == '__main__':
 
         pbar = tqdm(total=TARGET_PER_COLLECTION, desc=collection)
 
-        n_stored = len(listdir(collection_dir))
+        n_stored = get_number_of_files(collection_dir)
         pbar.update(n_stored)
 
         api_offset = 0
