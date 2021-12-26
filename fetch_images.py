@@ -22,6 +22,13 @@ n_fetch = 50
 
 config = load_dataset_config()
 
+TARGET_PER_COLLECTION = config['target']['image_per_collection']
+SAVE_DIR = config['save_dir']
+COLLECTIONS_PER_CATEGORY = config['collections_per_category']
+ALLOWED_EXTENSIONS = config['allowed_extensions']
+
+#
+
 
 def fetch_assets(collection_name: str, api_offset: int, limit: int, opensea_url: str = opensea_url):
     res = requests.get(opensea_url,
@@ -49,13 +56,13 @@ def calc_to_fetch(n, fulfilled, target):
 
 def get_collections() -> List[str]:
     collections: List[str] = []
-    for category in config['collections_per_category']:
-        collections += config['collections_per_category'][category]
+    for category in COLLECTIONS_PER_CATEGORY:
+        collections += COLLECTIONS_PER_CATEGORY[category]
     return collections
 
 
 def resolve_collection_dir(collection_name: str):
-    return f"{config['save_dir']}/{collection_name}"
+    return f"{SAVE_DIR}/{collection_name}"
 
 
 def resolve_image_path(collection_name: str, image_file: str):
@@ -92,7 +99,7 @@ def save_image_from_video(video_url: str, image_path: str):
 def handle_asset(collection_name: str, asset: Dict):
     image_url: str = asset['image_url']
     token_id: str = asset['token_id']
-    allowed_extensions: List[str] = config['allowed_extensions'] + \
+    allowed_extensions: List[str] = ALLOWED_EXTENSIONS + \
         VIDEO_EXTENSIONS
 
     ext = naively_get_extension(asset['image_original_url'])
@@ -115,7 +122,7 @@ def handle_asset(collection_name: str, asset: Dict):
         return
 
     if ext not in allowed_extensions:
-        message = f"{ext} isn't allowed, only accept {config['allowed_extensions']}"
+        message = f"{ext} isn't allowed, only accept {ALLOWED_EXTENSIONS}"
         print(message)
         raise InvalidFileType(message)
 
@@ -129,22 +136,21 @@ def handle_asset(collection_name: str, asset: Dict):
 
 
 if __name__ == '__main__':
-    target_per_collection = config['target']['image_per_collection']
-    make_dir_if_not_exists(config['save_dir'])
+    make_dir_if_not_exists(SAVE_DIR)
 
     print('Fetching images...')
     for collection in get_collections():
         make_dir_if_not_exists(resolve_collection_dir(collection))
 
-        pbar = tqdm(total=target_per_collection, desc=collection)
+        pbar = tqdm(total=TARGET_PER_COLLECTION, desc=collection)
 
         n_stored = len(listdir(resolve_collection_dir(collection)))
         pbar.update(n_stored)
 
         api_offset = 0
-        while n_stored < target_per_collection:
+        while n_stored < TARGET_PER_COLLECTION:
             n_to_fetch = calc_to_fetch(
-                n_fetch, n_stored, target_per_collection)
+                n_fetch, n_stored, TARGET_PER_COLLECTION)
             assets = fetch_assets(collection, api_offset, n_to_fetch)
             if assets is None:
                 continue
