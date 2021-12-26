@@ -34,8 +34,8 @@ def fetch_assets(collection_name: str, api_offset: int, limit: int, opensea_url:
     res = requests.get(opensea_url,
                        {
                            'collection': collection_name,
-                           'order_by': 'sale_price',
-                           'order_direction': 'desc',
+                           'order_by': 'pk',
+                           'order_direction': 'asc',
                            'offset': api_offset,
                            'limit': limit
                        }
