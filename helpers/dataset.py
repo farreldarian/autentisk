@@ -57,8 +57,12 @@ class Dataset:
                 category for category in categories if category not in ignores]
         return categories
 
-    def collections(self, category: str):
-        return list(self.yaml_config['collections_per_category'][category])
+    def collections(self, category: str, ignores: List[str] = None):
+        collections = list(
+            self.yaml_config['collections_per_category'][category])
+        if ignores is not None:
+            collections = [col for col in collections if col not in ignores]
+        return collections
 
     def all_images(self):
         images = []
@@ -66,10 +70,10 @@ class Dataset:
             images += self.collection_images(collection)
         return images
 
-    def all_collections(self):
+    def all_collections(self, ignores: List[str] = None):
         collections = []
         for category in self.categories():
-            collections += self.collections(category)
+            collections += self.collections(category, ignores)
 
         return collections
 
