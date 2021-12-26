@@ -95,9 +95,9 @@ class Dataset:
     def load_image(self, collection: str, image_file: str, target_size=(224, 224)):
         image_path = self.resolve_image_path(collection, image_file)
         image = Image.open(image_path)
+        image = image.convert('RGB')
         image = image.resize(target_size)
-        np_image = np.array(image)
-        return np_image[:, :, :3] if np_image.shape[-1] > 3 else np_image
+        return np.array(image)
 
     def load_nft(self, nft: NFT, target_size=(224, 224)) -> np.ndarray:
         return self.load_image(nft.collection, nft.image_path, target_size)
