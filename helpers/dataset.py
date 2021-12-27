@@ -58,6 +58,3 @@ class Dataset:
         if ignores is None:
             return image_files
         return [file for file in image_files if file not in ignores]
-
-    def make_image_key(self, collection: str, image: str):
-        return collection + '-' + image
