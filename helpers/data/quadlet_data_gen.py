@@ -55,14 +55,14 @@ class QuadletDataGen(tf.keras.utils.Sequence):
     def __get_intermediate_image(self, anchor_data: Data) -> Image.Image:
         image_file = random.choice(self.dataset.get_image_files(anchor_data.collection, [
             anchor_data.image_file]))
-        return self.__load_image(image_file)
+        return self.__load_image(Data(anchor_data.collection, image_file))
 
     def __get_negative_image(self, anchor_collection: str) -> Image.Image:
         collection = random.choice(self.dataset.get_collections([
             anchor_collection]))
         image_file = random.choice(self.dataset.get_image_files(collection))
 
-        return self.__load_image(image_file)
+        return self.__load_image(Data(collection, image_file))
 
     def __load_image(self, data: Data) -> Image.Image:
         key = data.collection + "-" + data.image_file
