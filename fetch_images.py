@@ -94,9 +94,18 @@ def save_image_from_video(video_url: str, image_path: Path):
     cap.release()
 
 
+def file_exists(file_path: Path) -> bool:
+    return file_path.is_file()
+
+
 def handle_asset(collection_name: str, asset: Dict):
     image_url: str = asset['image_url']
     token_id: str = asset['token_id']
+    file_path: Path = resolve_image_path(collection_name, f"{token_id}.jpeg")
+
+    if file_path.is_file():
+        raise FileAlreadyExists('Image already exists')
+
     allowed_extensions: List[str] = ALLOWED_EXTENSIONS + \
         VIDEO_EXTENSIONS
 
@@ -123,8 +132,6 @@ def handle_asset(collection_name: str, asset: Dict):
         message = f"{ext} isn't allowed, only accept {ALLOWED_EXTENSIONS}"
         print(message)
         raise InvalidFileType(message)
-
-    file_path = resolve_image_path(collection_name, f"{token_id}.jpeg")
 
     if isfile(file_path):
         raise FileAlreadyExists('Image already exists')
