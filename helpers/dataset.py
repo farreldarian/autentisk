@@ -12,7 +12,14 @@ ROOT_PATH = Path(__file__).parent.resolve().parent.resolve()
 CONFIG_PATH = str(ROOT_PATH / "configs" / "dataset.yml")
 
 
+class Data:
+    def __init__(self, collection: str, image_file: str):
+        self.collection: str = collection
+        self.image_file: str = image_file
+
+
 class Dataset:
+    data: List[Data] = []
     collection_image_files: Dict[str, List[str]]
     total_collections: int = 0
     total_images: int = 0
@@ -28,11 +35,12 @@ class Dataset:
 
             for file in tqdm(listdir(self.dataset_path / collection), desc=collection):
                 collection_arr.append(file)
+                self.data.append(Data(collection, file))
                 self.total_images += 1
 
-            random.shuffle(collection_arr)
             self.total_collection += 1
 
+        random.shuffle(self.data)
         print(
             f"Fetched {self.total_images} images from {self.total_collections} collections")
 
