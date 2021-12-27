@@ -23,7 +23,7 @@ class Dataset:
     total_images: int = 0
 
     def __init__(self, path=CONFIG_PATH):
-        self.yaml_config: Dict = self.__load_config(path)
+        self.yaml_config: Dict = self.load_config(path)
         self.dataset_path: Path = ROOT_PATH / self.yaml_config['save_dir']
 
         print(f"Reading dataset from {self.dataset_path}")
@@ -74,6 +74,14 @@ class Dataset:
         """
         return f'{Dataset.resolve_collection_path(collection)}/{image_file}'
 
+    @ staticmethod
+    def load_config(path: str):
+        if not os.path.isfile(path):
+            raise Exception(f"Can't locate config path in {path}")
+
+        with open(path) as f:
+            return yaml.load(f, Loader=yaml.FullLoader)
+
     def get_collections(self, ignores: List[str] = None) -> List[str]:
         collections = list(self.collection_image_files.keys())
         if ignores is None:
@@ -92,10 +100,3 @@ class Dataset:
         image = image.convert('RGB')
         image = image.resize(target_size)
         return np.array(image)
-
-    def __load_config(self, path):
-        if not os.path.isfile(path):
-            raise Exception(f"Can't locate config path in {path}")
-
-        with open(path) as f:
-            return yaml.load(f, Loader=yaml.FullLoader)
