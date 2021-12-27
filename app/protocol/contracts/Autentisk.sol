@@ -6,10 +6,15 @@ import "./AutentiskERC721.sol";
 contract Autentisk {
     using Counters for Counters.Counter;
 
+    struct Collection {
+        AutentiskERC721 collection;
+        address owner;
+    }
+
     event CollectionCreated(uint256 indexed collectionId);
 
     Counters.Counter private collectionIds;
-    mapping(uint256 => AutentiskERC721) collections;
+    mapping(uint256 => Collection) collections;
     uint256 public totalCollection;
 
     constructor() {}
@@ -23,7 +28,10 @@ contract Autentisk {
         id = collectionIds.current();
         AutentiskERC721 collection = new AutentiskERC721(name, symbol);
 
-        collections[id] = collection;
+        collections[id] = Collection({
+            collection: collection,
+            owner: msg.sender
+        });
         totalCollection++;
 
         emit CollectionCreated(id);
