@@ -21,7 +21,6 @@ class Data:
 class Dataset:
     data: List[Data] = []
     collection_image_files: Dict[str, List[str]]
-    total_collections: int = 0
     total_images: int = 0
 
     def __init__(self, path=CONFIG_PATH):
@@ -36,13 +35,10 @@ class Dataset:
             for file in tqdm(listdir(self.dataset_path / collection), desc=collection):
                 collection_arr.append(file)
                 self.data.append(Data(collection, file))
-                self.total_images += 1
-
-            self.total_collection += 1
 
         random.shuffle(self.data)
         print(
-            f"Fetched {self.total_images} images from {self.total_collections} collections")
+            f"Fetched {len(self.data)} images from {len(self.collection_image_files.keys())} collections")
 
     @ staticmethod
     def load_config(path: str):
@@ -51,6 +47,9 @@ class Dataset:
 
         with open(path) as f:
             return yaml.load(f, Loader=yaml.FullLoader)
+
+    def get_total_images(self) -> int:
+        return len(self.data)
 
     def resolve_image_path(self, collection: str, image_file: str) -> Path:
         return self.dataset_path / collection / image_file
