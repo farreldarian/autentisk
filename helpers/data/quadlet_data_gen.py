@@ -24,7 +24,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         self.target_size: Tuple[int, int] = target_size
 
     def __len__(self) -> int:
-        return math.ceil(len(self.dataset.get_total_images()) / self.batch_size)
+        return math.ceil(self.dataset.get_total_images() / self.batch_size)
 
     def __getitem__(self, idx) -> np.ndarray:
         start = idx * self.batch_size
