@@ -131,13 +131,12 @@ def handle_asset(collection_name: str, asset: Dict):
 
     if ext is None:
         raise UnknownExtension
-    elif ext in VIDEO_EXTENSIONS:
-        save_image_from_video_url(image_url, file_path)
-        return
     elif ext not in ALLOWED_EXTENSIONS:
         raise InvalidFileType(ext)
-
-    save_image_from_bytes(file_path, content)
+    elif ext in VIDEO_EXTENSIONS:
+        save_image_from_video_url(image_url, file_path)
+    else:
+        save_image_from_bytes(file_path, content)
 
 
 def get_number_of_files(dir: str):
