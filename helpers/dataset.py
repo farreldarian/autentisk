@@ -37,18 +37,6 @@ class Dataset:
             f"Fetched {self.total_images} images from {self.total_collections} collections")
 
     @ staticmethod
-    def resolve_collection_path(collection: str):
-        """
-        Resolves collection folder path relative to project's root folder.
-
-        Parameters
-        ----------
-        collection : str
-            collection name
-        """
-        return f'dataset/{collection}'
-
-    @ staticmethod
     def load_config(path: str):
         if not os.path.isfile(path):
             raise Exception(f"Can't locate config path in {path}")
