@@ -140,7 +140,6 @@ def get_number_of_files(dir: str):
 
 
 def main():
-    return
     make_dir_if_not_exists(SAVE_DIR)
 
     print('Fetching images...')
