@@ -1,22 +1,26 @@
 import os
-from typing import List
+from typing import Dict, List
 import yaml
 import numpy as np
 from pathlib import Path
 from PIL import Image
+import tensorflow as tf
 
 from helpers.data.nft import NFT
 from .utils import listdir
 
-HELPERS_FOLDER = Path(__file__).parent
-CONFIG_PATH = HELPERS_FOLDER.joinpath('../configs/dataset.yml')
+
+ROOT_PATH = Path(__file__).parent.parent.resolve()
+CONFIG_PATH = str(ROOT_PATH / "configs" / "dataset.yml")
 
 
 class Dataset:
     nfts: List[NFT] = []
 
     def __init__(self, path=CONFIG_PATH):
-        self.yaml_config = self.__load_config(path)
+        self.yaml_config: Dict = self.__load_config(path)
+        self.dataset_path: Path = ROOT_PATH / self.yaml_config['save_dir']
+
         for category in self.categories():
             for column in self.collections(category):
                 for image_name in self.collection_images(column):
