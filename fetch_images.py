@@ -89,7 +89,7 @@ def naively_get_extension(image_path: str):
     return splits[-1]
 
 
-def save_image_from_video(video_url: str, image_path: Path):
+def save_image_from_video_url(video_url: str, image_path: Path):
     cap = cv2.VideoCapture(video_url)
     _, image = cap.read()
 
@@ -123,7 +123,7 @@ def handle_asset(collection_name: str, asset: Dict):
         asset['image_original_url']
     )
     if ext is not None and ext in VIDEO_EXTENSIONS:
-        save_image_from_video(image_url, file_path)
+        save_image_from_video_url(image_url, file_path)
         return
 
     content = requests.get(image_url).content
@@ -132,7 +132,7 @@ def handle_asset(collection_name: str, asset: Dict):
     if ext is None:
         raise UnknownExtension
     elif ext in VIDEO_EXTENSIONS:
-        save_image_from_video(image_url, file_path)
+        save_image_from_video_url(image_url, file_path)
         return
     elif ext not in ALLOWED_EXTENSIONS:
         message = f"{ext} isn't allowed, only accepting {ALLOWED_EXTENSIONS}"
