@@ -2,7 +2,7 @@ import io
 from os.path import isfile
 import os
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Optional
 from filetype.types import VIDEO
 import requests
 import filetype
@@ -98,6 +98,10 @@ def file_exists(file_path: Path) -> bool:
     return file_path.is_file()
 
 
+def asset_is_video(asset: Dict):
+    ext = naively_get_extension(asset['image_original_url'])
+
+
 def handle_asset(collection_name: str, asset: Dict):
     image_url: str = asset['image_url']
     token_id: str = asset['token_id']
@@ -109,23 +113,18 @@ def handle_asset(collection_name: str, asset: Dict):
     allowed_extensions: List[str] = ALLOWED_EXTENSIONS + \
         VIDEO_EXTENSIONS
 
-    ext = naively_get_extension(asset['image_original_url'])
-    if ext is not None and ext in allowed_extensions:
-        file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
-        if isfile(file_path):
-            raise FileAlreadyExists('Image already exists')
-
-        if ext in VIDEO_EXTENSIONS:
-            save_image_from_video(image_url, resolve_image_path(
-                collection_name, f"{token_id}.jpeg"))
-            return
+    ext: Optional[str] = naively_get_extension(
+        asset['image_original_url']
+    )
+    if ext is not None and ext in VIDEO_EXTENSIONS:
+        save_image_from_video(image_url, file_path)
+        return
 
     content = requests.get(image_url).content
     ext = filetype.guess_extension(content)
 
     if ext in VIDEO_EXTENSIONS:
-        save_image_from_video(image_url, resolve_image_path(
-            collection_name, f"{token_id}.jpeg"))
+        save_image_from_video(image_url, file_path)
         return
 
     if ext not in allowed_extensions:
