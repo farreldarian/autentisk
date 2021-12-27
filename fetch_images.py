@@ -78,6 +78,10 @@ class FileAlreadyExists(Exception):
     pass
 
 
+class UnknownExtension(Exception):
+    pass
+
+
 def naively_get_extension(image_path: str):
     splits = image_path.split('/')[-1].split('.')[-1]
     if len(splits) < 2:
@@ -102,6 +106,11 @@ def asset_is_video(asset: Dict):
     ext = naively_get_extension(asset['image_original_url'])
 
 
+def save_image_from_bytes(file_path, content):
+    image = Image.open(io.BytesIO(content)).convert("RGB")
+    image.save(file_path, "JPEG")
+
+
 def handle_asset(collection_name: str, asset: Dict):
     image_url: str = asset['image_url']
     token_id: str = asset['token_id']
@@ -120,17 +129,17 @@ def handle_asset(collection_name: str, asset: Dict):
     content = requests.get(image_url).content
     ext = filetype.guess_extension(content)
 
-    if ext in VIDEO_EXTENSIONS:
+    if ext is None:
+        raise UnknownExtension
+    elif ext in VIDEO_EXTENSIONS:
         save_image_from_video(image_url, file_path)
         return
-
-    if ext not in ALLOWED_EXTENSIONS:
+    elif ext not in ALLOWED_EXTENSIONS:
         message = f"{ext} isn't allowed, only accepting {ALLOWED_EXTENSIONS}"
         print(message)
         raise InvalidFileType(message)
 
-    image = Image.open(io.BytesIO(content)).convert("RGB")
-    image.save(file_path, "JPEG")
+    save_image_from_bytes(file_path, content)
 
 
 def get_number_of_files(dir: str):
