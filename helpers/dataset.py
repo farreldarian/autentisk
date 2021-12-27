@@ -1,5 +1,5 @@
 import os
-from typing import Dict, List
+from typing import Dict, List, Optional
 import random
 import yaml
 import numpy as np
@@ -41,10 +41,10 @@ class Dataset:
         print(
             f"Fetched {self.total_images} images from {self.total_collections} collections")
 
-        for category in self.categories():
-            for column in self.collections(category):
-                for image_name in self.collection_images(column):
-                    self.nfts.append(NFT(image_name, column, category))
+        # for category in self.categories():
+        #     for column in self.collections(category):
+        #         for image_name in self.collection_images(column):
+        #             self.nfts.append(NFT(image_name, column, category))
 
     @ staticmethod
     def resolve_collection_path(collection: str):
@@ -81,34 +81,17 @@ class Dataset:
                 category for category in categories if category not in ignores]
         return categories
 
-    def collections(self, category: str, ignores: List[str] = None):
-        collections = list(
-            self.yaml_config['collections_per_category'][category])
-        if ignores is not None:
-            collections = [col for col in collections if col not in ignores]
-        return collections
+    def get_collections(self, ignores: List[str] = None) -> List[str]:
+        collections = list(self.collection_image_files.keys())
+        if ignores is None:
+            return collections
+        return [col for col in collections if col not in ignores]
 
     def all_images(self):
         images = []
-        for collection in self.all_collections():
+        for collection in self.get_collections():
             images += self.collection_images(collection)
         return images
-
-    def all_collections(self, ignores: List[str] = None):
-        collections = []
-        for category in self.categories():
-            collections += self.collections(category, ignores)
-
-        return collections
-
-    def collection_category(self, collection: str):
-        categories = self.categories()
-        for category in categories:
-            collections = self.collections(category)
-            if collection in collections:
-                return category
-
-        return None
 
     def collection_images(self, collection: str, ignores=None):
         images = listdir(self.resolve_collection_path(collection))

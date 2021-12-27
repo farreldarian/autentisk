@@ -25,7 +25,7 @@ def negative_image(collection):
     dataset = Dataset()
 
     chosen_collection = random.choice(
-        dataset.all_collections(ignores=[collection]))
+        dataset.get_collections(ignores=[collection]))
     yield chosen_collection
     yield random.choice(dataset.collection_images(chosen_collection))
 
