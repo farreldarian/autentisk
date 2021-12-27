@@ -74,13 +74,6 @@ class Dataset:
         """
         return f'{Dataset.resolve_collection_path(collection)}/{image_file}'
 
-    def categories(self, ignores=None):
-        categories = list(self.yaml_config['collections_per_category'].keys())
-        if ignores is not None:
-            categories = [
-                category for category in categories if category not in ignores]
-        return categories
-
     def get_collections(self, ignores: List[str] = None) -> List[str]:
         collections = list(self.collection_image_files.keys())
         if ignores is None:
