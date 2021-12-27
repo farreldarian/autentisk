@@ -1,14 +1,10 @@
 import os
-from typing import Dict, List, Optional
+from typing import Dict, List
 import random
 import yaml
-import numpy as np
 from pathlib import Path
-from PIL import Image
-import tensorflow as tf
 from tqdm import tqdm
 
-from helpers.data.nft import NFT
 from .utils import listdir
 
 
@@ -17,7 +13,6 @@ CONFIG_PATH = str(ROOT_PATH / "configs" / "dataset.yml")
 
 
 class Dataset:
-    nfts: List[NFT] = []
     collection_image_files: Dict[str, List[str]]
     total_collections: int = 0
     total_images: int = 0
@@ -40,11 +35,6 @@ class Dataset:
 
         print(
             f"Fetched {self.total_images} images from {self.total_collections} collections")
-
-        # for category in self.categories():
-        #     for column in self.collections(category):
-        #         for image_name in self.collection_images(column):
-        #             self.nfts.append(NFT(image_name, column, category))
 
     @ staticmethod
     def resolve_collection_path(collection: str):
