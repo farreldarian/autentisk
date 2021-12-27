@@ -1,5 +1,5 @@
 import math
-from typing import Tuple
+from typing import Dict, Tuple
 from PIL import Image
 import tensorflow as tf
 import numpy as np
@@ -15,6 +15,7 @@ Quadlet = Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
 class QuadletDataGen(tf.keras.utils.Sequence):
     augment_functions = [imaugs.meme_format, imaugs.overlay_text]
+    cache: Dict[str, Image.Image]
 
     def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None, target_size=(224, 224)) -> None:
         self.dataset: Dataset = dataset
@@ -51,7 +52,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
 
     def __generate_quadlet(self, data: Data) -> PILQuadlet:
         anchor = self.__load_image(data)
-        positive = self.__augment(anchor)
+        positive = self.__augment(anchor.copy())
         intermediate = self.__get_intermediate_image(data)
         negative = self.__get_negative_image(data.collection)
 
@@ -70,9 +71,15 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         return self.__load_image(image_file)
 
     def __load_image(self, data: Data) -> Image.Image:
+        key = data.collection + "-" + data.image_file
+        if self.cache.has_key(key):
+            return self.cache[key]
+
         image_path = self.dataset.resolve_image_path(
             data.collection, data.image_file)
-        return Image.open(image_path).convert('RGB').resize(self.target_size)
+        self.cache[key] = Image.open(image_path).convert(
+            'RGB').resize(self.target_size)
+        return self.cache[key]
 
     def __augment(self, pil_image: Image.Image) -> Image.Image:
         augment = random.choice(self.augment_functions)
