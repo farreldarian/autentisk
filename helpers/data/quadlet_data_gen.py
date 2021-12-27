@@ -15,7 +15,7 @@ Quadlet = Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
 class QuadletDataGen(tf.keras.utils.Sequence):
     augment_functions = [imaugs.meme_format, imaugs.overlay_text]
-    cache: Dict[str, Image.Image]
+    cache: Dict[str, Image.Image] = {}
 
     def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None, target_size=(224, 224)) -> None:
         self.dataset: Dataset = dataset
