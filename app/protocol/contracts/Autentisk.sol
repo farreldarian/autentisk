@@ -6,6 +6,14 @@ import "./AutentiskERC721.sol";
 contract Autentisk {
     event CollectionCreated(address indexed collectionAddress);
 
+    modifier onlyCollectionOwner(AutentiskERC721 collection) {
+        require(
+            collectionOwners[collection] == msg.sender,
+            "Caller is not the owner"
+        );
+        _;
+    }
+
     mapping(AutentiskERC721 => address) collectionOwners;
     uint256 public totalCollection;
 
@@ -20,5 +28,13 @@ contract Autentisk {
         totalCollection++;
 
         emit CollectionCreated(address(collection));
+    }
+
+    function mint(AutentiskERC721 collection, string calldata tokenURI)
+        external
+        onlyCollectionOwner(collection)
+        returns (uint256)
+    {
+        return collection.mint(tokenURI);
     }
 }
