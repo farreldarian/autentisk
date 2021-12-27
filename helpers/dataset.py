@@ -80,11 +80,11 @@ class Dataset:
             return collections
         return [col for col in collections if col not in ignores]
 
-    def collection_images(self, collection: str, ignores=None):
-        images = listdir(self.resolve_collection_path(collection))
-        if ignores is not None:
-            images = [image for image in images if image not in ignores]
-        return images
+    def get_image_files(self, collection: str, ignores: List[str] = None):
+        image_files = self.collection_image_files[collection]
+        if ignores is None:
+            return image_files
+        return [file for file in image_files if file not in ignores]
 
     def load_image(self, collection: str, image_file: str, target_size=(224, 224)):
         image_path = self.resolve_image_path(collection, image_file)
@@ -92,7 +92,6 @@ class Dataset:
         image = image.convert('RGB')
         image = image.resize(target_size)
         return np.array(image)
-
 
     def __load_config(self, path):
         if not os.path.isfile(path):
