@@ -1,32 +1,52 @@
 import os
 from typing import Dict, List
+import random
 import yaml
 import numpy as np
 from pathlib import Path
 from PIL import Image
 import tensorflow as tf
+from tqdm import tqdm
 
 from helpers.data.nft import NFT
 from .utils import listdir
 
 
-ROOT_PATH = Path(__file__).parent.parent.resolve()
+ROOT_PATH = Path(__file__).parent.resolve().parent.resolve()
 CONFIG_PATH = str(ROOT_PATH / "configs" / "dataset.yml")
 
 
 class Dataset:
     nfts: List[NFT] = []
+    collection_image_files: Dict[str, List[str]]
+    total_collections: int = 0
+    total_images: int = 0
 
     def __init__(self, path=CONFIG_PATH):
         self.yaml_config: Dict = self.__load_config(path)
         self.dataset_path: Path = ROOT_PATH / self.yaml_config['save_dir']
+
+        print(f"Reading dataset from {self.dataset_path}")
+        for collection in listdir(self.dataset_path):
+            self.collection_image_files[collection] = []
+            collection_arr: List[str] = self.collection_image_files[collection]
+
+            for file in tqdm(listdir(self.dataset_path / collection), desc=collection):
+                collection_arr.append(file)
+                self.total_images += 1
+
+            random.shuffle(collection_arr)
+            self.total_collection += 1
+
+        print(
+            f"Fetched {self.total_images} images from {self.total_collections} collections")
 
         for category in self.categories():
             for column in self.collections(category):
                 for image_name in self.collection_images(column):
                     self.nfts.append(NFT(image_name, column, category))
 
-    @staticmethod
+    @ staticmethod
     def resolve_collection_path(collection: str):
         """
         Resolves collection folder path relative to project's root folder.
@@ -38,7 +58,7 @@ class Dataset:
         """
         return f'dataset/{collection}'
 
-    @staticmethod
+    @ staticmethod
     def resolve_image_path(collection: str, image_file: str):
         """
         Resolves image file path relative to project's root folder.
