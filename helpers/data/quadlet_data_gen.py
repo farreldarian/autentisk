@@ -66,7 +66,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
 
     def __load_image(self, data: Data) -> Image.Image:
         key = data.collection + "-" + data.image_file
-        if self.cache.has_key(key):
+        if key in self.cache:
             return self.cache[key]
 
         image_path = self.dataset.resolve_image_path(
