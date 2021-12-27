@@ -20,11 +20,10 @@ class Data:
 
 
 class Dataset:
-    data: List[Data] = []
-    collection_image_files: Dict[str, List[str]] = {}
-    total_images: int = 0
-
     def __init__(self, dataset_path: str = None):
+        self.data: List[Data] = []
+        self.collection_image_files: Dict[str, List[str]] = {}
+        self.total_images: int = 0
         self.yaml_config: Dict = self.load_config(CONFIG_PATH)
 
         if dataset_path is None:
