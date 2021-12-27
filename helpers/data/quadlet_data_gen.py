@@ -1,44 +1,79 @@
 import math
-from typing import List
+from typing import Tuple
+from PIL import Image
 import tensorflow as tf
 import numpy as np
-from helpers.data.nft import NFT
+import augly.image as imaugs
+import random
 
-from helpers.quadlet import generate_quadlet
-from helpers.dataset import Dataset
+
+from helpers.dataset import Data, Dataset
+
+PILQuadlet = Tuple[Image.Image, Image.Image, Image.Image, Image.Image]
+Quadlet = Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
 
 class QuadletDataGen(tf.keras.utils.Sequence):
-    def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None) -> None:
+    augment_functions = [imaugs.meme_format, imaugs.overlay_text]
+
+    def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None, target_size=(224, 224)) -> None:
         self.dataset: Dataset = dataset
         self.batch_size: int = batch_size
         self.preprocess_func = preprocess_func
+        self.target_size: Tuple[int, int] = target_size
 
     def __len__(self) -> int:
-        return math.ceil(len(self.dataset.all_images()) / self.batch_size)
+        return math.ceil(len(self.dataset.get_total_images()) / self.batch_size)
 
     def __getitem__(self, idx) -> np.ndarray:
         start = idx * self.batch_size
         end = (idx + 1) * self.batch_size
 
         batch_x = []
-        for nft in self.dataset.nfts[start:end]:
-            batch_x += self.__generate_quadlet(nft)
-
-        batch_x = self.__preprocess(batch_x)
+        for data in self.dataset.data[start:end]:
+            batch_x += self.__preprocess(self.__generate_quadlet(data))
 
         # Not used
         batch_y = [[0]] * len(batch_x)
 
         return np.array(batch_x), np.array(batch_y)
 
-    def __preprocess(self, images: List[List[np.ndarray]]) -> List[List[np.ndarray]]:
-        if self.preprocess_func is None:
-            return images
+    def __preprocess(self, quadlet: PILQuadlet) -> Quadlet:
+        prep_quadlet: Quadlet = []
+        for pil_image in quadlet:
+            np_image: np.ndarray = np.array(pil_image)
 
-        for i in range(len(images)):
-            images[i] = [self.preprocess_func(img) for img in images[i]]
-        return images
+            if self.preprocess_func is not None:
+                np_image = self.preprocess_func(np_image)
 
-    def __generate_quadlet(self, nft: NFT):
-        return generate_quadlet(nft.collection, nft.image_name)
+            prep_quadlet.append(prep_quadlet)
+        return prep_quadlet
+
+    def __generate_quadlet(self, data: Data) -> PILQuadlet:
+        anchor = self.__load_image(data)
+        positive = self.__augment(anchor)
+        intermediate = self.__get_intermediate_image(data)
+        negative = self.__get_negative_image(data.collection)
+
+        return [anchor, positive, intermediate, negative]
+
+    def __get_intermediate_image(self, anchor_data: Data) -> Image.Image:
+        image_file = random.choice(self.dataset.get_image_files(anchor_data.collection, [
+            anchor_data.image_file]))
+        return self.__load_image(image_file)
+
+    def __get_negative_image(self, anchor_collection: str) -> Image.Image:
+        collection = random.choice(self.dataset.get_collections([
+            anchor_collection]))
+        image_file = random.choice(self.dataset.get_image_files(collection))
+
+        return self.__load_image(image_file)
+
+    def __load_image(self, data: Data) -> Image.Image:
+        image_path = self.dataset.resolve_image_path(
+            data.collection, data.image_file)
+        return Image.open(image_path).convert('RGB').resize(self.target_size)
+
+    def __augment(self, pil_image: Image.Image) -> Image.Image:
+        augment = random.choice(self.augment_functions)
+        return augment(pil_image).resize(self.target_size)
