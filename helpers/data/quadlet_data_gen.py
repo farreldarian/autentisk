@@ -40,23 +40,17 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         return np.array(batch_x), np.array(batch_y)
 
     def __preprocess(self, quadlet: PILQuadlet) -> Quadlet:
-        prep_quadlet: Quadlet = []
-        for pil_image in quadlet:
-            np_image: np.ndarray = np.array(pil_image)
+        if self.preprocess_func is None:
+            return quadlet
+        return [self.preprocess_func(image) for image in quadlet]
 
-            if self.preprocess_func is not None:
-                np_image = self.preprocess_func(np_image)
-
-            prep_quadlet.append(prep_quadlet)
-        return prep_quadlet
-
-    def __generate_quadlet(self, data: Data) -> PILQuadlet:
+    def __generate_quadlet(self, data: Data) -> Quadlet:
         anchor = self.__load_image(data)
         positive = self.__augment(anchor.copy())
         intermediate = self.__get_intermediate_image(data)
         negative = self.__get_negative_image(data.collection)
 
-        return [anchor, positive, intermediate, negative]
+        return [np.array(anchor), np.array(positive), np.array(intermediate), np.array(negative)]
 
     def __get_intermediate_image(self, anchor_data: Data) -> Image.Image:
         image_file = random.choice(self.dataset.get_image_files(anchor_data.collection, [
