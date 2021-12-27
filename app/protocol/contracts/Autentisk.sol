@@ -14,16 +14,14 @@ contract Autentisk {
 
     constructor() {}
 
-    function createCollection(
-        string calldata name,
-        string calldata symbol,
-        address owner
-    ) external returns (uint256 id) {
+    function createCollection(string calldata name, string calldata symbol)
+        external
+        returns (uint256 id)
+    {
         collectionIds.increment();
 
         id = collectionIds.current();
         AutentiskERC721 collection = new AutentiskERC721(name, symbol);
-        collection.transferOwnership(owner);
 
         collections[id] = collection;
         totalCollection++;
