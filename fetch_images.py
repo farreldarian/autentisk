@@ -114,7 +114,7 @@ def handle_asset(collection_name: str, asset: Dict):
         save_image_from_video_url(image_url, file_path)
         return
 
-    content = requests.get(image_url).content
+    content: bytes = requests.get(image_url).content
     ext = filetype.guess_extension(content)
 
     if ext is None:
