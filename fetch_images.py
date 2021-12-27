@@ -62,14 +62,6 @@ def get_collections() -> List[str]:
     return collections
 
 
-def resolve_collection_dir(collection_name: str) -> Path:
-    return SAVE_DIR / collection_name
-
-
-def resolve_image_path(collection_name: str, image_file: str) -> Path:
-    return resolve_collection_dir(collection_name) / image_file
-
-
 class InvalidFileType(ValueError):
     pass
 
@@ -114,7 +106,7 @@ def save_image_from_bytes(file_path, content):
 def handle_asset(collection_name: str, asset: Dict):
     image_url: str = asset['image_url']
     token_id: str = asset['token_id']
-    file_path: Path = resolve_image_path(collection_name, f"{token_id}.jpeg")
+    file_path: Path = SAVE_DIR / collection_name / f"{token_id}.jpeg"
 
     if file_path.is_file():
         raise FileAlreadyExists('Image already exists')
@@ -148,7 +140,7 @@ def main():
 
     print('Fetching images...')
     for collection in get_collections():
-        collection_dir = resolve_collection_dir(collection)
+        collection_dir = SAVE_DIR / collection
         make_dir_if_not_exists(collection_dir)
 
         n_stored = get_number_of_files(collection_dir)
