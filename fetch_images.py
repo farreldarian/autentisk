@@ -1,6 +1,7 @@
 import io
 from os.path import isfile
 import os
+from pathlib import Path
 from typing import Any, Dict, List
 from filetype.types import VIDEO
 import requests
@@ -138,7 +139,7 @@ def get_number_of_files(dir: str):
     return len(listdir(dir))
 
 
-if __name__ == '__main__':
+def main():
     make_dir_if_not_exists(SAVE_DIR)
 
     print('Fetching images...')
@@ -169,3 +170,7 @@ if __name__ == '__main__':
                 pbar.update(1)
 
         pbar.close()
+
+
+if __name__ == '__main__':
+    main()
