@@ -1,14 +1,10 @@
 import io
-from os.path import isfile
-import os
 from pathlib import Path
-from typing import Any, Dict, List, Optional
-from filetype.types import VIDEO
+from typing import Dict, List, Optional
 import requests
 import filetype
 from tqdm import tqdm
 from PIL import Image
-from io import BytesIO
 import cv2
 
 from helpers.utils import listdir, make_dir_if_not_exists
