@@ -87,12 +87,6 @@ class Dataset:
             return collections
         return [col for col in collections if col not in ignores]
 
-    def all_images(self):
-        images = []
-        for collection in self.get_collections():
-            images += self.collection_images(collection)
-        return images
-
     def collection_images(self, collection: str, ignores=None):
         images = listdir(self.resolve_collection_path(collection))
         if ignores is not None:
