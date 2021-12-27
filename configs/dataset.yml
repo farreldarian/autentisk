@@ -1,7 +1,7 @@
 save_dir: dataset
 
 target:
-  image_per_collection: 2500
+  image_per_collection: 3125
 
 collections_per_category:
   pfp:
