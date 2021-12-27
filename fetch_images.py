@@ -1,4 +1,6 @@
-from genericpath import isfile
+import io
+from os.path import isfile
+import os
 from typing import Any, Dict, List
 from filetype.types import VIDEO
 import requests
@@ -107,7 +109,7 @@ def handle_asset(collection_name: str, asset: Dict):
 
         if ext in VIDEO_EXTENSIONS:
             save_image_from_video(image_url, resolve_image_path(
-                collection_name, f"{token_id}.jpg"))
+                collection_name, f"{token_id}.jpeg"))
             return
 
     content = requests.get(image_url).content
@@ -115,7 +117,7 @@ def handle_asset(collection_name: str, asset: Dict):
 
     if ext in VIDEO_EXTENSIONS:
         save_image_from_video(image_url, resolve_image_path(
-            collection_name, f"{token_id}.jpg"))
+            collection_name, f"{token_id}.jpeg"))
         return
 
     if ext not in allowed_extensions:
@@ -123,13 +125,13 @@ def handle_asset(collection_name: str, asset: Dict):
         print(message)
         raise InvalidFileType(message)
 
-    file_path = resolve_image_path(collection_name, f"{token_id}.{ext}")
+    file_path = resolve_image_path(collection_name, f"{token_id}.jpeg")
 
     if isfile(file_path):
         raise FileAlreadyExists('Image already exists')
 
-    with open(file_path, 'wb') as f:
-        f.write(content)
+    image = Image.open(io.BytesIO(content)).convert("RGB")
+    image.save(file_path, "JPEG")
 
 
 def get_number_of_files(dir: str):
