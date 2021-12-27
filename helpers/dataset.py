@@ -1,6 +1,7 @@
 import os
 from typing import Dict, List
 import random
+from numpy import DataSource
 import yaml
 from pathlib import Path
 from tqdm import tqdm
@@ -23,9 +24,13 @@ class Dataset:
     collection_image_files: Dict[str, List[str]] = {}
     total_images: int = 0
 
-    def __init__(self, path=CONFIG_PATH):
-        self.yaml_config: Dict = self.load_config(path)
-        self.dataset_path: Path = ROOT_PATH / self.yaml_config['save_dir']
+    def __init__(self, dataset_path: str = None):
+        self.yaml_config: Dict = self.load_config(CONFIG_PATH)
+
+        if dataset_path is None:
+            self.dataset_path: Path = ROOT_PATH / self.yaml_config['save_dir']
+        else:
+            self.dataset_path: Path = Path(dataset_path)
 
         print(f"Reading dataset from {self.dataset_path}")
         for collection in listdir(self.dataset_path):
