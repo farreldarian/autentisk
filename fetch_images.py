@@ -110,9 +110,6 @@ def handle_asset(collection_name: str, asset: Dict):
     if file_path.is_file():
         raise FileAlreadyExists('Image already exists')
 
-    allowed_extensions: List[str] = ALLOWED_EXTENSIONS + \
-        VIDEO_EXTENSIONS
-
     ext: Optional[str] = naively_get_extension(
         asset['image_original_url']
     )
@@ -127,8 +124,8 @@ def handle_asset(collection_name: str, asset: Dict):
         save_image_from_video(image_url, file_path)
         return
 
-    if ext not in allowed_extensions:
-        message = f"{ext} isn't allowed, only accept {ALLOWED_EXTENSIONS}"
+    if ext not in ALLOWED_EXTENSIONS:
+        message = f"{ext} isn't allowed, only accepting {ALLOWED_EXTENSIONS}"
         print(message)
         raise InvalidFileType(message)
 
