@@ -20,7 +20,7 @@ class Data:
 
 class Dataset:
     data: List[Data] = []
-    collection_image_files: Dict[str, List[str]]
+    collection_image_files: Dict[str, List[str]] = {}
     total_images: int = 0
 
     def __init__(self, path=CONFIG_PATH):
