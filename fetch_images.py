@@ -129,9 +129,6 @@ def handle_asset(collection_name: str, asset: Dict):
         print(message)
         raise InvalidFileType(message)
 
-    if isfile(file_path):
-        raise FileAlreadyExists('Image already exists')
-
     image = Image.open(io.BytesIO(content)).convert("RGB")
     image.save(file_path, "JPEG")
 
