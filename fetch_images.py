@@ -28,7 +28,8 @@ config = load_dataset_config()
 TARGET_PER_COLLECTION = config['target']['image_per_collection']
 SAVE_DIR = Path(__file__).parent.resolve().joinpath(config['save_dir'])
 COLLECTIONS_PER_CATEGORY = config['collections_per_category']
-ALLOWED_EXTENSIONS = config['allowed_extensions']
+VIDEO_EXTENSIONS = ["mp4", "gif"]
+ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"] + VIDEO_EXTENSIONS
 
 #
 
@@ -82,9 +83,6 @@ def naively_get_extension(image_path: str):
     if len(splits) < 2:
         return None
     return splits[-1]
-
-
-VIDEO_EXTENSIONS = ['mp4', 'gif']
 
 
 def save_image_from_video(video_url: str, image_path: Path):
