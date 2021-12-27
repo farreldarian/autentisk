@@ -82,17 +82,5 @@ class Dataset:
             return image_files
         return [file for file in image_files if file not in ignores]
 
-    def load_image(self, collection: str, image_file: str, target_size=(224, 224)):
-        key = self.image_key = self.make_image_key(collection, image_file)
-        if self.images.has_key(key):
-            return self.images[key]
-
-        self.images[key] = np.array(
-            Image.open(self.resolve_image_path(collection, image_file))
-            .convert('RGB')
-            .resize(target_size)
-        )
-        return self.images[key]
-
     def make_image_key(self, collection: str, image: str):
         return collection + '-' + image
