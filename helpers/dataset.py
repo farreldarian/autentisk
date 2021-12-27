@@ -19,7 +19,6 @@ CONFIG_PATH = str(ROOT_PATH / "configs" / "dataset.yml")
 class Dataset:
     nfts: List[NFT] = []
     collection_image_files: Dict[str, List[str]]
-    images: Dict[str, Optional[np.ndarray]]
     total_collections: int = 0
     total_images: int = 0
 
