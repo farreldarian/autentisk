@@ -26,7 +26,7 @@ n_fetch = 50
 config = load_dataset_config()
 
 TARGET_PER_COLLECTION = config['target']['image_per_collection']
-SAVE_DIR = config['save_dir']
+SAVE_DIR = Path(__file__).parent.resolve().joinpath(config['save_dir'])
 COLLECTIONS_PER_CATEGORY = config['collections_per_category']
 ALLOWED_EXTENSIONS = config['allowed_extensions']
 
@@ -61,12 +61,12 @@ def get_collections() -> List[str]:
     return collections
 
 
-def resolve_collection_dir(collection_name: str):
-    return f"{SAVE_DIR}/{collection_name}"
+def resolve_collection_dir(collection_name: str) -> Path:
+    return SAVE_DIR / collection_name
 
 
-def resolve_image_path(collection_name: str, image_file: str):
-    return f"{resolve_collection_dir(collection_name)}/{image_file}"
+def resolve_image_path(collection_name: str, image_file: str) -> Path:
+    return resolve_collection_dir(collection_name) / image_file
 
 
 class InvalidFileType(ValueError):
@@ -87,11 +87,11 @@ def naively_get_extension(image_path: str):
 VIDEO_EXTENSIONS = ['mp4', 'gif']
 
 
-def save_image_from_video(video_url: str, image_path: str):
+def save_image_from_video(video_url: str, image_path: Path):
     cap = cv2.VideoCapture(video_url)
     _, image = cap.read()
 
-    cv2.imwrite(image_path, image)
+    cv2.imwrite(str(image_path), image)
 
     cap.release()
 
@@ -140,6 +140,7 @@ def get_number_of_files(dir: str):
 
 
 def main():
+    return
     make_dir_if_not_exists(SAVE_DIR)
 
     print('Fetching images...')
