@@ -19,6 +19,7 @@ CONFIG_PATH = str(ROOT_PATH / "configs" / "dataset.yml")
 class Dataset:
     nfts: List[NFT] = []
     collection_image_files: Dict[str, List[str]]
+    images: Dict[str, Optional[np.ndarray]]
     total_collections: int = 0
     total_images: int = 0
 
@@ -59,28 +60,15 @@ class Dataset:
         return f'dataset/{collection}'
 
     @ staticmethod
-    def resolve_image_path(collection: str, image_file: str):
-        """
-        Resolves image file path relative to project's root folder.
-
-        Collection can be retrieved by using `collections()` or `all_collections()`.
-
-        Parameters
-        ----------
-        collection : str
-            collection name
-        image_file : str
-            image file name with extension
-        """
-        return f'{Dataset.resolve_collection_path(collection)}/{image_file}'
-
-    @ staticmethod
     def load_config(path: str):
         if not os.path.isfile(path):
             raise Exception(f"Can't locate config path in {path}")
 
         with open(path) as f:
             return yaml.load(f, Loader=yaml.FullLoader)
+
+    def resolve_image_path(self, collection: str, image_file: str) -> Path:
+        return self.dataset_path / collection / image_file
 
     def get_collections(self, ignores: List[str] = None) -> List[str]:
         collections = list(self.collection_image_files.keys())
@@ -95,8 +83,16 @@ class Dataset:
         return [file for file in image_files if file not in ignores]
 
     def load_image(self, collection: str, image_file: str, target_size=(224, 224)):
-        image_path = self.resolve_image_path(collection, image_file)
-        image = Image.open(image_path)
-        image = image.convert('RGB')
-        image = image.resize(target_size)
-        return np.array(image)
+        key = self.image_key = self.make_image_key(collection, image_file)
+        if self.images.has_key(key):
+            return self.images[key]
+
+        self.images[key] = np.array(
+            Image.open(self.resolve_image_path(collection, image_file))
+            .convert('RGB')
+            .resize(target_size)
+        )
+        return self.images[key]
+
+    def make_image_key(self, collection: str, image: str):
+        return collection + '-' + image
