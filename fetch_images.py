@@ -94,7 +94,7 @@ def asset_is_video(asset: Dict):
     ext = naively_get_extension(asset['image_original_url'])
 
 
-def save_image_from_bytes(file_path, content):
+def save_image_from_bytes(file_path: Path, content: bytes):
     image = Image.open(io.BytesIO(content)).convert("RGB")
     image.save(file_path, "JPEG")
 
