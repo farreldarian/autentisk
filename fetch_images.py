@@ -135,9 +135,7 @@ def handle_asset(collection_name: str, asset: Dict):
         save_image_from_video_url(image_url, file_path)
         return
     elif ext not in ALLOWED_EXTENSIONS:
-        message = f"{ext} isn't allowed, only accepting {ALLOWED_EXTENSIONS}"
-        print(message)
-        raise InvalidFileType(message)
+        raise InvalidFileType(ext)
 
     save_image_from_bytes(file_path, content)
 
