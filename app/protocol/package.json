@@ -9,6 +9,7 @@
   "devDependencies": {
     "@ethersproject/abi": "^5.5.0",
     "@ethersproject/bytes": "^5.5.0",
+    "@ethersproject/hardware-wallets": "^5.5.0",
     "@ethersproject/providers": "^5.5.1",
     "@nomiclabs/hardhat-ethers": "^2.0.3",
     "@nomiclabs/hardhat-etherscan": "^2.1.8",
@@ -31,6 +32,7 @@
     "eslint-plugin-promise": "^5.2.0",
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.2",
+    "hardhat-deploy": "^0.9.22",
     "hardhat-gas-reporter": "^1.0.6",
     "lodash": "^4.17.21",
     "prettier": "^2.5.1",
