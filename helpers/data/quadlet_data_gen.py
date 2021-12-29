@@ -81,17 +81,17 @@ class QuadletDataGen(tf.keras.utils.Sequence):
 
     def __load_image(self, data: Data) -> tf.Tensor:
         key = data.collection + "-" + data.image_file
-        if key in self.cache:
-            return self.cache[key]
 
-        image_path = self.dataset.resolve_image_path(
-            data.collection, data.image_file)
-        image_string = tf.io.read_file(str(image_path))
-        image = tf.image.decode_jpeg(image_string, channels=3)
-        image = tf.image.convert_image_dtype(image, tf.float32)
-        image = tf.image.resize(image, self.target_size)
-        self.cache[key] = image
-        return self.image_datagen.random_transform(image)
+        if key not in self.cache:
+            image_path = self.dataset.resolve_image_path(
+                data.collection, data.image_file)
+            image_string = tf.io.read_file(str(image_path))
+            image = tf.image.decode_jpeg(image_string, channels=3)
+            image = tf.image.convert_image_dtype(image, tf.float32)
+            image = tf.image.resize(image, self.target_size)
+            self.cache[key] = image
+
+        return self.image_datagen.random_transform(self.cache[key])
 
     def __augly_augment(self, image: tf.Tensor) -> tf.Tensor:
         pil_image = tf.keras.utils.array_to_img(image)
