@@ -40,7 +40,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
             batch_x += self.__preprocess(self.__generate_quadlet(data))
             batch_y.append(data.collection)
 
-        return np.array(batch_x), self.label_encoder.transform(batch_y).reshape([None, 1])
+        return np.array(batch_x), self.label_encoder.transform(batch_y).reshape([self.batch_size, 1])
 
     def getitem(self, idx):
         return self.__getitem__(idx)
@@ -56,7 +56,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         intermediate = self.__get_intermediate_image(data)
         negative = self.__get_negative_image(data.collection)
 
-        return [np.array(anchor), np.array(positive), np.array(intermediate), np.array(negative)]
+        return [anchor, positive, intermediate, negative]
 
     def __get_intermediate_image(self, anchor_data: Data) -> Image.Image:
         image_file = random.choice(self.dataset.get_image_files(anchor_data.collection, [
