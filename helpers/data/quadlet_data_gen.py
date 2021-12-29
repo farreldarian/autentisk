@@ -6,6 +6,7 @@ import numpy as np
 import random
 from sklearn.preprocessing import LabelEncoder
 from helpers.augly import augly_augment
+from keras.preprocessing import ImageDataGenerator
 
 
 from helpers.dataset import Data, Dataset
@@ -24,6 +25,12 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         self.batch_size: int = batch_size
         self.preprocess_func = preprocess_func
         self.target_size: Tuple[int, int] = target_size
+        self.image_datagen = ImageDataGenerator(
+            rotation_range=20,
+            horizontal_flip=True,
+            vertical_flip=True,
+            brightness_range=(0.9, 1.1)
+        )
 
     def __len__(self) -> int:
         return math.ceil(self.dataset.get_total_images() / self.batch_size)
@@ -84,7 +91,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         image = tf.image.convert_image_dtype(image, tf.float32)
         image = tf.image.resize(image, self.target_size)
         self.cache[key] = image
-        return image
+        return self.image_datagen.random_transform(image)
 
     def __augment(self, image: tf.Tensor) -> tf.Tensor:
         pil_image = tf.keras.utils.array_to_img(image)
