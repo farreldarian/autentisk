@@ -39,6 +39,9 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         batch_y = [[0]] * len(batch_x)
 
         return np.array(batch_x), np.array(batch_y)
+    
+    def getitem(self, idx):
+        return self.__getitem__(idx)
 
     def __preprocess(self, quadlet: PILQuadlet) -> Quadlet:
         if self.preprocess_func is None:
