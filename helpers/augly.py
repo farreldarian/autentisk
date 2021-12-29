@@ -2,7 +2,6 @@ from PIL import Image
 import augly.image as imaugs
 
 creative_trans = [imaugs.OverlayText(),
-                  imaugs.OverlayStripes(),
                   imaugs.OverlayEmoji(),
                   imaugs.OverlayOntoScreenshot(),
                   imaugs.MemeFormat()]
