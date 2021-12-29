@@ -6,7 +6,7 @@ import numpy as np
 import random
 from sklearn.preprocessing import LabelEncoder
 from helpers.augly import augly_augment
-from keras.preprocessing import ImageDataGenerator
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 
 from helpers.dataset import Data, Dataset
