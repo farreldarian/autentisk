@@ -5,6 +5,7 @@ import tensorflow as tf
 import numpy as np
 import augly.image as imaugs
 import random
+from sklearn.preprocessing import LabelEncoder
 
 
 from helpers.dataset import Data, Dataset
@@ -15,11 +16,13 @@ Quadlet = Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
 
 class QuadletDataGen(tf.keras.utils.Sequence):
 
-    def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None, target_size=(224, 224)) -> None:
+    def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None, target_size=(224, 224), label_encoder: LabelEncoder = None) -> None:
         self.augment_functions = [imaugs.meme_format, imaugs.overlay_text]
         self.cache: Dict[str, Image.Image] = {}
 
         self.dataset: Dataset = dataset
+        self.label_encoder: LabelEncoder = LabelEncoder().fit(
+            self.dataset.get_collections())
         self.batch_size: int = batch_size
         self.preprocess_func = preprocess_func
         self.target_size: Tuple[int, int] = target_size
@@ -32,14 +35,13 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         end = (idx + 1) * self.batch_size
 
         batch_x = []
+        batch_y = []
         for data in self.dataset.data[start:end]:
             batch_x += self.__preprocess(self.__generate_quadlet(data))
+            batch_y.append([data.collection])
 
-        # Not used
-        batch_y = [[0]] * len(batch_x)
+        return np.array(batch_x), self.label_encoder.transform(batch_y)
 
-        return np.array(batch_x), np.array(batch_y)
-    
     def getitem(self, idx):
         return self.__getitem__(idx)
 
