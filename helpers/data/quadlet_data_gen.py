@@ -61,7 +61,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
 
     def __generate_quadlet(self, data: Data) -> TensorQuadlet:
         anchor = self.__load_image(data)
-        positive = self.__augment(tf.identity(anchor))
+        positive = self.__augly_augment(tf.identity(anchor))
         intermediate = self.__get_intermediate_image(data)
         negative = self.__get_negative_image(data.collection)
 
@@ -93,7 +93,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         self.cache[key] = image
         return self.image_datagen.random_transform(image)
 
-    def __augment(self, image: tf.Tensor) -> tf.Tensor:
+    def __augly_augment(self, image: tf.Tensor) -> tf.Tensor:
         pil_image = tf.keras.utils.array_to_img(image)
         pil_augmented = augly_augment(pil_image)
         return tf.convert_to_tensor(tf.keras.utils.img_to_array(pil_augmented))
