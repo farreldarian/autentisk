@@ -10,15 +10,14 @@ from sklearn.preprocessing import LabelEncoder
 
 from helpers.dataset import Data, Dataset
 
-PILQuadlet = Tuple[Image.Image, Image.Image, Image.Image, Image.Image]
-Quadlet = Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+TensorQuadlet = Tuple[tf.Tensor, tf.Tensor, tf.Tensor, tf.Tensor]
 
 
 class QuadletDataGen(tf.keras.utils.Sequence):
 
     def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None, target_size=(224, 224), label_encoder: LabelEncoder = None) -> None:
         self.augment_functions = [imaugs.meme_format, imaugs.overlay_text]
-        self.cache: Dict[str, Image.Image] = {}
+        self.cache: Dict[str, tf.Tensor] = {}
 
         self.dataset: Dataset = dataset
         self.label_encoder: LabelEncoder = LabelEncoder().fit(
@@ -30,7 +29,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
     def __len__(self) -> int:
         return math.ceil(self.dataset.get_total_images() / self.batch_size)
 
-    def __getitem__(self, idx) -> np.ndarray:
+    def __getitem__(self, idx) -> Tuple[tf.Tensor, np.ndarray]:
         start = idx * self.batch_size
         end = (idx + 1) * self.batch_size
 
@@ -45,42 +44,47 @@ class QuadletDataGen(tf.keras.utils.Sequence):
     def getitem(self, idx):
         return self.__getitem__(idx)
 
-    def __preprocess(self, quadlet: PILQuadlet) -> Quadlet:
+    def __preprocess(self, quadlet: TensorQuadlet) -> TensorQuadlet:
         if self.preprocess_func is None:
             return quadlet
         return [self.preprocess_func(image) for image in quadlet]
 
-    def __generate_quadlet(self, data: Data) -> Quadlet:
+    def __generate_quadlet(self, data: Data) -> TensorQuadlet:
         anchor = self.__load_image(data)
-        positive = self.__augment(anchor.copy())
+        positive = self.__augment(tf.identity(anchor))
         intermediate = self.__get_intermediate_image(data)
         negative = self.__get_negative_image(data.collection)
 
         return [anchor, positive, intermediate, negative]
 
-    def __get_intermediate_image(self, anchor_data: Data) -> Image.Image:
+    def __get_intermediate_image(self, anchor_data: Data) -> tf.Tensor:
         image_file = random.choice(self.dataset.get_image_files(anchor_data.collection, [
             anchor_data.image_file]))
         return self.__load_image(Data(anchor_data.collection, image_file))
 
-    def __get_negative_image(self, anchor_collection: str) -> Image.Image:
+    def __get_negative_image(self, anchor_collection: str) -> tf.Tensor:
         collection = random.choice(self.dataset.get_collections([
             anchor_collection]))
         image_file = random.choice(self.dataset.get_image_files(collection))
 
         return self.__load_image(Data(collection, image_file))
 
-    def __load_image(self, data: Data) -> Image.Image:
+    def __load_image(self, data: Data) -> tf.Tensor:
         key = data.collection + "-" + data.image_file
         if key in self.cache:
             return self.cache[key]
 
         image_path = self.dataset.resolve_image_path(
             data.collection, data.image_file)
-        self.cache[key] = Image.open(image_path).convert(
-            'RGB').resize(self.target_size)
-        return self.cache[key]
+        image_string = tf.io.read_file(image_path)
+        image = tf.image.decode_jpeg(image_string, channels=3)
+        image = tf.image.convert_image_dtype(image, tf.float32)
+        image = tf.image.resize(image, self.target_size)
+        self.cache[key] = image
+        return image
 
-    def __augment(self, pil_image: Image.Image) -> Image.Image:
+    def __augment(self, image: tf.Tensor) -> tf.Tensor:
         augment = random.choice(self.augment_functions)
-        return augment(pil_image).resize(self.target_size)
+        pil_image = tf.keras.utils.array_to_img(image)
+        pil_augmented = augment(pil_image).resize(self.target_size)
+        return tf.convert_to_tensor(tf.keras.utils.img_to_array(pil_augmented))
