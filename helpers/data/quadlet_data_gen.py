@@ -3,9 +3,9 @@ from typing import Dict, Tuple
 from PIL import Image
 import tensorflow as tf
 import numpy as np
-import augly.image as imaugs
 import random
 from sklearn.preprocessing import LabelEncoder
+from helpers.augly import augly_augment
 
 
 from helpers.dataset import Data, Dataset
@@ -16,7 +16,6 @@ TensorQuadlet = Tuple[tf.Tensor, tf.Tensor, tf.Tensor, tf.Tensor]
 class QuadletDataGen(tf.keras.utils.Sequence):
 
     def __init__(self, dataset=Dataset(), batch_size=64, preprocess_func=None, target_size=(224, 224), label_encoder: LabelEncoder = None) -> None:
-        self.augment_functions = [imaugs.meme_format, imaugs.overlay_text]
         self.cache: Dict[str, tf.Tensor] = {}
 
         self.dataset: Dataset = dataset
@@ -88,7 +87,6 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         return image
 
     def __augment(self, image: tf.Tensor) -> tf.Tensor:
-        augment = random.choice(self.augment_functions)
         pil_image = tf.keras.utils.array_to_img(image)
-        pil_augmented = augment(pil_image).resize(self.target_size)
+        pil_augmented = augly_augment(pil_image)
         return tf.convert_to_tensor(tf.keras.utils.img_to_array(pil_augmented))
