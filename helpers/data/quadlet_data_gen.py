@@ -76,7 +76,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
 
         image_path = self.dataset.resolve_image_path(
             data.collection, data.image_file)
-        image_string = tf.io.read_file(image_path)
+        image_string = tf.io.read_file(str(image_path))
         image = tf.image.decode_jpeg(image_string, channels=3)
         image = tf.image.convert_image_dtype(image, tf.float32)
         image = tf.image.resize(image, self.target_size)
