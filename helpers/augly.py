@@ -5,8 +5,7 @@ creative_trans = [imaugs.OverlayText(),
                   imaugs.OverlayStripes(),
                   imaugs.OverlayEmoji(),
                   imaugs.OverlayOntoScreenshot(),
-                  imaugs.MemeFormat(),
-                  imaugs.OverlayOntoBackgroundImage()]
+                  imaugs.MemeFormat()]
 
 
 def augly_augment(image: Image) -> Image:
