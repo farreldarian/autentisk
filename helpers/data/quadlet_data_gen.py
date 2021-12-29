@@ -38,7 +38,7 @@ class QuadletDataGen(tf.keras.utils.Sequence):
         batch_y = []
         for data in self.dataset.data[start:end]:
             batch_x += self.__preprocess(self.__generate_quadlet(data))
-            batch_y.append([data.collection])
+            batch_y.append(data.collection)
 
         return np.array(batch_x), self.label_encoder.transform(batch_y)
 
