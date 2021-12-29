@@ -44,6 +44,9 @@ class QuadletDataGen(tf.keras.utils.Sequence):
     def getitem(self, idx):
         return self.__getitem__(idx)
 
+    def preview_quadlet(self):
+        return [np.array(image) for image in self.__generate_quadlet(random.shuffle(self.dataset.data))]
+
     def __preprocess(self, quadlet: TensorQuadlet) -> TensorQuadlet:
         if self.preprocess_func is None:
             return quadlet
