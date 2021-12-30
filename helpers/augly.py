@@ -3,7 +3,6 @@ import augly.image as imaugs
 
 creative_trans = [imaugs.OverlayText(),
                   imaugs.OverlayEmoji(),
-                  imaugs.OverlayOntoScreenshot(),
                   imaugs.MemeFormat()]
 
 
