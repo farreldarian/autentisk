@@ -15,7 +15,8 @@ def random_color():
 
 def overlay_text(img):
     text_len = random.randint(5, 20)
-    imaugs.OverlayText(
+    return imaugs.overlay_text(
+        img,
         text=[random.randrange(1, 100) for _ in range(text_len)],
         font_file=os.path.join(utils.FONTS_DIR, 'OpenSans-Regular.ttf'),
         x_pos=random.uniform(0, 0.5),
