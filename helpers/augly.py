@@ -40,7 +40,7 @@ def overlay_emoji(img):
 
 
 def meme_format(img):
-    imaugs.meme_format(
+    return imaugs.meme_format(
         img,
         text=random.choice(["LOL", "RIP", "GM", "GN", "LFG", "PAMP"]),
         caption_height=random.randint(75, 125),
