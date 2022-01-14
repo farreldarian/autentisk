@@ -99,34 +99,6 @@ def save_image_from_bytes(file_path: Path, content: bytes):
     image.save(file_path, "JPEG")
 
 
-def handle_asset(collection_name: str, asset: Dict):
-    image_url: str = asset['image_url']
-    token_id: str = asset['token_id']
-    file_path: Path = SAVE_DIR / collection_name / f"{token_id}.jpeg"
-
-    if file_path.is_file():
-        raise FileAlreadyExists('Image already exists')
-
-    ext: Optional[str] = naively_get_extension(
-        asset['image_original_url']
-    )
-    if ext is not None and ext in VIDEO_EXTENSIONS:
-        save_image_from_video_url(image_url, file_path)
-        return
-
-    content: bytes = requests.get(image_url).content
-    ext = filetype.guess_extension(content)
-
-    if ext is None:
-        raise UnknownExtension
-    elif ext not in ALLOWED_EXTENSIONS:
-        raise InvalidFileType(ext)
-    elif ext in VIDEO_EXTENSIONS:
-        save_image_from_video_url(image_url, file_path)
-    else:
-        save_image_from_bytes(file_path, content)
-
-
 def get_number_of_files(dir: str):
     return len(listdir(dir))
 
@@ -153,10 +125,32 @@ def main():
             api_offset += n_to_fetch
 
             for asset in assets:
-                try:
-                    handle_asset(collection, asset)
-                except:
+                image_url: str = asset['image_url']
+                token_id: str = asset['token_id']
+                file_path: Path = SAVE_DIR / \
+                    collection / f"{token_id}.jpeg"
+
+                if file_path.is_file():
                     continue
+
+                ext: Optional[str] = naively_get_extension(
+                    asset['image_original_url']
+                )
+                if ext is not None and ext in VIDEO_EXTENSIONS:
+                    save_image_from_video_url(image_url, file_path)
+                    continue
+
+                content: bytes = requests.get(image_url).content
+                ext = filetype.guess_extension(content)
+
+                if ext is None:
+                    continue
+                elif ext not in ALLOWED_EXTENSIONS:
+                    continue
+                elif ext in VIDEO_EXTENSIONS:
+                    save_image_from_video_url(image_url, file_path)
+                else:
+                    save_image_from_bytes(file_path, content)
 
                 n_stored += 1
                 pbar.update(1)
