@@ -1,3 +1,4 @@
+import hashlib
 import os
 from typing import List
 from matplotlib import pyplot as plt
@@ -123,3 +124,14 @@ def show_image_list(list_images, list_titles=None, list_cmaps=None, grid=True, n
 
 def clamp_minimum(num, minimum=0):
     return np.max([num, minimum])
+
+
+def get_file_hash(file_path, buffer_size=65536):
+    hash_func = hashlib.sha256()
+    with open(file_path, 'rb') as f:
+        while True:
+            data = f.read(buffer_size)
+            if not data:
+                break
+            hash_func.update(data)
+    return hash_func.hexdigest()
