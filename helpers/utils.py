@@ -1,4 +1,5 @@
 import hashlib
+from termcolor import cprint
 import os
 from typing import List
 from matplotlib import pyplot as plt
@@ -135,3 +136,10 @@ def get_file_hash(file_path, buffer_size=65536):
                 break
             hash_func.update(data)
     return hash_func.hexdigest()
+
+
+def print_red_if_error(text: str, is_error: bool) -> None:
+    if is_error:
+        cprint(text, 'red')
+    else:
+        print(text)

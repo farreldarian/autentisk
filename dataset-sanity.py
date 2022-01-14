@@ -1,8 +1,9 @@
 from pathlib import Path
+from termcolor import cprint
 import os
 import hashlib
 
-from helpers.utils import get_file_hash, listdir
+from helpers.utils import get_file_hash, listdir, print_red_if_error
 
 dataset_path = Path('dataset')
 
@@ -64,13 +65,19 @@ def main():
     print("#---------#")
     print("# Summary #")
     print("#---------#")
-    print(f"Total collections: {summary['n_collection']}")
-    print(f"Total images: {summary['n_images']}")
+
+    print_red_if_error(
+        f"Total collections: {summary['n_collection']}", summary['n_collection'] != 20)
+    print_red_if_error(
+        f"Total images: {summary['n_images']}", summary['n_images'] != 50_000)
     print('')
     print("- Problems")
-    print(f"Duplicate token id: {summary['duplicate_id']}")
-    print(f"Invalid extension: {summary['invalid_extension']}")
-    print(f"Similar (or exact) content: {summary['similar_content']}")
+    print_red_if_error(
+        f"Duplicate token id: {summary['duplicate_id']}", summary['duplicate_id'] != 0)
+    print_red_if_error(
+        f"Invalid extension: {summary['invalid_extension']}", summary['invalid_extension'] != 0)
+    print_red_if_error(
+        f"Similar (or exact) content: {summary['similar_content']}", summary['similar_content'] != 0)
 
 
 main()
