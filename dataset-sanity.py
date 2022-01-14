@@ -8,7 +8,9 @@ dataset_path = Path('dataset')
 
 
 def main():
-    for collection in listdir(dataset_path):
+    collections = listdir(dataset_path)
+
+    for collection in collections:
         print("----------------------------------------------")
         print(f'Checking {collection}')
 
@@ -52,6 +54,8 @@ def main():
         print("")
         print(f"Original Total: {n_tokens} tokens")
         print(f"Removed: {n_removed} tokens")
+
+    print(f"Total collections: {len(collections)}")
 
 
 main()
