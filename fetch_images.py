@@ -1,4 +1,5 @@
 import io
+import os
 from pathlib import Path
 from typing import Dict, List, Optional
 import requests
@@ -7,7 +8,7 @@ from tqdm import tqdm
 from PIL import Image
 import cv2
 
-from helpers.utils import listdir, make_dir_if_not_exists
+from helpers.utils import get_file_hash, listdir, make_dir_if_not_exists
 from helpers.config_loaders import load_dataset_config
 
 #
@@ -108,6 +109,8 @@ def main():
 
     print('Fetching images...')
     for collection in get_collections():
+        image_hashes = []
+
         collection_dir = SAVE_DIR / collection
         make_dir_if_not_exists(collection_dir)
 
@@ -138,19 +141,25 @@ def main():
                 )
                 if ext is not None and ext in VIDEO_EXTENSIONS:
                     save_image_from_video_url(image_url, file_path)
-                    continue
-
-                content: bytes = requests.get(image_url).content
-                ext = filetype.guess_extension(content)
-
-                if ext is None:
-                    continue
-                elif ext not in ALLOWED_EXTENSIONS:
-                    continue
-                elif ext in VIDEO_EXTENSIONS:
-                    save_image_from_video_url(image_url, file_path)
                 else:
-                    save_image_from_bytes(file_path, content)
+                    content: bytes = requests.get(image_url).content
+                    ext = filetype.guess_extension(content)
+
+                    if ext is None:
+                        continue
+                    elif ext not in ALLOWED_EXTENSIONS:
+                        continue
+                    elif ext in VIDEO_EXTENSIONS:
+                        save_image_from_video_url(image_url, file_path)
+                    else:
+                        save_image_from_bytes(file_path, content)
+
+                hash = get_file_hash(file_path)
+                if hash in image_hashes:
+                    os.remove(file_path)
+                    continue
+                else:
+                    image_hashes.append(hash)
 
                 n_stored += 1
                 pbar.update(1)
