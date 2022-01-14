@@ -115,9 +115,13 @@ def main():
         make_dir_if_not_exists(collection_dir)
 
         n_stored = get_number_of_files(collection_dir)
-        pbar = tqdm(initial=n_stored,
-                    total=TARGET_PER_COLLECTION,
-                    desc=collection)
+        pbar = tqdm(total=TARGET_PER_COLLECTION, desc=collection)
+
+        for token_file in listdir(SAVE_DIR / collection):
+            image_hashes.append(get_file_hash(
+                SAVE_DIR / collection / token_file))
+            n_stored += 1
+            pbar.update(1)
 
         api_offset = 0
         while n_stored < TARGET_PER_COLLECTION:
