@@ -114,7 +114,7 @@ def main():
         collection_dir = SAVE_DIR / collection
         make_dir_if_not_exists(collection_dir)
 
-        n_stored = get_number_of_files(collection_dir)
+        n_stored = 0
         pbar = tqdm(total=TARGET_PER_COLLECTION, desc=collection)
 
         for token_file in listdir(SAVE_DIR / collection):
