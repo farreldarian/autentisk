@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
-import "./AutentiskERC721.sol";
+import "../token/AutentiskERC721.sol";
 
 contract Autentisk {
     event CollectionCreated(address indexed collectionAddress);
