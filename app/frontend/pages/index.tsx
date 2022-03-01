@@ -1,15 +1,8 @@
-import { Box, Button, Center, Heading, Stack, Text } from "@chakra-ui/react";
-import { useEtherBalance, useEthers } from "@usedapp/core";
-import { formatEther } from "ethers/lib/utils";
-import { isNil } from "lodash";
+import { Box, ChakraProvider, extendTheme} from "@chakra-ui/react";
 import Head from "next/head";
-import { useMemo } from "react";
+import Navbar from "./components/Navbar";
 
 export default function Home() {
-  const { activateBrowserWallet, account, deactivate } = useEthers();
-  const etherBalance = useEtherBalance(account);
-  const connected = useMemo(() => !isNil(account), [account]);
-
   return (
     <div>
       <Head>
@@ -20,21 +13,7 @@ export default function Home() {
 
       <main>
         <Box>
-          <Heading>Authentic NFT Marketplace</Heading>
-          {connected ? (
-            <Box>
-              <Button onClick={() => deactivate()}>Disconnect</Button>
-
-              <Text>Address: {account}</Text>
-              <Text>
-                Balance: {etherBalance ? formatEther(etherBalance) : "0"} ETH
-              </Text>
-            </Box>
-          ) : (
-            <Button onClick={() => activateBrowserWallet()}>
-              Connect Wallet
-            </Button>
-          )}
+          <Navbar/>
         </Box>
       </main>
     </div>
