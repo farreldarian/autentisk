@@ -1,4 +1,5 @@
 import io
+import os
 from pathlib import Path
 from typing import Dict, List, Optional
 import requests
@@ -7,7 +8,7 @@ from tqdm import tqdm
 from PIL import Image
 import cv2
 
-from helpers.utils import listdir, make_dir_if_not_exists
+from helpers.utils import get_file_hash, listdir, make_dir_if_not_exists
 from helpers.config_loaders import load_dataset_config
 
 #
@@ -99,34 +100,6 @@ def save_image_from_bytes(file_path: Path, content: bytes):
     image.save(file_path, "JPEG")
 
 
-def handle_asset(collection_name: str, asset: Dict):
-    image_url: str = asset['image_url']
-    token_id: str = asset['token_id']
-    file_path: Path = SAVE_DIR / collection_name / f"{token_id}.jpeg"
-
-    if file_path.is_file():
-        raise FileAlreadyExists('Image already exists')
-
-    ext: Optional[str] = naively_get_extension(
-        asset['image_original_url']
-    )
-    if ext is not None and ext in VIDEO_EXTENSIONS:
-        save_image_from_video_url(image_url, file_path)
-        return
-
-    content: bytes = requests.get(image_url).content
-    ext = filetype.guess_extension(content)
-
-    if ext is None:
-        raise UnknownExtension
-    elif ext not in ALLOWED_EXTENSIONS:
-        raise InvalidFileType(ext)
-    elif ext in VIDEO_EXTENSIONS:
-        save_image_from_video_url(image_url, file_path)
-    else:
-        save_image_from_bytes(file_path, content)
-
-
 def get_number_of_files(dir: str):
     return len(listdir(dir))
 
@@ -136,13 +109,19 @@ def main():
 
     print('Fetching images...')
     for collection in get_collections():
+        image_hashes = []
+
         collection_dir = SAVE_DIR / collection
         make_dir_if_not_exists(collection_dir)
 
-        n_stored = get_number_of_files(collection_dir)
-        pbar = tqdm(initial=n_stored,
-                    total=TARGET_PER_COLLECTION,
-                    desc=collection)
+        n_stored = 0
+        pbar = tqdm(total=TARGET_PER_COLLECTION, desc=collection)
+
+        for token_file in listdir(SAVE_DIR / collection):
+            image_hashes.append(get_file_hash(
+                SAVE_DIR / collection / token_file))
+            n_stored += 1
+            pbar.update(1)
 
         api_offset = 0
         while n_stored < TARGET_PER_COLLECTION:
@@ -153,10 +132,38 @@ def main():
             api_offset += n_to_fetch
 
             for asset in assets:
-                try:
-                    handle_asset(collection, asset)
-                except:
+                image_url: str = asset['image_url']
+                token_id: str = asset['token_id']
+                file_path: Path = SAVE_DIR / \
+                    collection / f"{token_id}.jpeg"
+
+                if file_path.is_file():
                     continue
+
+                ext: Optional[str] = naively_get_extension(
+                    asset['image_original_url']
+                )
+                if ext is not None and ext in VIDEO_EXTENSIONS:
+                    save_image_from_video_url(image_url, file_path)
+                else:
+                    content: bytes = requests.get(image_url).content
+                    ext = filetype.guess_extension(content)
+
+                    if ext is None:
+                        continue
+                    elif ext not in ALLOWED_EXTENSIONS:
+                        continue
+                    elif ext in VIDEO_EXTENSIONS:
+                        save_image_from_video_url(image_url, file_path)
+                    else:
+                        save_image_from_bytes(file_path, content)
+
+                hash = get_file_hash(file_path)
+                if hash in image_hashes:
+                    os.remove(file_path)
+                    continue
+                else:
+                    image_hashes.append(hash)
 
                 n_stored += 1
                 pbar.update(1)
