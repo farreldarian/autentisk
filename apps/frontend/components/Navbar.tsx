@@ -81,6 +81,7 @@ const Navbar = () => {
                 icon = {<BellIcon color={'black'} boxSize={'25px'} margin={0}/>}
                 backgroundColor='transparent'
                 _hover={{ backgroundColor: 'transparent', color: 'grey' }} 
+                aria-label="Notification"
               >
               </IconButton>
               <Box
