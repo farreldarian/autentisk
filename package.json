@@ -2,5 +2,9 @@
   "name": "thesis",
   "version": "1.0.0",
   "description": "",
-  "private": "true"
+  "private": "true",
+  "dependencies": {
+    "@heroicons/react": "^1.0.6",
+    "react-text-truncate": "^0.18.0"
+  }
 }
