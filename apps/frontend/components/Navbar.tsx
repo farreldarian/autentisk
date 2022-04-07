@@ -38,6 +38,7 @@ const Navbar = () => {
           <ModalOverlay />
             <ModalContent>
               <ModalHeader></ModalHeader>
+                <ModalCloseButton />
                 <ModalBody>
 
                 </ModalBody>
@@ -106,7 +107,7 @@ const Navbar = () => {
                 </Text>
               </Box>
               <Button
-                onClick={onOpen}
+                onClick={() => onOpen()}
                 backgroundColor='white'
                 borderRadius={100}
                 boxSize="40px"
