@@ -12,12 +12,12 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import { useRouter } from "next/router";
+import FileDropzone from "../components/FileDropzone";
 import Navbar from "../components/Navbar";
 
 export default function mintNFT() {
   return (
-    <Box>
+    <Box marginY={5}>
       <Navbar />
       <Container maxW="container.md">
         <Heading as="h2" size="lg" isTruncated>
@@ -32,7 +32,9 @@ export default function mintNFT() {
                 </Box>
                 <Spacer />
                 <Box>
-                  <a href="/collections">Manage Collections</a>
+                  <Link href="/collections">
+                    <a>Manage Collections</a>
+                  </Link>
                 </Box>
               </Flex>
             </FormLabel>
@@ -48,6 +50,7 @@ export default function mintNFT() {
               <strong>Image Upload</strong>
               <br></br>File Types Supported: JPG, PNG, JPEG, GIF
             </FormLabel>
+            <FileDropzone />
           </FormControl>
 
           <FormControl marginTop={5}>

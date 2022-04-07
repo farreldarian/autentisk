@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Container,
   Grid,
   GridItem,
@@ -7,6 +8,7 @@ import {
   Img,
   Text,
 } from "@chakra-ui/react";
+import Link from "next/link";
 import Navbar from "../components/Navbar";
 
 export default function Collections() {
@@ -88,6 +90,17 @@ export default function Collections() {
           </Grid>
         </Box>
       </Container>
+      <Button
+        colorScheme="blackAlpha"
+        borderRadius="xl"
+        background="black"
+        position="fixed"
+        right="0"
+        bottom="0"
+        margin="6"
+      >
+        <Link href="/createCollection">Create New Collection</Link>
+      </Button>
     </div>
   );
 }
