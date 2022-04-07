@@ -1,10 +1,15 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
+import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 import "../token/AutentiskERC721.sol";
 
-contract Autentisk {
+contract Autentisk is ChainlinkClient, Ownable {
+    using Chainlink for Chainlink.Request;
+
     event CollectionCreated(address indexed collectionAddress);
+    event OracleChanged(address prevOracle, address newOracle, bytes32 jobId);
 
     modifier onlyCollectionOwner(AutentiskERC721 collection) {
         require(
@@ -54,13 +59,16 @@ contract Autentisk {
         returns (uint256)
     {}
 
-    function checkAuthenticity(bytes32[] calldata tokenUris) external {
+    function checkAuthenticity(string[] calldata tokenUris)
+        external
+        returns (bytes32 requestId)
+    {
         require(tokenUris.length > 0, "Token URI can't be empty");
 
         Chainlink.Request memory request = buildChainlinkRequest(
             jobId,
             address(this),
-            this.fulfill.selector
+            this.fulfillAuthenticity.selector
         );
 
         request.add("get", makeRequestUrl(tokenUris));
@@ -74,15 +82,15 @@ contract Autentisk {
     {
         (
             AutentiskERC721 collection,
-            string calldata tokenURI,
+            string memory tokenURI,
             uint256 closestSimilarity
-        ) = abi.decode(data, (address, string, uint256));
+        ) = abi.decode(data, (AutentiskERC721, string, uint256));
 
         if (isSimilar(closestSimilarity)) {
             revert("");
         }
 
-        collection.mint();
+        collection.mint(tokenURI);
     }
 
     function setOracle(
@@ -90,7 +98,7 @@ contract Autentisk {
         bytes32 _jobId,
         uint256 _fee
     ) public onlyOwner {
-        require(_oracle != 0, "Invalid oracle address");
+        require(_oracle != address(0), "Invalid oracle address");
 
         address prevOracle = oracle;
 
@@ -105,14 +113,14 @@ contract Autentisk {
         return similarity <= similarityThreshold;
     }
 
-    function makeRequestUrl(bytes32[] calldata tokenUris)
+    function makeRequestUrl(string[] memory tokenUris)
         private
-        pure
+        view
         returns (string memory url)
     {
-        url = abi.encodePacked(classifierUrl, "?");
+        url = string(abi.encodePacked(classifierUrl, "?"));
         for (uint256 i = 0; i < tokenUris.length; i++) {
-            url = abi.encodePacked("tokenUri[]=", string(tokenUris[i]));
+            url = string(abi.encodePacked(url, "tokenUri[]=", tokenUris[i]));
         }
     }
 }
