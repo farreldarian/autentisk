@@ -1,11 +1,30 @@
 from pathlib import Path
-from termcolor import cprint
 import os
 import hashlib
+from termcolor import cprint
 
-from helpers.utils import get_file_hash, listdir, print_red_if_error
 
 dataset_path = Path('dataset')
+
+def print_red_if_error(text: str, is_error: bool) -> None:
+    if is_error:
+        cprint(text, 'red')
+    else:
+        print(text)
+
+def listdir(path: str, ignores=['.DS_Store']):
+    items = os.listdir(path)
+    return [item for item in items if item not in ignores]
+
+def get_file_hash(file_path, buffer_size=65536):
+    hash_func = hashlib.sha256()
+    with open(file_path, 'rb') as f:
+        while True:
+            data = f.read(buffer_size)
+            if not data:
+                break
+            hash_func.update(data)
+    return hash_func.hexdigest()
 
 
 def main():

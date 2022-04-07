@@ -7,9 +7,8 @@ import filetype
 from tqdm import tqdm
 from PIL import Image
 import cv2
+import hashlib
 
-from helpers.utils import get_file_hash, listdir, make_dir_if_not_exists
-from helpers.config_loaders import load_dataset_config
 
 #
 # Constants
@@ -20,13 +19,56 @@ n_fetch = 50
 
 #
 
-config = load_dataset_config()
-
-TARGET_PER_COLLECTION = config['target']['image_per_collection']
-SAVE_DIR = Path(__file__).parent.resolve().joinpath(config['save_dir'])
-COLLECTIONS_PER_CATEGORY = config['collections_per_category']
+TARGET_PER_COLLECTION = 2500 
+SAVE_DIR = "./dataset"
+COLLECTIONS_PER_CATEGORY = {
+    "pfp": [
+        'cryptopunks',
+    'incognito-nft',
+    'boredapeyachtclub',
+    'pudgypenguins',
+    'clonex',
+    'doodles-official',
+    'mutant-ape-yacht-club',
+    'mypethooligan',
+    'slotienft',
+    'projectnanopass',
+    'cyberkongz',
+    'collectvox',
+    'croakz-v2-1',
+    'cool-cats-nft',
+    'cryptoadz-by-gremplin',
+    'lazy-lions',
+    'the-doge-pound',
+    'lostpoets',
+    'sappy-seals',
+    'noodlesnft-official',
+    ]
+}
 VIDEO_EXTENSIONS = ["mp4", "gif"]
 ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg"] + VIDEO_EXTENSIONS
+
+#
+
+def listdir(path: str, ignores=['.DS_Store']):
+    items = os.listdir(path)
+    return [item for item in items if item not in ignores]
+
+def get_file_hash(file_path, buffer_size=65536):
+    hash_func = hashlib.sha256()
+    with open(file_path, 'rb') as f:
+        while True:
+            data = f.read(buffer_size)
+            if not data:
+                break
+            hash_func.update(data)
+    return hash_func.hexdigest()
+
+def make_dir_if_not_exists(path: str):
+    if os.path.isdir(path):
+        return
+
+    os.makedirs(path)
 
 #
 
