@@ -17,7 +17,7 @@ import Navbar from "../components/Navbar";
 
 export default function mintNFT() {
   return (
-    <Box marginY={5}>
+    <Box>
       <Navbar />
       <Container maxW="container.md">
         <Heading as="h2" size="lg" isTruncated>

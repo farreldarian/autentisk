@@ -47,7 +47,7 @@ const Navbar = () => {
   }
 
   return (
-    <Box padding={5}>
+    <Box padding={5} marginBottom={10}>
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
         <ModalContent>
@@ -105,7 +105,7 @@ const Navbar = () => {
               marginLeft="15px"
             >
               <Text textAlign={"center"}>{truncate(account, 7)}</Text>
-              <Text borderBottom={"1px"} width="80px"></Text>
+              <Text borderBottom={"2px"} width="80px"></Text>
               <Text textAlign={"center"}>
                 {etherBalance ? formatEther(etherBalance) : "0"} ETH
               </Text>
@@ -117,7 +117,7 @@ const Navbar = () => {
               boxSize="40px"
               _hover={{
                 backgroundColor: "transparent",
-                shadow: ".1px .5px .5px .1px grey",
+                shadow: ".1px .3px .3px .1px grey",
               }}
             >
               <Box borderRadius={100} padding="15px" backgroundColor={"yellow"}>
