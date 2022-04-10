@@ -41,21 +41,10 @@ const Navbar = () => {
     return str?.length > n ? str.substr(0, n - 1) + "..." : str;
   };
 
-<<<<<<< HEAD
-    return (
-      <Box padding={5}>
-        <Modal isOpen={isOpen} onClose={onClose} isCentered>
-          <ModalOverlay />
-            <ModalContent>
-              <ModalHeader></ModalHeader>
-                <ModalCloseButton />
-                <ModalBody>
-=======
   function discon() {
     onClose();
     deactivate();
   }
->>>>>>> c8336a4baafc29a76c36aa51d792d60032530a28
 
   return (
     <Box padding={5}>
@@ -134,57 +123,6 @@ const Navbar = () => {
               <Box borderRadius={100} padding="15px" backgroundColor={"yellow"}>
                 {/* profileimage */}
               </Box>
-<<<<<<< HEAD
-              <Button
-                onClick={() => onOpen()}
-                backgroundColor='white'
-                borderRadius={100}
-                boxSize="40px"
-                _hover={{ backgroundColor: 'transparent', shadow: '.1px .5px .5px .1px grey'}}
-              >
-                <Box
-                  borderRadius={100}
-                  padding="15px"
-                  backgroundColor={'yellow'}
-                >
-                  {/* profileimage */}
-                </Box>
-              </Button>
-              <Button
-                backgroundColor='black'
-                fontSize='18px'
-                color='white'
-                borderRadius={20}
-                marginLeft='30px'
-                _hover={{ backgroundColor: 'grey'}}
-              >
-                <a href="/mint">Create</a>
-              </Button>
-            </Flex>
-          ) : (
-            <Flex>
-              <Button onClick={() => console.log("button about diclick")}
-                backgroundColor='transparent'
-                fontSize='18px'
-                marginLeft='75px'
-                _hover={{ backgroundColor: 'transparent', color: 'grey' }}  
-              >
-                About
-              </Button>
-              <Button onClick={() => activateBrowserWallet()}
-                backgroundColor='black'
-                fontSize='18px'
-                color='white'
-                borderRadius={20}
-                marginLeft='75px'
-                _hover={{ backgroundColor: 'grey'}}
-              >
-                Connect Wallet
-              </Button>
-            </Flex>
-          )}
-        </Box>
-=======
             </Button>
             <Button
               backgroundColor="black"
@@ -221,7 +159,6 @@ const Navbar = () => {
             </Button>
           </Flex>
         )}
->>>>>>> c8336a4baafc29a76c36aa51d792d60032530a28
       </Box>
     </Box>
   );
