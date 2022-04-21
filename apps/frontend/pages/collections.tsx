@@ -9,6 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import Layout from "../components/layout";
 import Navbar from "../components/Navbar";
 
 export default function Collections() {
@@ -43,8 +44,7 @@ export default function Collections() {
     },
   ];
   return (
-    <div>
-      <Navbar />
+    <Layout>
       <Container maxW="container.lg" marginTop={8}>
         <Box alignContent="center">
           <Heading size="md" textAlign="center">
@@ -101,6 +101,6 @@ export default function Collections() {
       >
         <Link href="/createCollection">Create New Collection</Link>
       </Button>
-    </div>
+    </Layout>
   );
 }

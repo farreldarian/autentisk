@@ -13,12 +13,13 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import FileDropzone from "../components/FileDropzone";
+import Layout from "../components/layout";
 import Navbar from "../components/Navbar";
 
 export default function mintNFT() {
   return (
-    <Box>
-      <Navbar />
+    <Layout>
+      {" "}
       <Container maxW="container.md">
         <Heading as="h2" size="lg" isTruncated>
           Mint NFT
@@ -79,6 +80,6 @@ export default function mintNFT() {
           </Button>
         </Box>
       </Container>
-    </Box>
+    </Layout>
   );
 }

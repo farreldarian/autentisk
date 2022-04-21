@@ -1,5 +1,6 @@
-import { Box, ChakraProvider, extendTheme} from "@chakra-ui/react";
+import { Box, ChakraProvider, extendTheme } from "@chakra-ui/react";
 import Head from "next/head";
+import Layout from "../components/layout";
 import Navbar from "../components/Navbar";
 
 export default function Home() {
@@ -12,9 +13,7 @@ export default function Home() {
       </Head>
 
       <main>
-        <Box>
-          <Navbar/>
-        </Box>
+        <Layout></Layout>
       </main>
     </div>
   );

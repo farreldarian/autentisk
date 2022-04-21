@@ -7,12 +7,11 @@ import {
   Input,
 } from "@chakra-ui/react";
 import FileDropzone from "../components/FileDropzone";
-import Navbar from "../components/Navbar";
+import Layout from "../components/layout";
 
 export default function createCollection() {
   return (
-    <div>
-      <Navbar />
+    <Layout>
       <Container maxWidth="container.md">
         <Heading as="h2" size="lg" isTruncated>
           Create New Collection
@@ -44,6 +43,6 @@ export default function createCollection() {
           Create Collection
         </Button>
       </Container>
-    </div>
+    </Layout>
   );
 }
