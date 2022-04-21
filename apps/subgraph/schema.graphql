@@ -1,6 +1,6 @@
-type ExampleEntity @entity {
+type Collection @entity {
   id: ID!
-  count: BigInt!
-  account: Bytes! # address
-  sender: Bytes! # address
+  owner: String!
+  name: String!
+  symbol: String!
 }
