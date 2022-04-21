@@ -8,13 +8,7 @@ import "../token/AutentiskERC721.sol";
 contract Autentisk is Ownable {
     event CollectionCreated(address indexed collectionAddress);
 
-    modifier onlyCollectionOwner(AutentiskERC721 collection) {
-        require(
-            collectionOwners[collection] == msg.sender,
-            "Caller is not the owner"
-        );
-        _;
-    }
+
 
     address immutable AUTHENTICITY_REGISTRY;
 
@@ -23,6 +17,14 @@ contract Autentisk is Ownable {
 
     constructor(address authenticityRegistry) {
         AUTHENTICITY_REGISTRY = authenticityRegistry;
+    }
+
+    modifier onlyCollectionOwner(AutentiskERC721 collection) {
+        require(
+            collectionOwners[collection] == msg.sender,
+            "Autentisk: Not collection owner"
+        );
+        _;
     }
 
     modifier onlyAuthenticityRegistry() {
