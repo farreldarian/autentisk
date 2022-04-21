@@ -5,6 +5,7 @@ import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "../token/AutentiskERC721.sol";
 import "../libraries/Address.sol";
+import "./Autentisk.sol";
 
 contract AuthenticityRegistry is ChainlinkClient, Ownable {
     using Chainlink for Chainlink.Request;
@@ -94,6 +95,8 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
         s_autentics[uriSignature] = collection;
         emit AuthenticityRegistered(uriSignature, closestSimilarity);
+
+        Autentisk(AUTHENTISK).fulfillMint(collection, tokenURI);
     }
 
     function setOracle(
