@@ -4,12 +4,10 @@ pragma solidity ^0.8.13;
 import {Chainlink, ChainlinkClient} from "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
 import {AutentiskERC721} from "../token/AutentiskERC721.sol";
-import {Address} from "../libraries/Address.sol";
 import {Autentisk} from "./Autentisk.sol";
 
 contract AuthenticityRegistry is ChainlinkClient, Ownable {
     using Chainlink for Chainlink.Request;
-    using Address for address;
 
     struct AuthenticityRequest {
         string tokenURI;
@@ -77,7 +75,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             this.fulfillAuthenticity.selector
         );
 
-        request.add("get", makeRequestUrl(tokenURI, collection));
+        request.add("get", makeRequestUrl(tokenURI));
 
         requestId_ = sendChainlinkRequestTo(s_oracle, request, s_fee);
         s_authenticityRequests[requestId_] = AuthenticityRequest(
@@ -137,18 +135,11 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         return similarity <= s_similarityThreshold;
     }
 
-    function makeRequestUrl(string memory tokenUri, address collection)
+    function makeRequestUrl(string memory tokenUri)
         private
         view
         returns (string memory url)
     {
-        return
-            string.concat(
-                s_classifierUrl,
-                "?tokenUri=",
-                tokenUri,
-                "&collection=",
-                collection.toHexString()
-            );
+        return string.concat(s_classifierUrl, "?tokenUri=", tokenUri);
     }
 }
