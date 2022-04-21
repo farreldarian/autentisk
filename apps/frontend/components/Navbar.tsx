@@ -49,7 +49,15 @@ const Navbar = () => {
   }
 
   return (
-    <Box padding={5} marginBottom={10}>
+    <Box
+      zIndex={100}
+      background="whiteAlpha.400"
+      position="fixed"
+      top={0}
+      width="100%"
+      padding={5}
+      backdropFilter="blur(8px)"
+    >
       <AccountModal
         isOpen={isOpen}
         onClose={onClose}

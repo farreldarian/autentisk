@@ -83,7 +83,7 @@ export default function Collections() {
                     </h1>
                     <p>By You</p>
                   </div>
-                  <a href="#">Explore Collection</a>
+                  <a href={`collection/${data.name}`}>Explore Collection</a>
                 </Box>
               </Box>
             ))}
