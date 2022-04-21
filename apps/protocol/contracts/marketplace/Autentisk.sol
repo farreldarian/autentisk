@@ -50,7 +50,7 @@ contract Autentisk is Ownable {
     {
         AuthenticityRegistry(AUTHENTICITY_REGISTRY).checkAuthenticity(
             tokenURI,
-            collection
+            address(collection)
         );
     }
 

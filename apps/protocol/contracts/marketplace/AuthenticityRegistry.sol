@@ -60,10 +60,10 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         returns (bytes32 requestId)
     {
         require(
-            keccak256(tokenURI) == address(0),
+            s_autentics[keccak256(abi.encodePacked(tokenURI))] == address(0),
             "TokenURI has been registered"
         );
-        require(tokenURI.length > 0, "Token URI can't be empty");
+        require(bytes(tokenURI).length > 0, "Token URI can't be empty");
 
         Chainlink.Request memory request = buildChainlinkRequest(
             s_jobId,
@@ -86,17 +86,25 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             uint256 closestSimilarity
         ) = abi.decode(data, (string, address, uint256));
 
-        bytes32 uriSignature = keccak256(tokenURI);
+        bytes32 uriSignature = keccak256(abi.encodePacked(tokenURI));
 
         if (isSimilar(closestSimilarity)) {
-            emit AuthenticityRejected(uriSignature, closestSimilarity);
+            emit AuthenticityRejected(
+                uriSignature,
+                collection,
+                closestSimilarity
+            );
             return;
         }
 
         s_autentics[uriSignature] = collection;
-        emit AuthenticityRegistered(uriSignature, closestSimilarity);
+        emit AuthenticityRegistered(
+            uriSignature,
+            collection,
+            closestSimilarity
+        );
 
-        Autentisk(AUTHENTISK).fulfillMint(collection, tokenURI);
+        Autentisk(AUTENTISK).fulfillMint(AutentiskERC721(collection), tokenURI);
     }
 
     function setOracle(
@@ -115,7 +123,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         emit OracleChanged(prevOracle, _oracle, _jobId);
     }
 
-    function isSimilar(uint256 similarity) private returns (bool) {
+    function isSimilar(uint256 similarity) private view returns (bool) {
         return similarity <= s_similarityThreshold;
     }
 
