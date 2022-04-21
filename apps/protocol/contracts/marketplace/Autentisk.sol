@@ -8,8 +8,6 @@ import "../token/AutentiskERC721.sol";
 contract Autentisk is Ownable {
     event CollectionCreated(address indexed collectionAddress);
 
-
-
     address immutable AUTHENTICITY_REGISTRY;
 
     mapping(AutentiskERC721 => address) collectionOwners;
@@ -50,7 +48,10 @@ contract Autentisk is Ownable {
         external
         onlyCollectionOwner(collection)
     {
-        AuthenticityRegistry(AUTHENTICITY_REGISTRY).checkAuthenticity(tokenURI, collection)
+        AuthenticityRegistry(AUTHENTICITY_REGISTRY).checkAuthenticity(
+            tokenURI,
+            collection
+        );
     }
 
     function fulfillMint(AutentiskERC721 collection, string calldata tokenURI)

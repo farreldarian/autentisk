@@ -1,11 +1,11 @@
 // SPDX-License-Identifier: SEE LICENSE IN LICENSE
 pragma solidity ^0.8.13;
 
-import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
-import "../token/AutentiskERC721.sol";
-import "../libraries/Address.sol";
-import "./Autentisk.sol";
+import {Chainlink, ChainlinkClient} from "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
+import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {AutentiskERC721} from "../token/AutentiskERC721.sol";
+import {Address} from "../libraries/Address.sol";
+import {Autentisk} from "./Autentisk.sol";
 
 contract AuthenticityRegistry is ChainlinkClient, Ownable {
     using Chainlink for Chainlink.Request;
