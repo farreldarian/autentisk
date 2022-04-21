@@ -11,6 +11,11 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     using Chainlink for Chainlink.Request;
     using Address for address;
 
+    struct AuthenticityRequest {
+        string tokenURI;
+        address collection;
+    }
+
     event OracleChanged(address prevOracle, address newOracle, bytes32 jobId);
     event AuthenticityRegistered(
         bytes32 uriSignature,
@@ -26,6 +31,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     address immutable AUTENTISK;
 
     mapping(bytes32 => address) public s_autentics;
+    mapping(bytes32 => AuthenticityRequest) s_authenticityRequests;
 
     string public s_classifierUrl;
     uint256 public s_similarityThreshold;
@@ -57,7 +63,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     function checkAuthenticity(string calldata tokenURI, address collection)
         external
         onlyAutentisk
-        returns (bytes32 requestId)
+        returns (bytes32 requestId_)
     {
         require(
             s_autentics[keccak256(abi.encodePacked(tokenURI))] == address(0),
@@ -73,38 +79,42 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
         request.add("get", makeRequestUrl(tokenURI, collection));
 
-        return sendChainlinkRequestTo(s_oracle, request, s_fee);
+        requestId_ = sendChainlinkRequestTo(s_oracle, request, s_fee);
+        s_authenticityRequests[requestId_] = AuthenticityRequest(
+            tokenURI,
+            collection
+        );
     }
 
-    function fulfillAuthenticity(bytes32 requestId, bytes calldata data)
+    function fulfillAuthenticity(bytes32 requestId, uint256 similarity)
         public
         recordChainlinkFulfillment(requestId)
     {
-        (
-            string memory tokenURI,
-            address collection,
-            uint256 closestSimilarity
-        ) = abi.decode(data, (string, address, uint256));
+        AuthenticityRequest memory request = s_authenticityRequests[requestId];
+        delete s_authenticityRequests[requestId];
 
-        bytes32 uriSignature = keccak256(abi.encodePacked(tokenURI));
+        bytes32 uriSignature = keccak256(abi.encodePacked(request.tokenURI));
 
-        if (isSimilar(closestSimilarity)) {
+        if (isSimilar(similarity)) {
             emit AuthenticityRejected(
                 uriSignature,
-                collection,
-                closestSimilarity
+                request.collection,
+                similarity
             );
             return;
         }
 
-        s_autentics[uriSignature] = collection;
+        s_autentics[uriSignature] = request.collection;
         emit AuthenticityRegistered(
             uriSignature,
-            collection,
-            closestSimilarity
+            request.collection,
+            similarity
         );
 
-        Autentisk(AUTENTISK).fulfillMint(AutentiskERC721(collection), tokenURI);
+        Autentisk(AUTENTISK).fulfillMint(
+            AutentiskERC721(request.collection),
+            request.tokenURI
+        );
     }
 
     function setOracle(
