@@ -72,7 +72,7 @@ importers:
       '@ethersproject/bytes': ^5.5.0
       '@ethersproject/hardware-wallets': ^5.5.0
       '@ethersproject/providers': ^5.5.1
-      '@nomiclabs/hardhat-ethers': ^2.0.3
+      '@nomiclabs/hardhat-ethers': npm:hardhat-deploy-ethers@^0.3.0-beta.13
       '@nomiclabs/hardhat-etherscan': ^2.1.8
       '@nomiclabs/hardhat-waffle': ^2.0.1
       '@openzeppelin/contracts': ^4.4.1
@@ -114,9 +114,9 @@ importers:
       '@ethersproject/bytes': 5.5.0
       '@ethersproject/hardware-wallets': 5.5.0
       '@ethersproject/providers': 5.5.1
-      '@nomiclabs/hardhat-ethers': 2.0.3_ethers@5.5.2+hardhat@2.8.0
+      '@nomiclabs/hardhat-ethers': /hardhat-deploy-ethers/0.3.0-beta.13_ethers@5.5.2+hardhat@2.8.0
       '@nomiclabs/hardhat-etherscan': 2.1.8_hardhat@2.8.0
-      '@nomiclabs/hardhat-waffle': 2.0.1_b5edb2070812aa32af4b3ffe4f4a52ce
+      '@nomiclabs/hardhat-waffle': 2.0.1_a1d457833d1fef681016ebce1d578146
       '@typechain/ethers-v5': 7.2.0_72382eba1e7a46e963013eb3e6074839
       '@typechain/hardhat': 2.3.1_f63ebfdf81a0831b3ebf42a94e74287b
       '@types/chai': 4.3.0
@@ -2398,16 +2398,6 @@ packages:
       fastq: 1.13.0
     dev: true
 
-  /@nomiclabs/hardhat-ethers/2.0.3_ethers@5.5.2+hardhat@2.8.0:
-    resolution: {integrity: sha512-IJ0gBotVtO7YyLZyHNgbxzskUtFok+JkRlKPo8YELqj1ms9XL6Qm3vsfsGdZr22wnJeVEF5TQPotKuwQk21Dag==}
-    peerDependencies:
-      ethers: ^5.0.0
-      hardhat: ^2.0.0
-    dependencies:
-      ethers: 5.5.2
-      hardhat: 2.8.0
-    dev: true
-
   /@nomiclabs/hardhat-etherscan/2.1.8_hardhat@2.8.0:
     resolution: {integrity: sha512-0+rj0SsZotVOcTLyDOxnOc3Gulo8upo0rsw/h+gBPcmtj91YqYJNhdARHoBxOhhE8z+5IUQPx+Dii04lXT14PA==}
     peerDependencies:
@@ -2425,7 +2415,7 @@ packages:
       - supports-color
     dev: true
 
-  /@nomiclabs/hardhat-waffle/2.0.1_b5edb2070812aa32af4b3ffe4f4a52ce:
+  /@nomiclabs/hardhat-waffle/2.0.1_a1d457833d1fef681016ebce1d578146:
     resolution: {integrity: sha512-2YR2V5zTiztSH9n8BYWgtv3Q+EL0N5Ltm1PAr5z20uAY4SkkfylJ98CIqt18XFvxTD5x4K2wKBzddjV9ViDAZQ==}
     peerDependencies:
       '@nomiclabs/hardhat-ethers': ^2.0.0
@@ -2433,7 +2423,7 @@ packages:
       ethers: ^5.0.0
       hardhat: ^2.0.0
     dependencies:
-      '@nomiclabs/hardhat-ethers': 2.0.3_ethers@5.5.2+hardhat@2.8.0
+      '@nomiclabs/hardhat-ethers': /hardhat-deploy-ethers/0.3.0-beta.13_ethers@5.5.2+hardhat@2.8.0
       '@types/sinon-chai': 3.2.7
       '@types/web3': 1.0.19
       ethereum-waffle: 3.4.0_typescript@4.5.4
@@ -7803,6 +7793,16 @@ packages:
     dependencies:
       ajv: 6.12.6
       har-schema: 2.0.0
+
+  /hardhat-deploy-ethers/0.3.0-beta.13_ethers@5.5.2+hardhat@2.8.0:
+    resolution: {integrity: sha512-PdWVcKB9coqWV1L7JTpfXRCI91Cgwsm7KLmBcwZ8f0COSm1xtABHZTyz3fvF6p42cTnz1VM0QnfDvMFlIRkSNw==}
+    peerDependencies:
+      ethers: ^5.0.0
+      hardhat: ^2.0.0
+    dependencies:
+      ethers: 5.5.2
+      hardhat: 2.8.0
+    dev: true
 
   /hardhat-deploy/0.9.22_5cd28dc1e1f599ae0e0f228e3fac1fdd:
     resolution: {integrity: sha512-qaQIRIn6oAHew4PRX8TttMQWwccydNxhy9x/dSX3e5Xg9xmSokvKnNNCoMs8jdwxl2/PED0HxUBbWJtfw9XFXw==}
