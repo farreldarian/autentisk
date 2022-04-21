@@ -1,6 +1,7 @@
-import { Box, Container, Divider, Flex, Image, Text } from "@chakra-ui/react";
-import Layout from "../../components/layout";
+import { Box, Image, Text } from "@chakra-ui/react";
+import Layout from "../../components/Layout";
 import NftCard from "../../components/NftCard";
+
 const collectionData = {
   collectionName: "COLLAB LAB",
   owner: "@hoizon",

@@ -77,8 +77,10 @@ const Navbar = () => {
           color="gray.500"
           fontSize="18px"
         >
-          {/* // eslint-disable-next-line react/no-children-prop */}
-          <InputLeftElement pointerEvents="none" children={<Search2Icon />} />
+          <InputLeftElement pointerEvents="none">
+            <Search2Icon />
+          </InputLeftElement>
+
           <Input
             placeholder="Search Collection, Specific Art or User"
             borderRadius={20}
