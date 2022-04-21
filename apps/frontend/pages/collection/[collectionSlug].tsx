@@ -1,5 +1,6 @@
-import { Box, Container, Flex, Image, Text } from "@chakra-ui/react";
+import { Box, Container, Divider, Flex, Image, Text } from "@chakra-ui/react";
 import Layout from "../../components/layout";
+import NftCard from "../../components/NftCard";
 const collectionData = {
   collectionName: "COLLAB LAB",
   owner: "@hoizon",
@@ -97,34 +98,49 @@ export default function CollectionInfo({}) {
         backdropFilter="blur(20px)"
       >
         <Box
-          background="blackAlpha.800"
+          backdropFilter="blur(20px)"
+          borderRadius="2xl"
           padding={6}
           maxWidth="50%"
           display="flex"
-          textColor="white"
-          justifyContent="space-between"
+          textColor="Black"
+          background="white"
+          boxShadow="4px 4px 10px black"
+          mt="-28"
+          justifyContent="space-evenly"
         >
-          <Box>
+          <Box pr="10" borderRight="2px">
             <Text>Collection of</Text>
-            <Text>3</Text>
+            <Text fontWeight="700">3</Text>
           </Box>
-          <Box>
+
+          <Box pr="10" borderRight="2px">
             <Text>Owned by</Text>
-            <Text>1</Text>
+            <Text fontWeight="700">1</Text>
           </Box>
-          <Box>
+
+          <Box pr="10" borderRight="2px">
             <Text>Floor price</Text>
-            <Text>0.32</Text>
+            <Text fontWeight="700">0.32</Text>
           </Box>
+
           <Box>
             <Text>Total Sales</Text>
-            <Text>2</Text>
+            <Text fontWeight="700">2</Text>
           </Box>
         </Box>
 
-        <Box>
+        <Box display="flex" mt={10} justifyContent="space-evenly" width="full">
           {collectionData.nfts.map((data, i) => (
-            <div key={i}>{data.image}</div>
+            <NftCard
+              key={i}
+              name={data.name}
+              author={data.author}
+              owner={data.owner}
+              status={data.status}
+              price={data.price}
+              image={data.image}
+            />
           ))}
         </Box>
       </Box>
