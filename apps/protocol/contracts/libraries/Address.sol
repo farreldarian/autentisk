@@ -13,4 +13,9 @@ library Address {
         }
         return string(s);
     }
+
+    function toChar(bytes1 b) private pure returns (bytes1 c) {
+        if (uint8(b) < 10) return bytes1(uint8(b) + 0x30);
+        else return bytes1(uint8(b) + 0x57);
+    }
 }
