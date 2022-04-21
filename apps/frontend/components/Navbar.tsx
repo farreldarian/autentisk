@@ -29,10 +29,12 @@ import {
   ModalBody,
   ModalCloseButton,
 } from "@chakra-ui/react";
+import { utils } from "ethers";
 
 const Navbar = () => {
   const { activateBrowserWallet, account, deactivate } = useEthers();
   const etherBalance = useEtherBalance(account);
+
   const connected = useMemo(() => !isNil(account), [account]);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -107,7 +109,8 @@ const Navbar = () => {
               <Text textAlign={"center"}>{truncate(account, 7)}</Text>
               <Text borderBottom={"2px"} width="80px"></Text>
               <Text textAlign={"center"}>
-                {etherBalance ? formatEther(etherBalance) : "0"} ETH
+                {etherBalance ? (+formatEther(etherBalance)).toFixed(4) : "0"}{" "}
+                ETH
               </Text>
             </Box>
             <Button
