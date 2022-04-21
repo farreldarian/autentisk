@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import FileDropzone from "../components/FileDropzone";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 
 export default function mintNFT() {

@@ -11,9 +11,7 @@ import {
   Box,
   Avatar,
 } from "@chakra-ui/react";
-import { ChainId, getChainById, shortenIfAddress } from "@usedapp/core";
-import { formatEther } from "@usedapp/core/node_modules/@ethersproject/units";
-import { BigNumber } from "@usedapp/core/node_modules/ethers";
+import { ChainId, shortenIfAddress } from "@usedapp/core";
 import { HiLogout } from "react-icons/hi";
 import { useMemo } from "react";
 interface AccountModalProps {

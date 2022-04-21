@@ -7,7 +7,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import FileDropzone from "../components/FileDropzone";
-import Layout from "../components/layout";
+import Layout from "../components/Layout";
 
 export default function createCollection() {
   return (

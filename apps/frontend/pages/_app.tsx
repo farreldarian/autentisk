@@ -6,17 +6,20 @@ import useDAppConfig from "../lib/web3/usedapp-config";
 function MyApp({ Component, pageProps }) {
   const theme = extendTheme({
     fonts: {
-      heading: 'Work Sans, sans-serif',
-      body: 'Work Sans, sans-serif',
+      heading: "Work Sans, sans-serif",
+      body: "Work Sans, sans-serif",
     },
-  })
+  });
   return (
     <DAppProvider config={useDAppConfig}>
       <ChakraProvider theme={theme}>
         <Head>
-        <link rel="preconnect" href="https://fonts.googleapis.com"/>
-        <link rel="preconnect" href="https://fonts.gstatic.com"/>
-        <link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;700&display=swap" rel="stylesheet" />
+          <link rel="preconnect" href="https://fonts.googleapis.com" />
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link
+            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;700&display=swap"
+            rel="stylesheet"
+          />
         </Head>
         <Component {...pageProps} />
       </ChakraProvider>
