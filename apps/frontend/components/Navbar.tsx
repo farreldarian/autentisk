@@ -18,7 +18,7 @@ import { formatEther } from "ethers/lib/utils";
 import { useEtherBalance, useEthers } from "@usedapp/core";
 import { isNil } from "lodash";
 import { useMemo, useState } from "react";
-import { TextTruncate } from "react-text-truncate";
+import AccountModal from "../components/connect-wallet/AccountModal";
 import Link from "next/link";
 import {
   Modal,
@@ -50,18 +50,14 @@ const Navbar = () => {
 
   return (
     <Box padding={5} marginBottom={10}>
-      <Modal isOpen={isOpen} onClose={onClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader></ModalHeader>
-          <ModalBody></ModalBody>
-          <ModalFooter>
-            <Box>
-              <Button onClick={() => discon()}>Disconnect</Button>
-            </Box>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+      <AccountModal
+        isOpen={isOpen}
+        onClose={onClose}
+        chainId={4}
+        account={account}
+        balance={etherBalance && (+formatEther(etherBalance)).toFixed(4)}
+        onClick={() => discon()}
+      />
       <Box marginLeft="200px" marginRight="200px" display="flex">
         <Heading letterSpacing={1} fontSize="32px">
           {" "}
