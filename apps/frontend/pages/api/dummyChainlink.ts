@@ -4,10 +4,10 @@ export default function dummyChainlink(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
-  if (req.query.tokenURI == null) {
-    res.status(400).json({ error: "Unknown Token URI" });
+  if (req.query.tokenUri == null) {
+    res.status(400).json({ error: "Unknown Token Uri" });
     return;
   }
 
-  res.send(0);
+  res.json({ threshold: 0 });
 }

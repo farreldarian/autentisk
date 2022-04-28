@@ -1,8 +1,10 @@
-// SPDX-License-Identifier: SEE LICENSE IN LICENSE
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.13;
 
 import {Chainlink, ChainlinkClient} from "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC20} from "@openzeppelin/contracts/interfaces/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {AutentiskERC721} from "../token/AutentiskERC721.sol";
 import {Autentisk} from "./Autentisk.sol";
 
@@ -15,6 +17,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     }
 
     event OracleChanged(address prevOracle, address newOracle, bytes32 jobId);
+    event ClassifierUrlChanged(string value);
     event AuthenticityRegistered(
         bytes32 uriSignature,
         address collection,
@@ -26,10 +29,10 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         uint256 similarityThreshold
     );
 
-    address immutable AUTENTISK;
+    address public immutable AUTENTISK;
 
     mapping(bytes32 => address) public s_autentics;
-    mapping(bytes32 => AuthenticityRequest) s_authenticityRequests;
+    mapping(bytes32 => AuthenticityRequest) public s_authenticityRequests;
 
     string public s_classifierUrl;
     uint256 public s_similarityThreshold;
@@ -49,13 +52,21 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         AUTENTISK = autentisk;
         setPublicChainlinkToken();
         setOracle(oracle, jobId, fee);
-        s_classifierUrl = classifierUrl;
+        setClassifierUrl(classifierUrl);
         s_similarityThreshold = similarityThreshold;
     }
 
     modifier onlyAutentisk() {
         require(msg.sender == AUTENTISK, "AuthenticityRegistry: Not Autentisk");
         _;
+    }
+
+    function withdrawToken(IERC20 token) external {
+        SafeERC20.safeTransfer(
+            token,
+            Autentisk(AUTENTISK).owner(),
+            IERC20(token).balanceOf(address(this))
+        );
     }
 
     function checkAuthenticity(string calldata tokenURI, address collection)
@@ -129,6 +140,11 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         s_fee = _fee;
 
         emit OracleChanged(prevOracle, _oracle, _jobId);
+    }
+
+    function setClassifierUrl(string memory value) public onlyOwner {
+        s_classifierUrl = value;
+        emit ClassifierUrlChanged(value);
     }
 
     function isSimilar(uint256 similarity) private view returns (bool) {
