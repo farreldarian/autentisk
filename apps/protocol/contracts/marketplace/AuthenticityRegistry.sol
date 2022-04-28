@@ -19,7 +19,11 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
     event OracleChanged(address prevOracle, address newOracle, bytes32 jobId);
     event ClassifierUrlChanged(string value);
-    event AuthenticityRequested(bytes32 uriSignature, bytes32 requestId);
+    event AuthenticityRequested(
+        bytes32 uriSignature,
+        address collection,
+        bytes32 requestId
+    );
     event AuthenticityRegistered(
         bytes32 uriSignature,
         address collection,
@@ -76,8 +80,9 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         string calldata tokenURI,
         address collection
     ) external onlyAutentisk returns (bytes32 requestId_) {
+        bytes32 uriSignature = keccak256(abi.encodePacked(tokenURI));
         require(
-            s_autentics[keccak256(abi.encodePacked(tokenURI))] == address(0),
+            s_autentics[uriSignature] == address(0),
             "TokenURI has been registered"
         );
         require(bytes(tokenURI).length > 0, "Token URI can't be empty");
@@ -97,6 +102,8 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             tokenURI,
             collection
         );
+
+        emit AuthenticityRequested(uriSignature, collection, requestId_);
     }
 
     function fulfillAuthenticity(bytes32 requestId, uint256 similarity)
