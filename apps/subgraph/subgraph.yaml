@@ -24,3 +24,23 @@ dataSources:
         - event: CollectionCreated(indexed address)
           handler: handleCollectionCreated
       file: ./src/mapping.ts
+templates:
+  - kind: ethereum
+    name: AutentiskERC721
+    network: rinkeby
+    source:
+      abi: AutentiskERC721
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Token
+        - Account
+      abis:
+        - name: AutentiskERC721
+          file: ./abis/AutentiskERC721.json
+      eventHandlers:
+        - event: Transfer(indexed address,indexed address,indexed uint256)
+          handler: handleTokenTransfer
+      file: ./src/mappings/autentisk-erc721.ts

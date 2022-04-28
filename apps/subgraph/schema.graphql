@@ -3,4 +3,18 @@ type Collection @entity {
   owner: String!
   name: String!
   symbol: String!
+  tokens: [Token!]! @derivedFrom(field: "collection")
+}
+
+type Account @entity {
+  id: ID!
+  tokens: [Token!]! @derivedFrom(field: "owner")
+}
+
+type Token @entity {
+  id: ID!
+  scId: BigInt!
+  uri: String!
+  owner: Account!
+  collection: Collection!
 }
