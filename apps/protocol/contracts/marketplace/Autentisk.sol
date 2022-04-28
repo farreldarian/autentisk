@@ -25,7 +25,7 @@ contract Autentisk is Ownable {
                 address(this),
                 oracle,
                 // jobId,
-                "d5270d1c311941d0b08bead21fea777",
+                "3b7ca0d48c7a4b2da9268456665d11ae",
                 fee,
                 classifierUrl,
                 similarityThreshold
