@@ -8,10 +8,10 @@ import "../token/AutentiskERC721.sol";
 contract Autentisk is Ownable {
     event CollectionCreated(address indexed collectionAddress);
 
-    address immutable AUTHENTICITY_REGISTRY;
+    address public immutable AUTHENTICITY_REGISTRY;
 
-    mapping(AutentiskERC721 => address) collectionOwners;
-    uint256 public totalCollection;
+    mapping(AutentiskERC721 => address) public s_collectionOwners;
+    uint256 public s_totalCollection;
 
     constructor(
         address oracle,
@@ -35,7 +35,7 @@ contract Autentisk is Ownable {
 
     modifier onlyCollectionOwner(AutentiskERC721 collection) {
         require(
-            collectionOwners[collection] == msg.sender,
+            s_collectionOwners[collection] == msg.sender,
             "Autentisk: Not collection owner"
         );
         _;
@@ -54,8 +54,8 @@ contract Autentisk is Ownable {
     {
         AutentiskERC721 collection = new AutentiskERC721(name, symbol);
 
-        collectionOwners[collection] = msg.sender;
-        totalCollection++;
+        s_collectionOwners[collection] = msg.sender;
+        s_totalCollection++;
 
         emit CollectionCreated(address(collection));
     }

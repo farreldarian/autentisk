@@ -26,10 +26,10 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         uint256 similarityThreshold
     );
 
-    address immutable AUTENTISK;
+    address public immutable AUTENTISK;
 
     mapping(bytes32 => address) public s_autentics;
-    mapping(bytes32 => AuthenticityRequest) s_authenticityRequests;
+    mapping(bytes32 => AuthenticityRequest) public s_authenticityRequests;
 
     string public s_classifierUrl;
     uint256 public s_similarityThreshold;
