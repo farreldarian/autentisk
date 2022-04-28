@@ -12,6 +12,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     using Chainlink for Chainlink.Request;
 
     struct AuthenticityRequest {
+        address to;
         string tokenURI;
         address collection;
     }
@@ -69,11 +70,11 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         );
     }
 
-    function checkAuthenticity(string calldata tokenURI, address collection)
-        external
-        onlyAutentisk
-        returns (bytes32 requestId_)
-    {
+    function checkAuthenticity(
+        address to,
+        string calldata tokenURI,
+        address collection
+    ) external onlyAutentisk returns (bytes32 requestId_) {
         require(
             s_autentics[keccak256(abi.encodePacked(tokenURI))] == address(0),
             "TokenURI has been registered"
@@ -91,6 +92,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
         requestId_ = sendChainlinkRequestTo(s_oracle, request, s_fee);
         s_authenticityRequests[requestId_] = AuthenticityRequest(
+            to,
             tokenURI,
             collection
         );
@@ -123,6 +125,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
         Autentisk(AUTENTISK).fulfillMint(
             AutentiskERC721(request.collection),
+            request.to,
             request.tokenURI
         );
     }

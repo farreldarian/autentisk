@@ -63,20 +63,23 @@ contract Autentisk is Ownable {
         emit CollectionCreated(address(collection));
     }
 
-    function mint(AutentiskERC721 collection, string calldata tokenURI)
-        external
-        onlyCollectionOwner(collection)
-    {
+    function mint(
+        AutentiskERC721 collection,
+        address to,
+        string calldata tokenURI
+    ) external onlyCollectionOwner(collection) {
         AuthenticityRegistry(AUTHENTICITY_REGISTRY).checkAuthenticity(
+            to,
             tokenURI,
             address(collection)
         );
     }
 
-    function fulfillMint(AutentiskERC721 collection, string calldata tokenURI)
-        external
-        onlyAuthenticityRegistry
-    {
-        collection.mint(tokenURI);
+    function fulfillMint(
+        AutentiskERC721 collection,
+        address to,
+        string calldata tokenURI
+    ) external onlyAuthenticityRegistry {
+        collection.mint(to, tokenURI);
     }
 }

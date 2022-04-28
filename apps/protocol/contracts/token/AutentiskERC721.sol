@@ -13,7 +13,7 @@ contract AutentiskERC721 is ERC721URIStorage, Ownable {
         ERC721(name, symbol)
     {}
 
-    function mint(string calldata tokenURI)
+    function mint(address to, string calldata tokenURI)
         external
         onlyOwner
         returns (uint256 id)
@@ -21,7 +21,7 @@ contract AutentiskERC721 is ERC721URIStorage, Ownable {
         _tokenIds.increment();
 
         id = _tokenIds.current();
-        _mint(msg.sender, id);
+        _mint(to, id);
         _setTokenURI(id, tokenURI);
 
         return id;
