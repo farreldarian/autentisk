@@ -7,6 +7,7 @@ import "../token/AutentiskERC721.sol";
 
 contract Autentisk is Ownable {
     event CollectionCreated(address indexed collectionAddress);
+    event AuthenticityRegistryCreated(address indexed registry);
 
     address public immutable AUTHENTICITY_REGISTRY;
 
@@ -31,6 +32,8 @@ contract Autentisk is Ownable {
                 similarityThreshold
             )
         );
+
+        emit AuthenticityRegistryCreated(AUTHENTICITY_REGISTRY);
     }
 
     modifier onlyCollectionOwner(AutentiskERC721 collection) {
