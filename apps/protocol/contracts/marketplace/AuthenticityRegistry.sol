@@ -26,7 +26,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     );
     event AuthenticityFulfilled(
         bytes32 requestId,
-        uint256 similarityThreshold,
+        uint256 similarity,
         bool isAccepted
     );
 
