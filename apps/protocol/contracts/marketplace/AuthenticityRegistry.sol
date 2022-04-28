@@ -3,6 +3,8 @@ pragma solidity ^0.8.13;
 
 import {Chainlink, ChainlinkClient} from "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
 import {Ownable} from "@openzeppelin/contracts/access/Ownable.sol";
+import {IERC20} from "@openzeppelin/contracts/interfaces/IERC20.sol";
+import {SafeERC20} from "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
 import {AutentiskERC721} from "../token/AutentiskERC721.sol";
 import {Autentisk} from "./Autentisk.sol";
 
@@ -57,6 +59,14 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     modifier onlyAutentisk() {
         require(msg.sender == AUTENTISK, "AuthenticityRegistry: Not Autentisk");
         _;
+    }
+
+    function withdrawToken(IERC20 token) external {
+        SafeERC20.safeTransfer(
+            token,
+            Autentisk(AUTENTISK).owner(),
+            IERC20(token).balanceOf(address(this))
+        );
     }
 
     function checkAuthenticity(string calldata tokenURI, address collection)
