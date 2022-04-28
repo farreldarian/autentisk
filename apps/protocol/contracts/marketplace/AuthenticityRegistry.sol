@@ -15,6 +15,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     }
 
     event OracleChanged(address prevOracle, address newOracle, bytes32 jobId);
+    event ClassifierUrlChanged(string value);
     event AuthenticityRegistered(
         bytes32 uriSignature,
         address collection,
@@ -49,7 +50,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         AUTENTISK = autentisk;
         setPublicChainlinkToken();
         setOracle(oracle, jobId, fee);
-        s_classifierUrl = classifierUrl;
+        setClassifierUrl(classifierUrl);
         s_similarityThreshold = similarityThreshold;
     }
 
@@ -129,6 +130,11 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         s_fee = _fee;
 
         emit OracleChanged(prevOracle, _oracle, _jobId);
+    }
+
+    function setClassifierUrl(string memory value) public onlyOwner {
+        s_classifierUrl = value;
+        emit ClassifierUrlChanged(value);
     }
 
     function isSimilar(uint256 similarity) private view returns (bool) {
