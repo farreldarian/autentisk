@@ -1,5 +1,6 @@
 import { AuthenticityRequest } from "../../generated/schema";
 import {
+  AuthenticityFulfilled,
   AuthenticityRegistry,
   AuthenticityRequested,
 } from "../../generated/templates/AuthenticityRegistry/AuthenticityRegistry";
@@ -16,5 +17,14 @@ export function handleAuthenticityRequested(
   request.tokenUri = scRequest.value1;
   request.tokenUriSignature = event.params.uriSignature.toHex();
   request.status = "Pending";
+  request.save();
+}
+
+export function handleAuthenticityFulfilled(
+  event: AuthenticityFulfilled
+): void {
+  const request = new AuthenticityRequest(event.params.requestId.toHex());
+  request.similarity = event.params.similarityThreshold;
+  request.status = event.params.isAccepted ? "Registered" : "Rejected";
   request.save();
 }

@@ -63,4 +63,6 @@ templates:
       eventHandlers:
         - event: AuthenticityRequested(bytes32,address,bytes32)
           handler: handleAuthenticityRequested
+        - event: AuthenticityFulfilled(bytes32,uint256,bool)
+          handler: handleAuthenticityFulfilled
       file: ./src/mappings/authenticity-registry.ts
