@@ -96,6 +96,12 @@
       },
       {
         "indexed": false,
+        "internalType": "address",
+        "name": "collection",
+        "type": "address"
+      },
+      {
+        "indexed": false,
         "internalType": "bytes32",
         "name": "requestId",
         "type": "bytes32"
