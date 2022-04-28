@@ -23,7 +23,7 @@ dataSources:
       eventHandlers:
         - event: CollectionCreated(indexed address)
           handler: handleCollectionCreated
-      file: ./src/mapping.ts
+      file: ./src/mappings/autentisk.ts
 templates:
   - kind: ethereum
     name: AutentiskERC721
