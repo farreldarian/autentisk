@@ -9,5 +9,5 @@ export default function dummyChainlink(
     return;
   }
 
-  res.send({ threshold: 0 });
+  res.json({ threshold: 0 });
 }
