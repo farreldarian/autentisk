@@ -6,7 +6,7 @@ dataSources:
     name: Autentisk
     network: rinkeby
     source:
-      address: "0x0DcA4720DD88FEdF0EEA68E3Cced933b26B1E905"
+      address: "0xa090D157dB0f0D8B993e3CfEc65C5De8Bb7c348E"
       abi: Autentisk
       startBlock: 10581449
     mapping:

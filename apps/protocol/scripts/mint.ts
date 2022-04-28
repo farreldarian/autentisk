@@ -1,7 +1,7 @@
 import { ethers } from "hardhat";
 import { Autentisk } from "../typechain";
 
-const COLLECTION = "0x70BFa2dFF238dbC8E391a1b6366FA6049Ef79Eeb";
+const COLLECTION = "0xF8506fBfA89438295BD58D6331485fFBC8C89225";
 const TOKEN_URI = "ipfs://QmdPW4GVWpKszAyiHgswfXktRYsLk7HjrxhA1H7weG6L7B";
 
 async function main() {
