@@ -9,6 +9,7 @@ type Collection @entity {
 type Account @entity {
   id: ID!
   tokens: [Token!]! @derivedFrom(field: "owner")
+  collections: [Collection!]! @derivedFrom(field: "owner")
 }
 
 type Token @entity {
