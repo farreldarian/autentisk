@@ -14,10 +14,10 @@ import Layout from "../components/Layout";
 export default function Collections() {
   const dummy = [
     {
-      name: "Collection summer",
+      name: "COLLAB LABS",
       price: "85",
       image:
-        "https://lh3.googleusercontent.com/UZ-26gO6lqy5ttLDdHM5hdZFUy1fjHCpurmWHJl0dFgmuQw2LVjN2FV2bm5JwS-i1rvkngpBzDyWaKgDox80OB4v8_muh9JkZcFS=w361",
+        "https://f8n-production-collection-assets.imgix.net/0x9ac56Aca096d8C68F676d87C9feAD3BaC94F98f3/2/nft.png?q=80&auto=format%2Ccompress&cs=srgb&max-w=1680&max-h=1680",
       author: "Bored Ape Yacht Club",
     },
     {
@@ -44,7 +44,7 @@ export default function Collections() {
   ];
   return (
     <Layout>
-      <Container maxW="container.lg" marginTop={8}>
+      <Container maxW="container.lg" marginTop={28}>
         <Box alignContent="center">
           <Heading size="md" textAlign="center">
             My Collections
@@ -63,9 +63,9 @@ export default function Collections() {
               >
                 <Img
                   src={data.image}
-                  maxWidth="100%"
-                  maxHeight="400px"
-                  objectFit="contain"
+                  width="100%"
+                  maxHeight="300px"
+                  objectFit="cover"
                   alt="NFT-img"
                 />
 

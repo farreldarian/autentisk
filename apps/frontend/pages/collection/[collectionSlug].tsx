@@ -45,6 +45,8 @@ export default function CollectionInfo({}) {
         maxW="full"
         display="flex"
         flexDirection="column"
+        background={"blackAlpha.400"}
+        backgroundBlendMode="overlay"
         py="40"
         backgroundPosition="center"
         backgroundSize="cover"

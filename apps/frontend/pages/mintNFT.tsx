@@ -20,7 +20,7 @@ export default function mintNFT() {
   return (
     <Layout>
       {" "}
-      <Container maxW="container.md">
+      <Container maxW="container.md" marginTop={28}>
         <Heading as="h2" size="lg" isTruncated>
           Mint NFT
         </Heading>
