@@ -6,9 +6,9 @@ dataSources:
     name: Autentisk
     network: rinkeby
     source:
-      address: "0x35b245474526B5ED2BA5139294b01bf8fc03d814"
+      address: "0x3f8d69989D653c3F1476c63ecC77360dF4de1611"
       abi: Autentisk
-      startBlock: 10541963
+      startBlock: 10581449
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
