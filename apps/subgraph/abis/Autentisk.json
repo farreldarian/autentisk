@@ -58,6 +58,19 @@
     "type": "event"
   },
   {
+    "inputs": [],
+    "name": "AUTHENTICITY_REGISTRY",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "string",
@@ -132,8 +145,27 @@
     "type": "function"
   },
   {
+    "inputs": [
+      {
+        "internalType": "contract AutentiskERC721",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "s_collectionOwners",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
-    "name": "totalCollection",
+    "name": "s_totalCollection",
     "outputs": [
       {
         "internalType": "uint256",
