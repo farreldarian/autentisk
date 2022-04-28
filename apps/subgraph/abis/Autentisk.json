@@ -31,6 +31,19 @@
       {
         "indexed": true,
         "internalType": "address",
+        "name": "registry",
+        "type": "address"
+      }
+    ],
+    "name": "AuthenticityRegistryCreated",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
         "name": "collectionAddress",
         "type": "address"
       }
@@ -96,6 +109,11 @@
         "type": "address"
       },
       {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
         "internalType": "string",
         "name": "tokenURI",
         "type": "string"
@@ -111,6 +129,11 @@
       {
         "internalType": "contract AutentiskERC721",
         "name": "collection",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
         "type": "address"
       },
       {
