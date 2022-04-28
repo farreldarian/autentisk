@@ -6,6 +6,7 @@ import "@nomiclabs/hardhat-waffle";
 import "@typechain/hardhat";
 import "hardhat-gas-reporter";
 import "solidity-coverage";
+import "hardhat-abi-exporter";
 
 dotenv.config();
 
@@ -48,6 +49,12 @@ const config: HardhatUserConfig = {
   typechain: {
     outDir: "typechain",
   },
+  abiExporter: [
+    {
+      path: "../subgraph/abis",
+      flat: true,
+    },
+  ],
 };
 
 export default config;

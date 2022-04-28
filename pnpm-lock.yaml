@@ -95,6 +95,7 @@ importers:
       ethereum-waffle: ^3.4.4
       ethers: ^5.6.4
       hardhat: ^2.9.3
+      hardhat-abi-exporter: ^2.9.0
       hardhat-deploy: ^0.11.4
       hardhat-gas-reporter: ^1.0.8
       lodash: ^4.17.21
@@ -135,6 +136,7 @@ importers:
       eslint-plugin-promise: 6.0.0_eslint@8.14.0
       ethereum-waffle: 3.4.4_typescript@4.6.3
       ethers: 5.6.4
+      hardhat-abi-exporter: 2.9.0_hardhat@2.9.3
       hardhat-deploy: 0.11.4_c56b290965104852f4542b9a2cac9355
       hardhat-gas-reporter: 1.0.8_hardhat@2.9.3
       lodash: 4.17.21
@@ -5975,6 +5977,17 @@ packages:
     dev: true
     optional: true
 
+  /delete-empty/3.0.0:
+    resolution: {integrity: sha512-ZUyiwo76W+DYnKsL3Kim6M/UOavPdBJgDYWOmuQhYaZvJH0AXAHbUNyEDtRbBra8wqqr686+63/0azfEk1ebUQ==}
+    engines: {node: '>=10'}
+    hasBin: true
+    dependencies:
+      ansi-colors: 4.1.1
+      minimist: 1.2.6
+      path-starts-with: 2.0.0
+      rimraf: 2.7.1
+    dev: true
+
   /delimit-stream/0.1.0:
     resolution: {integrity: sha1-m4MZR3wOX4rrPONXrjBfwl6hzSs=}
     dev: false
@@ -8288,7 +8301,7 @@ packages:
       fs.realpath: 1.0.0
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.0.4
+      minimatch: 3.1.2
       once: 1.4.0
       path-is-absolute: 1.0.1
     dev: true
@@ -8487,6 +8500,17 @@ packages:
     dependencies:
       ajv: 6.12.6
       har-schema: 2.0.0
+
+  /hardhat-abi-exporter/2.9.0_hardhat@2.9.3:
+    resolution: {integrity: sha512-OTQoXAunRJzzAkccznPHjLLsufBjb7awpK/WQC/6rV0WLPgkQexflErnKmjhDEwTVw0i0zDybO3aZbB53vhfFw==}
+    engines: {node: '>=14.14.0'}
+    peerDependencies:
+      hardhat: ^2.0.0
+    dependencies:
+      '@ethersproject/abi': 5.6.1
+      delete-empty: 3.0.0
+      hardhat: 2.9.3
+    dev: true
 
   /hardhat-deploy-ethers/0.3.0-beta.13_ethers@5.6.4+hardhat@2.9.3:
     resolution: {integrity: sha512-PdWVcKB9coqWV1L7JTpfXRCI91Cgwsm7KLmBcwZ8f0COSm1xtABHZTyz3fvF6p42cTnz1VM0QnfDvMFlIRkSNw==}
@@ -11645,6 +11669,11 @@ packages:
 
   /path-parse/1.0.7:
     resolution: {integrity: sha512-LDJzPVEEEPR+y48z93A0Ed0yXb8pAByGWo/k5YYdYgpY2/2EsOsksJrq7lOHxryrVOn1ejG6oAp8ahvOIQD8sw==}
+
+  /path-starts-with/2.0.0:
+    resolution: {integrity: sha512-3UHTHbJz5+NLkPafFR+2ycJOjoc4WV2e9qCZCnm71zHiWaFrm1XniLVTkZXvaRgxr1xFh9JsTdicpH2yM03nLA==}
+    engines: {node: '>=8'}
+    dev: true
 
   /path-to-regexp/0.1.7:
     resolution: {integrity: sha1-32BBeABfUi8V60SQ5yR6G/qmf4w=}
