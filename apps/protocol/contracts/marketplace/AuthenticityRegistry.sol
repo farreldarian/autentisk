@@ -19,6 +19,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
     event OracleChanged(address prevOracle, address newOracle, bytes32 jobId);
     event ClassifierUrlChanged(string value);
+    event AuthenticityRequested(bytes32 uriSignature, bytes32 requestId);
     event AuthenticityRegistered(
         bytes32 uriSignature,
         address collection,
