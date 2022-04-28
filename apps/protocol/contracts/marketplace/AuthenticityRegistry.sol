@@ -24,15 +24,10 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         address collection,
         bytes32 requestId
     );
-    event AuthenticityRegistered(
-        bytes32 uriSignature,
-        address collection,
-        uint256 similarityThreshold
-    );
-    event AuthenticityRejected(
-        bytes32 uriSignature,
-        address collection,
-        uint256 similarityThreshold
+    event AuthenticityFulfilled(
+        bytes32 requestId,
+        uint256 similarityThreshold,
+        bool isAccepted
     );
 
     address public immutable AUTENTISK;
@@ -116,20 +111,12 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         bytes32 uriSignature = keccak256(abi.encodePacked(request.tokenURI));
 
         if (isSimilar(similarity)) {
-            emit AuthenticityRejected(
-                uriSignature,
-                request.collection,
-                similarity
-            );
+            emit AuthenticityFulfilled(requestId, similarity, false);
             return;
         }
 
         s_autentics[uriSignature] = request.collection;
-        emit AuthenticityRegistered(
-            uriSignature,
-            request.collection,
-            similarity
-        );
+        emit AuthenticityFulfilled(requestId, similarity, true);
 
         Autentisk(AUTENTISK).fulfillMint(
             AutentiskERC721(request.collection),

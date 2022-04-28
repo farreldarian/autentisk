@@ -41,48 +41,23 @@
       {
         "indexed": false,
         "internalType": "bytes32",
-        "name": "uriSignature",
+        "name": "requestId",
         "type": "bytes32"
-      },
-      {
-        "indexed": false,
-        "internalType": "address",
-        "name": "collection",
-        "type": "address"
       },
       {
         "indexed": false,
         "internalType": "uint256",
         "name": "similarityThreshold",
         "type": "uint256"
-      }
-    ],
-    "name": "AuthenticityRegistered",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": false,
-        "internalType": "bytes32",
-        "name": "uriSignature",
-        "type": "bytes32"
       },
       {
         "indexed": false,
-        "internalType": "address",
-        "name": "collection",
-        "type": "address"
-      },
-      {
-        "indexed": false,
-        "internalType": "uint256",
-        "name": "similarityThreshold",
-        "type": "uint256"
+        "internalType": "bool",
+        "name": "isAccepted",
+        "type": "bool"
       }
     ],
-    "name": "AuthenticityRejected",
+    "name": "AuthenticityFulfilled",
     "type": "event"
   },
   {
