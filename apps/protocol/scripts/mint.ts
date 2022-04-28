@@ -1,12 +1,13 @@
 import { ethers } from "hardhat";
 import { Autentisk } from "../typechain";
 
-const COLLECTION = "0x8e3Ae17DB4428aCd3eEa5F5d8d1B8DDc43B07561";
+const COLLECTION = "0x70BFa2dFF238dbC8E391a1b6366FA6049Ef79Eeb";
 const TOKEN_URI = "ipfs://QmdPW4GVWpKszAyiHgswfXktRYsLk7HjrxhA1H7weG6L7B";
 
 async function main() {
+  const [signer] = await ethers.getSigners();
   const autentisk = (await ethers.getContract("Autentisk")) as Autentisk;
-  const tx = await autentisk.mint(COLLECTION, TOKEN_URI);
+  const tx = await autentisk.mint(COLLECTION, signer.address, TOKEN_URI);
   console.log(tx.hash);
   const { blockNumber } = await tx.wait();
   console.log("Confirmed at", blockNumber);
