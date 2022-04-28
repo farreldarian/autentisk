@@ -1,6 +1,6 @@
 type Collection @entity {
   id: ID!
-  owner: String!
+  owner: Account!
   name: String!
   symbol: String!
   tokens: [Token!]! @derivedFrom(field: "collection")
@@ -17,4 +17,19 @@ type Token @entity {
   uri: String!
   owner: Account!
   collection: Collection!
+}
+
+enum AuthenticityRequestStatus {
+  Pending
+  Rejected
+  Registered
+}
+
+type AuthenticityRequest @entity {
+  id: ID!
+  collection: Collection!
+  tokenUri: String!
+  tokenUriSignature: String!
+  similarity: BigInt
+  status: AuthenticityRequestStatus!
 }

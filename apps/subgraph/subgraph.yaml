@@ -21,6 +21,8 @@ dataSources:
         - name: AutentiskERC721
           file: ./abis/AutentiskERC721.json
       eventHandlers:
+        - event: AuthenticityRegistryCreated(indexed address)
+          handler: handleAuthenticityRegistryCreated
         - event: CollectionCreated(indexed address)
           handler: handleCollectionCreated
       file: ./src/mappings/autentisk.ts
@@ -44,3 +46,21 @@ templates:
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTokenTransfer
       file: ./src/mappings/autentisk-erc721.ts
+  - kind: ethereum
+    name: AuthenticityRegistry
+    network: rinkeby
+    source:
+      abi: AuthenticityRegistry
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - AuthenticityRequest
+      abis:
+        - name: AuthenticityRegistry
+          file: ./abis/AuthenticityRegistry.json
+      eventHandlers:
+        - event: AuthenticityRequested(bytes32,address,bytes32)
+          handler: handleAuthenticityRequested
+      file: ./src/mappings/authenticity-registry.ts
