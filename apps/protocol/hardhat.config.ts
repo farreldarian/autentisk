@@ -33,10 +33,10 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-    goerli: {
+    maticmum: {
       url:
-        "https://eth-goerli.alchemyapi.io/v2/" + process.env.ALCHEMY_API_KEY ??
-        "",
+        "https://polygon-mumbai.g.alchemy.com/v2/" +
+          process.env.ALCHEMY_API_KEY ?? "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
@@ -57,6 +57,10 @@ const config: HardhatUserConfig = {
       flat: true,
     },
   ],
+  namedAccounts: {
+    deployer: { default: 0 },
+    controller: { default: 0 },
+  },
 };
 
 export default config;
