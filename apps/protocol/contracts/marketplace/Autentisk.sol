@@ -14,26 +14,8 @@ contract Autentisk is Ownable {
     mapping(AutentiskERC721 => address) public s_collectionOwners;
     uint256 public s_totalCollection;
 
-    constructor(
-        address oracle,
-        // bytes32 jobId,
-        uint256 fee,
-        string memory classifierUrl,
-        uint256 similarityThreshold
-    ) {
-        AUTHENTICITY_REGISTRY = address(
-            new AuthenticityRegistry(
-                msg.sender,
-                address(this),
-                oracle,
-                // jobId,
-                "3b7ca0d48c7a4b2da9268456665d11ae",
-                fee,
-                classifierUrl,
-                similarityThreshold
-            )
-        );
-
+    constructor(address registry) {
+        AUTHENTICITY_REGISTRY = registry;
         emit AuthenticityRegistryCreated(AUTHENTICITY_REGISTRY);
     }
 
