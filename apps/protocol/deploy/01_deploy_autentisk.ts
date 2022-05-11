@@ -6,7 +6,7 @@ import { BigNumber } from "ethers";
 const ORACLE = "0x3A56aE4a2831C3d3514b5D7Af5578E45eBDb7a40";
 // const JOB_ID = "d5270d1c311941d0b08bead21fea7747";
 const FEE = parseEther("0.01");
-const CLASSIFIER_URL = "https://autentisk.vercel.app/api/dummyChainlink";
+const CLASSIFIER_URL = "https://autentisk-production.up.railway.app/";
 const SIMILARITY_THRESHOLD = BigNumber.from(1);
 
 const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
