@@ -33,9 +33,9 @@ const config: HardhatUserConfig = {
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
-    rinkeby: {
+    goerli: {
       url:
-        "https://eth-rinkeby.alchemyapi.io/v2/" + process.env.ALCHEMY_API_KEY ??
+        "https://eth-goerli.alchemyapi.io/v2/" + process.env.ALCHEMY_API_KEY ??
         "",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
