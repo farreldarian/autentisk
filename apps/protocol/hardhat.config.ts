@@ -8,6 +8,8 @@ import "hardhat-gas-reporter";
 import "solidity-coverage";
 import "hardhat-abi-exporter";
 
+import "./tasks";
+
 dotenv.config();
 
 // This is a sample Hardhat task. To learn how to create your own go to
