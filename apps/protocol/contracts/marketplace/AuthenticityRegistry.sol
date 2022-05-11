@@ -43,6 +43,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     uint256 public s_fee;
 
     constructor(
+        address controller,
         address autentisk,
         address oracle,
         bytes32 jobId,
@@ -50,6 +51,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         string memory classifierUrl,
         uint256 similarityThreshold
     ) {
+        _transferOwnership(controller);
         AUTENTISK = autentisk;
         setPublicChainlinkToken();
         setOracle(oracle, jobId, fee);

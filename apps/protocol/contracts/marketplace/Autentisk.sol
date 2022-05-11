@@ -23,6 +23,7 @@ contract Autentisk is Ownable {
     ) {
         AUTHENTICITY_REGISTRY = address(
             new AuthenticityRegistry(
+                msg.sender,
                 address(this),
                 oracle,
                 // jobId,
