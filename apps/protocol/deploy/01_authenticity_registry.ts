@@ -5,8 +5,9 @@ import type { HardhatRuntimeEnvironment } from "hardhat/types";
 import { ethers as _ethers } from "hardhat";
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 
-const ORACLE = "0x3A56aE4a2831C3d3514b5D7Af5578E45eBDb7a40";
-const JOB_ID = "3b7ca0d48c7a4b2da9268456665d11ae";
+const LINK_ADDRESS = "0x326c977e6efc84e512bb9c30f76e30c160ed06fb";
+const ORACLE = "0xc8D925525CA8759812d0c299B90247917d4d4b7C";
+const JOB_ID = "bbf0badad29d49dc887504bacfbb905b";
 const FEE = parseEther("0.01");
 const CLASSIFIER_URL = "https://autentisk-production.up.railway.app/";
 const SIMILARITY_THRESHOLD = BigNumber.from(1);
@@ -40,7 +41,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
       FEE,
       CLASSIFIER_URL,
       SIMILARITY_THRESHOLD,
-      "0x326c977e6efc84e512bb9c30f76e30c160ed06fb",
+      LINK_ADDRESS,
     ],
     log: true,
   });
