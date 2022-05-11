@@ -89,7 +89,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         );
 
         request.add("get", makeRequestUrl(tokenURI));
-        request.add("path", "threshold");
+        request.add("path", "similarity");
 
         requestId_ = sendChainlinkRequestTo(s_oracle, request, s_fee);
         s_authenticityRequests[requestId_] = AuthenticityRequest(
