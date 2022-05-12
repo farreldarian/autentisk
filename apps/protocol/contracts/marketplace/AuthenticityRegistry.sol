@@ -150,7 +150,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     }
 
     function isSimilar(uint256 similarity) private view returns (bool) {
-        return similarity >= s_similarityThreshold;
+        return similarity < s_similarityThreshold;
     }
 
     function makeRequestUrl(string memory tokenUri)
