@@ -25,4 +25,4 @@ async def root(tokenUri: str = None):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=os.getenv("PORT") or 8000)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT") or 8000))
