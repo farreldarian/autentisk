@@ -34,6 +34,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
     mapping(bytes32 => address) public s_autentics;
     mapping(bytes32 => AuthenticityRequest) public s_authenticityRequests;
+    mapping(bytes32 => bytes32) public s_signatureToRequestId;
 
     string public s_classifierUrl;
     uint256 public s_similarityThreshold;
@@ -100,6 +101,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             tokenURI,
             collection
         );
+        s_signatureToRequestId[uriSignature] = requestId_;
 
         emit AuthenticityRequested(uriSignature, collection, requestId_);
     }
@@ -112,6 +114,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         delete s_authenticityRequests[requestId];
 
         bytes32 uriSignature = keccak256(abi.encodePacked(request.tokenURI));
+        delete s_signatureToRequestId[uriSignature];
 
         if (isSimilar(similarity)) {
             emit AuthenticityFulfilled(requestId, similarity, false);
