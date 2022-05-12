@@ -4,11 +4,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: Autentisk
-    network: rinkeby
+    network: mumbai
     source:
-      address: "0xa090D157dB0f0D8B993e3CfEc65C5De8Bb7c348E"
+      address: "0xA0aDC23B9ca8Be510A4AeC3593EeC9fE5Dd3188d"
       abi: Autentisk
-      startBlock: 10581449
+      startBlock: 26293288
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
@@ -29,7 +29,7 @@ dataSources:
 templates:
   - kind: ethereum
     name: AutentiskERC721
-    network: rinkeby
+    network: mumbai
     source:
       abi: AutentiskERC721
     mapping:
@@ -48,7 +48,7 @@ templates:
       file: ./src/mappings/autentisk-erc721.ts
   - kind: ethereum
     name: AuthenticityRegistry
-    network: rinkeby
+    network: mumbai
     source:
       abi: AuthenticityRegistry
     mapping:
