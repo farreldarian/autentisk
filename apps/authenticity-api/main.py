@@ -12,9 +12,10 @@ app = FastAPI()
 
 @app.get("/")
 async def root(tokenUri: str = None):
-    tokenUri = unquote(unquote(tokenUri))
     if tokenUri is None:
         return {"similarity": 0}
+
+    tokenUri = unquote(unquote(tokenUri))
 
     request_id = get_request_id(tokenUri)
     if request_id is None:
