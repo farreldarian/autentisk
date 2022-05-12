@@ -1,3 +1,4 @@
+from urllib.parse import unquote
 import uvicorn
 import os
 from fastapi import FastAPI
@@ -11,6 +12,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root(tokenUri: str = None):
+    tokenUri = unquote(unquote(tokenUri))
     if tokenUri is None:
         return {"similarity": 0}
 
