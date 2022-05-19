@@ -35,7 +35,7 @@ async def root(tokenUri: str = None):
     vec_keys = get_vectors_key()
     if len(vec_keys) == 0:
         upload_vector(np.array(query_vec), get_cid(tokenUri))
-        return {"simialirty": 0}
+        return {"simialirty": 9999}
     
     dataset_vec = [download_vector(key) for key in vec_keys]
     closest = float('inf')
