@@ -19,13 +19,13 @@ encoder = get_encoder()
 @app.get("/")
 async def root(tokenUri: str = None):
     if tokenUri is None:
-        return {"similarity": 0}
+        return {"error": "1", "detail": "Missing token URI"}
 
     tokenUri = unquote(unquote(tokenUri))
 
     request_id = get_request_id(tokenUri)
     if request_id is None:
-        return {"similarity": 0}
+        return {"error": "2", "detail": "Request not coming from contract"}
 
     image_url = get_image_url(tokenUri)
     image = load_image(image_url)
