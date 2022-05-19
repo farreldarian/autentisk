@@ -16,7 +16,11 @@ def get_vectors_key(client=get_client()):
     res = client.list_objects_v2(Bucket=BUCKET_NAME,
                                  Delimiter='/', Prefix="vectors/"
                                  )
-    return [content['Key'] for content in res['Contents']] if ("Contents" in res.keys()) else []
+    if "Contents" not in res.keys():
+        return []
+    
+    keys = [content['Key'] for content in res['Contents']]
+    return [key for key in keys if key != 'vectors/']
 
 def upload_vector(vector, name, client=get_client()):
     client.put_object(
