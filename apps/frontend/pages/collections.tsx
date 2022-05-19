@@ -10,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 import Layout from "../components/Layout";
+import { shortenIfAddress } from "@usedapp/core";
 import { useCollectionsQuery } from "../generated/graphql";
 
 export default function Collections() {
@@ -29,11 +30,7 @@ export default function Collections() {
 
           <Grid my={10} templateColumns="repeat(3, 1fr)" gap="10">
             {data?.collections.map((data, i) => (
-              <Box
-                boxShadow="3px 4px 14px 5px rgba(0, 0, 0, 0.5)"
-                borderRadius="lg"
-                key={i}
-              >
+              <Box shadow="xl" borderRadius="lg" key={i}>
                 {/* <Img
                   src={data.image}
                   width="100%"
@@ -53,7 +50,7 @@ export default function Collections() {
                     <h1>
                       <strong>{data.name}</strong>
                     </h1>
-                    <p>By {data.id}</p>
+                    <p>By {shortenIfAddress(data.id)}</p>
                   </div>
                   <a href={`collection/${data.name}`}>Explore Collection</a>
                 </Box>
