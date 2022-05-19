@@ -1,9 +1,9 @@
 from urllib.parse import unquote
 import numpy as np
 import uvicorn
-import os
 from fastapi import FastAPI
 from scipy.spatial.distance import cosine
+from core.env import PORT
 from core.unit import parse_ether
 from core.token_metadata import get_image_url
 from core.image import load_image
@@ -35,19 +35,18 @@ async def root(tokenUri: str = None):
     if len(vec_keys) == 0:
         upload_vector(np.array(query_vec), get_sig(tokenUri))
         return {"simialirty": 9999}
-    
+
     dataset_vec = [download_vector(key) for key in vec_keys]
     closest = float('inf')
     for vec in dataset_vec:
         dist = cosine(query_vec, vec)
         closest = np.min([dist, closest])
-    
+
     if closest >= get_similarity_threshold():
         upload_vector(np.array(query_vec), get_sig(tokenUri))
-
 
     return {"similarity": parse_ether(closest)}
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT") or 8000))
+    uvicorn.run(app, host="0.0.0.0", port=int(PORT or 8000))
