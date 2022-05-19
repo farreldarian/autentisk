@@ -12,11 +12,11 @@ def get_client():
                         aws_secret_access_key=S3_SECREET_ACCESS_KEY)
 
 
-def get_vectors(client=get_client()):
+def get_vectors_key(client=get_client()):
     res = client.list_objects_v2(Bucket=BUCKET_NAME,
                                  Delimiter='/', Prefix="vectors/"
                                  )
-    return res['Contents'] if ("Contents" in res.keys()) else []
+    return [content['Key'] for content in res['Contents']] if ("Contents" in res.keys()) else []
 
 def upload_vector(vector, name, client=get_client()):
     client.put_object(
