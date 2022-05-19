@@ -34,7 +34,7 @@ async def root(tokenUri: str = None):
 
     vec_keys = get_vectors_key()
     if len(vec_keys) == 0:
-        upload_vector(query_vec, get_cid(tokenUri))
+        upload_vector(np.array(query_vec), get_cid(tokenUri))
         return {"simialirty": 0}
     
     dataset_vec = [download_vector(key) for key in vec_keys]
