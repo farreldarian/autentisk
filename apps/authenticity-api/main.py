@@ -7,10 +7,9 @@ from scipy.spatial.distance import cosine
 from core.unit import parse_ether
 from core.token_metadata import get_image_url
 from core.image import load_image
-from core.contract import get_request_id
+from core.contract import get_request_id, get_sig
 from core.encoder import get_encoder
 from core.s3 import get_vectors_key, upload_vector, download_vector
-from core.ipfs import get_cid
 
 app = FastAPI()
 encoder = get_encoder()
@@ -34,7 +33,7 @@ async def root(tokenUri: str = None):
 
     vec_keys = get_vectors_key()
     if len(vec_keys) == 0:
-        upload_vector(np.array(query_vec), get_cid(tokenUri))
+        upload_vector(np.array(query_vec), get_sig(tokenUri))
         return {"simialirty": 9999}
     
     dataset_vec = [download_vector(key) for key in vec_keys]

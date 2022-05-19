@@ -6,6 +6,3 @@ def parse_if_ipfs(uri: str):
         return uri
 
     return uri.replace('ipfs://', IPFS_GATEWAY)
-
-def get_cid(ipfs_uri: str):
-    return ipfs_uri.replace('ipfs://', '')

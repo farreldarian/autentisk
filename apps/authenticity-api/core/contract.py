@@ -30,8 +30,12 @@ def get_registry_contract(w3=get_w3()):
     return get_contract_from_deployment(REGISTRY_DEPLOYMENT_PATH, w3)
 
 
+def get_sig(uri):
+    return Web3.solidityKeccak(['string'], [uri]).hex()
+
+
 def get_request_id(uri, registry=get_registry_contract()):
-    uri_sig = Web3.solidityKeccak(['string'], [uri]).hex()
+    uri_sig = get_sig(uri)
     bytes = registry.functions.s_signatureToRequestId(uri_sig)\
         .call()\
         .hex()\
