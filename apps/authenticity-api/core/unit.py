@@ -6,4 +6,4 @@ def parse_ether(ether):
 
 
 def format_ether(wei):
-    return wei // ETHER_DECIMAL
+    return wei / ETHER_DECIMAL
