@@ -1,6 +1,7 @@
 from web3 import Web3, HTTPProvider
 import json
 from .env import API_KEY
+from .unit import format_ther
 
 
 REGISTRY_DEPLOYMENT_PATH = "../protocol/deployments/maticmum/AuthenticityRegistry.json"
@@ -41,6 +42,9 @@ def get_request_id(uri, registry=get_registry_contract()):
         .hex()\
         .rstrip('0')
     return None if (bytes == '') else "0x" + bytes
+
+def get_similarity_threshold(registry=get_registry_contract()):
+    return formatEther(registry.functions.s_similarityThreshold().call())
 
 
 def get_authenticity_request(registry=get_registry_contract()):

@@ -7,7 +7,7 @@ from scipy.spatial.distance import cosine
 from core.unit import parse_ether
 from core.token_metadata import get_image_url
 from core.image import load_image
-from core.contract import get_request_id, get_sig
+from core.contract import get_request_id, get_sig, get_similarity_threshold
 from core.encoder import get_encoder
 from core.s3 import get_vectors_key, upload_vector, download_vector
 
@@ -41,6 +41,10 @@ async def root(tokenUri: str = None):
     for vec in dataset_vec:
         dist = cosine(query_vec, vec)
         closest = np.min([dist, closest])
+    
+    if closest >= get_similarity_threshold():
+        upload_vector(np.array(query_vec), get_sig(tokenUri))
+
 
     return {"similarity": parse_ether(closest)}
 
