@@ -29,7 +29,7 @@ async def root(tokenUri: str = None):
     image_url = get_image_url(tokenUri)
     image = load_image(image_url)
 
-    query_vec = encoder(np.array([image]))
+    query_vec = encoder(np.array([image]))[0]
 
     vec_keys = get_vectors_key()
     if len(vec_keys) == 0:
