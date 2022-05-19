@@ -1,0 +1,9 @@
+query Collections {
+  collections {
+    id
+    owner {
+      id
+    }
+    name
+  }
+}
