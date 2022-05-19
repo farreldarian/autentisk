@@ -13,6 +13,7 @@ from core.s3 import get_vectors_key, upload_vector, download_vector
 from core.ipfs import get_cid
 
 app = FastAPI()
+encoder = get_encoder()
 
 
 @app.get("/")
@@ -29,7 +30,6 @@ async def root(tokenUri: str = None):
     image_url = get_image_url(tokenUri)
     image = load_image(image_url)
 
-    encoder = get_encoder()
     query_vec = encoder(np.array([image]))
 
     vec_keys = get_vectors_key()
