@@ -29,10 +29,10 @@ def upload_vector(vector, name, client=get_client()):
         Key=f"vectors/{name}"
     )
 
-def download_vector(name, client=get_client()):
+def download_vector(key, client=get_client()):
     response = client.get_object(
         Bucket=BUCKET_NAME,
-        Key=f"vectors/{name}"
+        Key=key
     )
     bytes = response['Body'].read()
     return np.frombuffer(bytes)
