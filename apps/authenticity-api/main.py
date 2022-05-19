@@ -1,4 +1,5 @@
 from urllib.parse import unquote
+import numpy as np
 import uvicorn
 import os
 from fastapi import FastAPI
@@ -6,6 +7,9 @@ from core.unit import parse_ether
 from core.token_metadata import get_image_url
 from core.image import load_image
 from core.contract import get_request_id
+from core.encoder import get_encoder
+from core.s3 import get_vectors, upload_vector
+from core.ipfs import get_cid
 
 app = FastAPI()
 
@@ -23,6 +27,15 @@ async def root(tokenUri: str = None):
 
     image_url = get_image_url(tokenUri)
     image = load_image(image_url)
+
+    encoder = get_encoder()
+    query_vec = encoder([image])
+
+    vec_list = get_vectors()
+    if len(vec_list) == 0:
+        upload_vector(query_vec, get_cid(tokenUri))
+        return {"simialirty": 0}
+
 
     return {"similarity": parse_ether(1)}
 

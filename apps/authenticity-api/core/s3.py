@@ -1,4 +1,5 @@
 import boto3
+import numpy as np
 from .env import S3_ACCESS_KEY_ID, S3_SECREET_ACCESS_KEY
 
 BUCKET_NAME = 'autentisk'
@@ -23,3 +24,11 @@ def upload_vector(vector, name, client=get_client()):
         Bucket=BUCKET_NAME,
         Key=f"vectors/{name}"
     )
+
+def download_vector(name, client=get_client()):
+    response = client.get_object(
+        Bucket=BUCKET_NAME,
+        Key=f"vectors/{name}"
+    )
+    bytes = response['Body'].read()
+    return np.frombuffer(bytes)
