@@ -4,9 +4,11 @@ import {
   ChakraProvider,
   Divider,
   extendTheme,
+  Heading,
   Image,
   Text,
 } from "@chakra-ui/react";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 import Head from "next/head";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";

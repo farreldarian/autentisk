@@ -11,9 +11,10 @@ import {
   Box,
   Avatar,
 } from "@chakra-ui/react";
-import { ChainId, shortenIfAddress } from "@usedapp/core";
 import { HiLogout } from "react-icons/hi";
 import { useMemo } from "react";
+import { useNetwork } from "wagmi";
+import { ChainId, shortenIfAddress } from "@usedapp/core";
 interface AccountModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -31,6 +32,8 @@ export default function AccountModal({
   balance,
   account,
 }: AccountModalProps) {
+  const { activeChain } = useNetwork();
+
   const wrongNetwork = useMemo(() => {
     return chainId !== 4;
   }, [chainId]);
@@ -40,9 +43,9 @@ export default function AccountModal({
       <ModalContent>
         <ModalHeader>
           Connected with MetaMask{" "}
-          <Text fontWeight="normal" fontSize="md">
-            on <strong>{ChainId[chainId]}</strong> network
-          </Text>
+          {/* <Text fontWeight="normal" fontSize="md">
+            on <strong>{ChainId[activeChain?.id]}</strong> network
+          </Text> */}
         </ModalHeader>
 
         <ModalBody

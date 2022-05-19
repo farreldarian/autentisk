@@ -15,7 +15,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { formatEther } from "ethers/lib/utils";
-import { useEtherBalance, useEthers } from "@usedapp/core";
 import { isNil } from "lodash";
 import { useMemo, useState } from "react";
 import AccountModal from "../components/connect-wallet/AccountModal";
@@ -30,52 +29,35 @@ import {
   ModalCloseButton,
 } from "@chakra-ui/react";
 import { utils } from "ethers";
+import { useAccount, useBalance, useConnect, useDisconnect } from "wagmi";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import { ConnectButton } from "@rainbow-me/rainbowkit";
 
 const Navbar = () => {
-  const { activateBrowserWallet, account, deactivate } = useEthers();
-  const etherBalance = useEtherBalance(account);
+  const { data: account } = useAccount();
 
-  const connected = useMemo(() => !isNil(account), [account]);
-
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const truncate = (str, n) => {
-    return str?.length > n ? str.substr(0, n - 1) + "..." : str;
-  };
-
-  function discon() {
-    onClose();
-    deactivate();
-  }
+  const connected = useMemo(() => !isNil(account?.address), [account?.address]);
 
   return (
     <Box
-      zIndex={100}
       background="whiteAlpha.400"
-      position="fixed"
+      position="sticky"
       top={0}
-      width="100%"
       padding={5}
       backdropFilter="blur(8px)"
     >
-      <AccountModal
-        isOpen={isOpen}
-        onClose={onClose}
-        chainId={4}
-        account={account}
-        balance={etherBalance && (+formatEther(etherBalance)).toFixed(4)}
-        onClick={() => discon()}
-      />
-      <Box marginLeft="200px" marginRight="200px" display="flex">
-        <Heading letterSpacing={1} fontSize="32px">
+      <Flex>
+        <Heading letterSpacing={1} fontSize="32px" mr="6">
           {" "}
           <Link href="/">Autentisk</Link>{" "}
         </Heading>
+
         <InputGroup
           width="900px"
-          marginLeft="20px"
           color="gray.500"
           fontSize="18px"
+          flex={1}
+          mr="6"
         >
           <InputLeftElement pointerEvents="none">
             <Search2Icon />
@@ -87,88 +69,30 @@ const Navbar = () => {
             fontWeight={"bold"}
           />
         </InputGroup>
-        {connected ? (
-          <Flex>
-            <Button
-              onClick={() => console.log("button about diclick")}
-              backgroundColor="transparent"
-              fontSize="18px"
-              marginLeft="25px"
-              marginRight="25px"
-              _hover={{ backgroundColor: "transparent", color: "grey" }}
-            >
-              About
-            </Button>
-            <IconButton
-              onClick={() => console.log("button notifikasi")}
-              icon={<BellIcon color={"black"} boxSize={"25px"} margin={0} />}
-              backgroundColor="transparent"
-              _hover={{ backgroundColor: "transparent", color: "grey" }}
-              aria-label="Notification"
-            ></IconButton>
-            <Box
-              fontSize="14px"
-              fontWeight="bold"
-              marginRight="15px"
-              marginLeft="15px"
-            >
-              <Text textAlign={"center"}>{truncate(account, 7)}</Text>
-              <Text borderBottom={"2px"} width="80px"></Text>
-              <Text textAlign={"center"}>
-                {etherBalance ? (+formatEther(etherBalance)).toFixed(4) : "0"}{" "}
-                ETH
-              </Text>
-            </Box>
-            <Button
-              onClick={onOpen}
-              backgroundColor="white"
-              borderRadius={100}
-              boxSize="40px"
-              _hover={{
-                backgroundColor: "transparent",
-                shadow: ".1px .3px .3px .1px grey",
-              }}
-            >
-              <Box borderRadius={100} padding="15px" backgroundColor={"yellow"}>
-                {/* profileimage */}
-              </Box>
-            </Button>
-            <Button
-              backgroundColor="black"
-              fontSize="18px"
-              color="white"
-              borderRadius={20}
-              marginLeft="30px"
-              _hover={{ backgroundColor: "grey" }}
-            >
-              <Link href="/mintNFT">Create</Link>
-            </Button>
-          </Flex>
-        ) : (
-          <Flex>
-            <Button
-              onClick={() => console.log("button about diclick")}
-              backgroundColor="transparent"
-              fontSize="18px"
-              marginLeft="75px"
-              _hover={{ backgroundColor: "transparent", color: "grey" }}
-            >
-              About
-            </Button>
-            <Button
-              onClick={() => activateBrowserWallet()}
-              backgroundColor="black"
-              fontSize="18px"
-              color="white"
-              borderRadius={20}
-              marginLeft="75px"
-              _hover={{ backgroundColor: "grey" }}
-            >
-              Connect Wallet
-            </Button>
-          </Flex>
+
+        <Button
+          onClick={() => console.log("button about diclick")}
+          backgroundColor="transparent"
+          _hover={{ backgroundColor: "transparent", color: "grey" }}
+          mr="6"
+        >
+          About
+        </Button>
+
+        {connected && (
+          <Button
+            backgroundColor="black"
+            color="white"
+            borderRadius={20}
+            mr="6"
+            _hover={{ backgroundColor: "grey" }}
+          >
+            <Link href="/mintNFT">Create</Link>
+          </Button>
         )}
-      </Box>
+
+        <ConnectButton showBalance={false} />
+      </Flex>
     </Box>
   );
 };

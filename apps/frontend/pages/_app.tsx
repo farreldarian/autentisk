@@ -1,7 +1,29 @@
 import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import { DAppProvider } from "@usedapp/core";
+import "@rainbow-me/rainbowkit/styles.css";
+import {
+  apiProvider,
+  configureChains,
+  getDefaultWallets,
+  RainbowKitProvider,
+} from "@rainbow-me/rainbowkit";
 import Head from "next/head";
-import useDAppConfig from "../lib/web3/usedapp-config";
+import { chain, createClient, Provider } from "wagmi";
+
+const { chains, provider } = configureChains(
+  [chain.polygonMumbai],
+  [apiProvider.alchemy("u1p24el2wUqSKUJapyVeH91YDfVok-ur")]
+);
+
+const { connectors } = getDefaultWallets({
+  appName: "Autentisk",
+  chains,
+});
+
+const client = createClient({
+  autoConnect: true,
+  connectors,
+  provider,
+});
 
 function MyApp({ Component, pageProps }) {
   const theme = extendTheme({
@@ -11,19 +33,21 @@ function MyApp({ Component, pageProps }) {
     },
   });
   return (
-    <DAppProvider config={useDAppConfig}>
-      <ChakraProvider theme={theme}>
-        <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;700&display=swap"
-            rel="stylesheet"
-          />
-        </Head>
-        <Component {...pageProps} />
-      </ChakraProvider>
-    </DAppProvider>
+    <Provider client={client}>
+      <RainbowKitProvider chains={chains}>
+        <ChakraProvider theme={theme}>
+          <Head>
+            <link rel="preconnect" href="https://fonts.googleapis.com" />
+            <link rel="preconnect" href="https://fonts.gstatic.com" />
+            <link
+              href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;700&display=swap"
+              rel="stylesheet"
+            />
+          </Head>
+          <Component {...pageProps} />
+        </ChakraProvider>
+      </RainbowKitProvider>
+    </Provider>
   );
 }
 
