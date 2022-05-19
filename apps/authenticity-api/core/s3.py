@@ -16,3 +16,10 @@ def get_vectors(client=get_client()):
                                  Delimiter='/', Prefix="vectors"
                                  )
     return res['Contents'] if ("Contents" in res.keys()) else []
+
+def upload_vector(vector, name, client=get_client()):
+    client.put_object(
+        Body=vector.tobytes(),
+        Bucket=BUCKET_NAME,
+        Key=f"vectors/{name}"
+    )
