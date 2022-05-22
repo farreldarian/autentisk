@@ -11,6 +11,7 @@ import Head from "next/head";
 import { chain, createClient, Provider } from "wagmi";
 import { Provider as UrqlProvider } from "urql";
 import { client as urqlClient } from "../modules/graphql/urql";
+import theme from "../theme";
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -29,12 +30,6 @@ const client = createClient({
 });
 
 function MyApp({ Component, pageProps }) {
-  const theme = extendTheme({
-    fonts: {
-      heading: "Work Sans, sans-serif",
-      body: "Work Sans, sans-serif",
-    },
-  });
   return (
     <UrqlProvider value={urqlClient}>
       <Provider client={client}>

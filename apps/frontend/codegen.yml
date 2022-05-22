@@ -1,6 +1,6 @@
 overwrite: true
 schema: "https://api.thegraph.com/subgraphs/name/farreldarian/autentisk"
-documents: "modules/graphql"
+documents: "src"
 generates:
   generated/graphql.ts:
     plugins:

@@ -7,9 +7,9 @@ interface LayoutProps {
 }
 export default function Layout({ children }: LayoutProps) {
   return (
-    <div>
+    <Box bg="gray.100">
       <Navbar />
       <Box>{children}</Box>
-    </div>
+    </Box>
   );
 }

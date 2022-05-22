@@ -42,12 +42,12 @@ const Navbar = () => {
     <Flex
       align="center"
       justify={"space-between"}
-      background="whiteAlpha.600"
+      bg="#EDF2F760"
       position="sticky"
       top={0}
       height="20"
       px="24"
-      backdropFilter="blur(8px)"
+      backdropFilter="blur(16px)"
     >
       <Heading letterSpacing={1} fontSize="32px" mr="6">
         {" "}
@@ -57,15 +57,7 @@ const Navbar = () => {
       <Flex align="center">
         {connected && (
           <Link href="/mintNFT" passHref>
-            <Button
-              backgroundColor="black"
-              color="white"
-              borderRadius={20}
-              mr="6"
-              _hover={{ backgroundColor: "grey" }}
-            >
-              Create
-            </Button>
+            <Button mr="6">Create</Button>
           </Link>
         )}
 

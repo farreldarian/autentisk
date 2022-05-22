@@ -6,11 +6,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "generate": "graphql-codegen --config codegen.yml"
+    "generate": "chakra-cli tokens src/theme.ts; graphql-codegen --config codegen.yml"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.5",
     "@chakra-ui/react": "^1.7.3",
+    "@chakra-ui/styled-system": "^2.1.0",
     "@chakra-ui/system": "^1.12.0",
     "@emotion/react": "^11",
     "@emotion/styled": "^11",
@@ -35,6 +36,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.16.5",
+    "@chakra-ui/cli": "^2.0.0",
     "@graphql-codegen/cli": "2.6.2",
     "@graphql-codegen/introspection": "2.1.1",
     "@graphql-codegen/typescript": "2.4.11",
