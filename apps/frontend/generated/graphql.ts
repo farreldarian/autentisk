@@ -604,6 +604,11 @@ export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type CollectionsQuery = { __typename?: 'Query', collections: Array<{ __typename?: 'Collection', id: string, name: string, owner: { __typename?: 'Account', id: string } }> };
 
+export type FeaturedQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type FeaturedQuery = { __typename?: 'Query', tokens: Array<{ __typename?: 'Token', scId: any, uri: string, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', name: string } }> };
+
 
 export const CollectionsDocument = gql`
     query Collections {
@@ -619,4 +624,22 @@ export const CollectionsDocument = gql`
 
 export function useCollectionsQuery(options?: Omit<Urql.UseQueryArgs<CollectionsQueryVariables>, 'query'>) {
   return Urql.useQuery<CollectionsQuery>({ query: CollectionsDocument, ...options });
+};
+export const FeaturedDocument = gql`
+    query Featured {
+  tokens(first: 1) {
+    scId
+    uri
+    owner {
+      id
+    }
+    collection {
+      name
+    }
+  }
+}
+    `;
+
+export function useFeaturedQuery(options?: Omit<Urql.UseQueryArgs<FeaturedQueryVariables>, 'query'>) {
+  return Urql.useQuery<FeaturedQuery>({ query: FeaturedDocument, ...options });
 };

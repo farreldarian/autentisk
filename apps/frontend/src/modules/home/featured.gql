@@ -1,0 +1,12 @@
+query Featured {
+  tokens(first: 1) {
+    scId
+    uri
+    owner {
+      id
+    }
+    collection {
+      name
+    }
+  }
+}

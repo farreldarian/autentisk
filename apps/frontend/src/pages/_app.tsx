@@ -12,6 +12,7 @@ import { chain, createClient, Provider } from "wagmi";
 import { Provider as UrqlProvider } from "urql";
 import { client as urqlClient } from "../modules/graphql/urql";
 import theme from "../theme";
+import { SWRConfig } from "swr";
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
@@ -33,19 +34,26 @@ function MyApp({ Component, pageProps }) {
   return (
     <UrqlProvider value={urqlClient}>
       <Provider client={client}>
-        <RainbowKitProvider chains={chains}>
-          <ChakraProvider theme={theme}>
-            <Head>
-              <link rel="preconnect" href="https://fonts.googleapis.com" />
-              <link rel="preconnect" href="https://fonts.gstatic.com" />
-              <link
-                href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;700&display=swap"
-                rel="stylesheet"
-              />
-            </Head>
-            <Component {...pageProps} />
-          </ChakraProvider>
-        </RainbowKitProvider>
+        <SWRConfig
+          value={{
+            fetcher: (resource, init) =>
+              fetch(resource, init).then((res) => res.json()),
+          }}
+        >
+          <RainbowKitProvider chains={chains}>
+            <ChakraProvider theme={theme}>
+              <Head>
+                <link rel="preconnect" href="https://fonts.googleapis.com" />
+                <link rel="preconnect" href="https://fonts.gstatic.com" />
+                <link
+                  href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;700&display=swap"
+                  rel="stylesheet"
+                />
+              </Head>
+              <Component {...pageProps} />
+            </ChakraProvider>
+          </RainbowKitProvider>
+        </SWRConfig>
       </Provider>
     </UrqlProvider>
   );
