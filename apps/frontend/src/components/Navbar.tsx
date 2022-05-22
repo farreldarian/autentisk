@@ -39,61 +39,39 @@ const Navbar = () => {
   const connected = useMemo(() => !isNil(account?.address), [account?.address]);
 
   return (
-    <Box
-      background="whiteAlpha.400"
+    <Flex
+      align="center"
+      justify={"space-between"}
+      background="whiteAlpha.600"
       position="sticky"
       top={0}
-      padding={5}
+      height="20"
+      px="24"
       backdropFilter="blur(8px)"
     >
-      <Flex>
-        <Heading letterSpacing={1} fontSize="32px" mr="6">
-          {" "}
-          <Link href="/">Autentisk</Link>{" "}
-        </Heading>
+      <Heading letterSpacing={1} fontSize="32px" mr="6">
+        {" "}
+        <Link href="/">Autentisk</Link>{" "}
+      </Heading>
 
-        <InputGroup
-          width="900px"
-          color="gray.500"
-          fontSize="18px"
-          flex={1}
-          mr="6"
-        >
-          <InputLeftElement pointerEvents="none">
-            <Search2Icon />
-          </InputLeftElement>
-
-          <Input
-            placeholder="Search Collection, Specific Art or User"
-            borderRadius={20}
-            fontWeight={"bold"}
-          />
-        </InputGroup>
-
-        <Button
-          onClick={() => console.log("button about diclick")}
-          backgroundColor="transparent"
-          _hover={{ backgroundColor: "transparent", color: "grey" }}
-          mr="6"
-        >
-          About
-        </Button>
-
+      <Flex align="center">
         {connected && (
-          <Button
-            backgroundColor="black"
-            color="white"
-            borderRadius={20}
-            mr="6"
-            _hover={{ backgroundColor: "grey" }}
-          >
-            <Link href="/mintNFT">Create</Link>
-          </Button>
+          <Link href="/mintNFT" passHref>
+            <Button
+              backgroundColor="black"
+              color="white"
+              borderRadius={20}
+              mr="6"
+              _hover={{ backgroundColor: "grey" }}
+            >
+              Create
+            </Button>
+          </Link>
         )}
 
         <ConnectButton showBalance={false} />
       </Flex>
-    </Box>
+    </Flex>
   );
 };
 

@@ -3,6 +3,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 import {
   apiProvider,
   configureChains,
+  darkTheme,
   getDefaultWallets,
   RainbowKitProvider,
 } from "@rainbow-me/rainbowkit";
