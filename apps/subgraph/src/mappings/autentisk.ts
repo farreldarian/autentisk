@@ -9,19 +9,16 @@ import {
   AuthenticityRegistry,
 } from "../../generated/templates";
 import { getAccountId, getOrCreateAccount } from "../modules/account";
+import { createCollection, getCollectionId } from "../modules/collection";
 
 export function handleCollectionCreated(event: CollectionCreated): void {
-  const collection = new Collection(event.params.collectionAddress.toHex());
-  collection.owner = getOrCreateAccount(
-    getAccountId(event.transaction.from)
-  ).id;
+  const owner = getOrCreateAccount(getAccountId(event.transaction.from));
 
-  const nft = AutentiskERC721.bind(event.params.collectionAddress);
-  collection.name = nft.name();
-  collection.symbol = nft.symbol();
-  collection.save();
-
-  AutentiskERC721Template.create(event.params.collectionAddress);
+  createCollection(
+    getCollectionId(event.params.collectionAddress),
+    owner.id,
+    event.params.collectionAddress
+  );
 }
 
 export function handleAuthenticityRegistryCreated(
