@@ -11,7 +11,7 @@ import {
 import Link from "next/link";
 import Layout from "../components/Layout";
 import { shortenIfAddress } from "@usedapp/core";
-import { useCollectionsQuery } from "../generated/graphql";
+import { useCollectionsQuery } from "../../generated/graphql";
 
 export default function Collections() {
   const [{ data }] = useCollectionsQuery();

@@ -17,7 +17,7 @@ import {
 import { formatEther } from "ethers/lib/utils";
 import { isNil } from "lodash";
 import { useMemo, useState } from "react";
-import AccountModal from "../components/connect-wallet/AccountModal";
+import AccountModal from "./connect-wallet/AccountModal";
 import Link from "next/link";
 import {
   Modal,
