@@ -56,7 +56,7 @@ const Navbar = () => {
 
       <Flex align="center">
         {connected && (
-          <Link href="/mintNFT" passHref>
+          <Link href="/create" passHref>
             <Button mr="6">Create</Button>
           </Link>
         )}

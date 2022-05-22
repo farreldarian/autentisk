@@ -16,7 +16,7 @@ import FileDropzone from "../components/FileDropzone";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
 
-export default function mintNFT() {
+export default function Create() {
   return (
     <Layout>
       {" "}
