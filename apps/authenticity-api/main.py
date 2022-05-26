@@ -12,12 +12,11 @@ from core.encoder import get_encoder
 from core.s3 import get_vectors_key, upload_vector, download_vector
 
 app = FastAPI()
+encoder = get_encoder()
 
 
 @app.get("/")
 async def root(tokenUri: str = None):
-    print("Running")
-    encoder = get_encoder()
 
     if tokenUri is None:
         return {"error": "1", "detail": "Missing token URI"}
