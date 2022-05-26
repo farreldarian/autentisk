@@ -18,6 +18,15 @@ type Token @entity {
   uri: String!
   owner: Account!
   collection: Collection!
+  metadata: TokenMetadata
+}
+
+type TokenMetadata @entity {
+  id: ID!
+  token: Token!
+  name: String!
+  description: String!
+  image: String!
 }
 
 enum AuthenticityRequestStatus {

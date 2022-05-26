@@ -5,6 +5,7 @@ import {
 } from "../../generated/Autentisk/AutentiskERC721";
 import { Token } from "../../generated/schema";
 import { ZERO_ADDRESS } from "../constants";
+import { tryCreateMetadata } from "./token-metadata";
 
 export function isMint(event: Transfer): boolean {
   return event.params.from.toHex() == ZERO_ADDRESS;
@@ -26,6 +27,7 @@ export function createToken(
   const token = new Token(id);
   token.scId = scId;
   token.uri = nft.tokenURI(scId);
+  token.metadata = tryCreateMetadata(id, token.uri);
   token.owner = ownerId;
   token.collection = collectionId;
   token.save();
