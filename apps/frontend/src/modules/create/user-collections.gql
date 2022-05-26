@@ -1,0 +1,6 @@
+query UserCollections($owner: String!) {
+  collections(where: { owner: $owner }) {
+    id
+    name
+  }
+}

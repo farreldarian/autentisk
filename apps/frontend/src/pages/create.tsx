@@ -12,11 +12,18 @@ import {
   Textarea,
 } from "@chakra-ui/react";
 import Link from "next/link";
+import { useAccount } from "wagmi";
+import { useUserCollectionsQuery } from "../../generated/graphql";
 import FileDropzone from "../components/FileDropzone";
 import Layout from "../components/Layout";
 import Navbar from "../components/Navbar";
+import UserCollectionsInput from "../modules/create/UserCollectionsInput";
 
 export default function Create() {
+  const { data: accountData } = useAccount();
+
+  if (!accountData?.address) return <Layout></Layout>;
+
   return (
     <Layout>
       {" "}
@@ -39,11 +46,8 @@ export default function Create() {
                 </Box>
               </Flex>
             </FormLabel>
-            <Select placeholder="Select Collection">
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </Select>
+
+            <UserCollectionsInput />
           </FormControl>
 
           <FormControl marginTop={5}>
