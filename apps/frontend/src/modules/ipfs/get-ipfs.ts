@@ -7,8 +7,7 @@ export default function getIpfs() {
   return create({
     host: IPFS_HOST,
     protocol: "https",
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-    },
+    port: 5001,
+    apiPath: "/api/v0",
   });
 }
