@@ -49,4 +49,6 @@ async def root(tokenUri: str = None):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=int(PORT or 8000))
+    port = int(PORT or 8000)
+    print(f"App is listening on port {port}")
+    uvicorn.run(app, host="0.0.0.0", port=port)
