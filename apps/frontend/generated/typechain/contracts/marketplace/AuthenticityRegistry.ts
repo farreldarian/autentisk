@@ -29,7 +29,7 @@ import type {
 export interface AuthenticityRegistryInterface extends utils.Interface {
   functions: {
     "AUTENTISK()": FunctionFragment;
-    "checkAuthenticity(address,string,address)": FunctionFragment;
+    "checkAuthenticity(address,string,string,address)": FunctionFragment;
     "fulfillAuthenticity(bytes32,uint256)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
@@ -71,7 +71,7 @@ export interface AuthenticityRegistryInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "AUTENTISK", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "checkAuthenticity",
-    values: [string, string, string]
+    values: [string, string, string, string]
   ): string;
   encodeFunctionData(
     functionFragment: "fulfillAuthenticity",
@@ -320,6 +320,7 @@ export interface AuthenticityRegistry extends BaseContract {
     checkAuthenticity(
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       collection: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -392,6 +393,7 @@ export interface AuthenticityRegistry extends BaseContract {
   checkAuthenticity(
     to: string,
     tokenURI: string,
+    encodedTokenURI: string,
     collection: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -464,6 +466,7 @@ export interface AuthenticityRegistry extends BaseContract {
     checkAuthenticity(
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       collection: string,
       overrides?: CallOverrides
     ): Promise<string>;
@@ -593,6 +596,7 @@ export interface AuthenticityRegistry extends BaseContract {
     checkAuthenticity(
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       collection: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -660,6 +664,7 @@ export interface AuthenticityRegistry extends BaseContract {
     checkAuthenticity(
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       collection: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
