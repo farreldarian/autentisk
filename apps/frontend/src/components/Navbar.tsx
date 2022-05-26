@@ -47,23 +47,24 @@ const Navbar = () => {
       top={0}
       height="20"
       px="24"
+      borderBottom="1px"
+      borderColor={"whiteAlpha.500"}
       backdropFilter="blur(16px)"
       zIndex={10}
     >
-      <Heading letterSpacing={1} fontSize="32px" mr="6">
-        {" "}
-        <Link href="/">Autentisk</Link>{" "}
+      <Heading letterSpacing={1} size="lg" mr="6">
+        <Link href="/">Autentisk</Link>
       </Heading>
 
-      <Flex align="center">
+      <HStack spacing={"6"}>
         {connected && (
           <Link href="/mint" passHref>
-            <Button mr="6">Create</Button>
+            <Button>Create</Button>
           </Link>
         )}
 
         <ConnectButton showBalance={false} />
-      </Flex>
+      </HStack>
     </Flex>
   );
 };

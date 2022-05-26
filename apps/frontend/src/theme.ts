@@ -7,9 +7,12 @@ export default extendTheme(<Partial<ChakraTheme>>{
   },
   components: {
     Button: {
-      baseStyle: {
+      baseStyle: (props) => ({
         rounded: "xl",
-      },
+        shadow: `0px 4px 14px ${
+          props.colorScheme === "blue" ? "#3182CE40" : "rgba(0 0 0 /10%)"
+        }`,
+      }),
       defaultProps: {
         colorScheme: "blue",
       },
