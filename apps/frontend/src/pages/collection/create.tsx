@@ -8,9 +8,16 @@ import {
   Heading,
   Input,
 } from "@chakra-ui/react";
+import { useState } from "react";
+import { useContractWrite, useNetwork } from "wagmi";
+import { Autentisk__factory } from "../../../generated/typechain";
+import CreateCollectionForm from "../../components/CreateCollectionForm";
 import Layout from "../../components/Layout";
+import { useAutentisk } from "../../modules/contracts";
 
 export default function Create() {
+  const { activeChain } = useNetwork();
+
   return (
     <Layout>
       <Flex
@@ -20,23 +27,9 @@ export default function Create() {
         align="center"
         justify={"center"}
       >
-        <Box>
-          <Heading as="h2" size="lg" isTruncated>
-            Create New Collection
-          </Heading>
-
-          <FormControl marginTop={5}>
-            <FormLabel>
-              <strong>Collection Name</strong>
-            </FormLabel>
-
-            <Input id="name" />
-          </FormControl>
-
-          <Button colorScheme={"blue"} mt="6">
-            Create Collection
-          </Button>
-        </Box>
+        {activeChain?.id && !activeChain?.unsupported && (
+          <CreateCollectionForm />
+        )}
       </Flex>
     </Layout>
   );
