@@ -16,6 +16,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root(tokenUri: str = None):
+    print("Running")
     encoder = get_encoder()
 
     if tokenUri is None:
