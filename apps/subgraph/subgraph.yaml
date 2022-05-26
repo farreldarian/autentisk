@@ -6,9 +6,9 @@ dataSources:
     name: Autentisk
     network: mumbai
     source:
-      address: "0xA0aDC23B9ca8Be510A4AeC3593EeC9fE5Dd3188d"
+      address: "0x63e5ADAB12697794e5d45392b73B12fd231856BA"
       abi: Autentisk
-      startBlock: 26293288
+      startBlock: 26471803
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5
