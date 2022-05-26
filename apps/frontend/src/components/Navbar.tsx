@@ -42,7 +42,7 @@ const Navbar = () => {
     <Flex
       align="center"
       justify={"space-between"}
-      bg="#EDF2F760"
+      bg="#F7FAFC60"
       position="sticky"
       top={0}
       height="20"

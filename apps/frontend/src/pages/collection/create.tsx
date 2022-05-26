@@ -2,74 +2,42 @@ import {
   Box,
   Button,
   Container,
-  Grid,
-  GridItem,
+  Flex,
+  FormControl,
+  FormLabel,
   Heading,
-  Img,
-  Text,
+  Input,
 } from "@chakra-ui/react";
-import Link from "next/link";
-import Layout from "../components/Layout";
-import { shortenIfAddress } from "@usedapp/core";
-import { useCollectionsQuery } from "../../generated/graphql";
+import Layout from "../../components/Layout";
 
-export default function Collections() {
-  const [{ data }] = useCollectionsQuery();
-
+export default function Create() {
   return (
     <Layout>
-      <Container maxW="container.lg" marginTop={28}>
-        <Box alignContent="center">
-          <Heading size="md" textAlign="center">
-            My Collections
+      <Flex
+        maxWidth="container.md"
+        minH="calc(100vh - 80px)"
+        minW="100vw"
+        align="center"
+        justify={"center"}
+      >
+        <Box>
+          <Heading as="h2" size="lg" isTruncated>
+            Create New Collection
           </Heading>
 
-          <Text mb={5} textAlign="center">
-            Create and manage collections of NFTs to share and sell.
-          </Text>
+          <FormControl marginTop={5}>
+            <FormLabel>
+              <strong>Collection Name</strong>
+            </FormLabel>
 
-          <Grid my={10} templateColumns="repeat(3, 1fr)" gap="10">
-            {data?.collections.map((data, i) => (
-              <Box shadow="xl" borderRadius="lg" key={i}>
-                {/* <Img
-                  src={data.image}
-                  width="100%"
-                  maxHeight="300px"
-                  objectFit="cover"
-                  alt="NFT-img"
-                /> */}
+            <Input id="name" />
+          </FormControl>
 
-                <Box
-                  flexDirection="column"
-                  display="flex"
-                  padding="10"
-                  justifyContent="space-between"
-                  textAlign="center"
-                >
-                  <div>
-                    <h1>
-                      <strong>{data.name}</strong>
-                    </h1>
-                    <p>By {shortenIfAddress(data.id)}</p>
-                  </div>
-                  <a href={`collection/${data.name}`}>Explore Collection</a>
-                </Box>
-              </Box>
-            ))}
-          </Grid>
+          <Button colorScheme={"blue"} mt="6">
+            Create Collection
+          </Button>
         </Box>
-      </Container>
-      <Button
-        colorScheme="blackAlpha"
-        borderRadius="xl"
-        background="black"
-        position="fixed"
-        right="0"
-        bottom="0"
-        margin="6"
-      >
-        <Link href="/createCollection">Create New Collection</Link>
-      </Button>
+      </Flex>
     </Layout>
   );
 }
