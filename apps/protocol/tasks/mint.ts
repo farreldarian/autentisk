@@ -9,7 +9,12 @@ task("mint")
     const [signer] = await ethers.getSigners();
 
     const autentisk: Autentisk = await ethers.getContract("Autentisk");
-    const tx = await autentisk.mint(args.collection, signer.address, args.uri);
+    const tx = await autentisk.mint(
+      args.collection,
+      signer.address,
+      args.uri,
+      encodeURIComponent(args.uri)
+    );
 
     console.log("Sent:", tx.hash);
     const { blockNumber } = await tx.wait();

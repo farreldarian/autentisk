@@ -77,6 +77,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
     function checkAuthenticity(
         address to,
         string calldata tokenURI,
+        string calldata encodedTokenURI,
         address collection
     ) external onlyAutentisk returns (bytes32 requestId_) {
         bytes32 uriSignature = keccak256(abi.encodePacked(tokenURI));
@@ -92,7 +93,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             this.fulfillAuthenticity.selector
         );
 
-        request.add("get", makeRequestUrl(tokenURI));
+        request.add("get", makeRequestUrl(encodedTokenURI));
         request.add("path", "similarity");
 
         requestId_ = sendChainlinkRequestTo(s_oracle, request, s_fee);

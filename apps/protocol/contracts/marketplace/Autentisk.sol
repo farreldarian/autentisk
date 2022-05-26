@@ -49,11 +49,13 @@ contract Autentisk is Ownable {
     function mint(
         AutentiskERC721 collection,
         address to,
-        string calldata tokenURI
+        string calldata tokenURI,
+        string calldata encodedTokenURI
     ) external onlyCollectionOwner(collection) {
         AuthenticityRegistry(AUTHENTICITY_REGISTRY).checkAuthenticity(
             to,
             tokenURI,
+            encodedTokenURI,
             address(collection)
         );
     }
