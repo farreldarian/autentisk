@@ -68,7 +68,7 @@ export default function Collections() {
         bottom="0"
         margin="6"
       >
-        <Link href="/collection/create">Create New Collection</Link>
+        <Link href="/createCollection">Create New Collection</Link>
       </Button>
     </Layout>
   );
