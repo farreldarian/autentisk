@@ -4,7 +4,7 @@ import { chain, useContractWrite, useNetwork } from "wagmi";
 
 const ADDRESSES = {
   [chain.polygonMumbai.id]: {
-    Autentisk: "0xA0aDC23B9ca8Be510A4AeC3593EeC9fE5Dd3188d",
+    Autentisk: "0x63e5ADAB12697794e5d45392b73B12fd231856BA",
   },
 };
 
