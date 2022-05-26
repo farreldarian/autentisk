@@ -23,6 +23,7 @@ import NameField from "../modules/mint/NameField";
 import DescriptionField from "../modules/mint/DescriptionField";
 import makeTokenMetadata from "../modules/mint/makeTokenMetadata";
 import formatIpfsUri from "../modules/ipfs/format-ipfs-uri";
+import { MintFormProps } from "../modules/mint/MintFormProps";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
@@ -46,7 +47,7 @@ export default function Mint() {
           Mint NFT
         </Heading>
 
-        <Formik
+        <Formik<MintFormProps>
           initialValues={{
             name: "",
             description: "",
@@ -66,10 +67,13 @@ export default function Mint() {
             const client = getIpfs();
             const { cid: imageCid } =
               (await client
-                .add(image, {
-                  cidVersion: 1,
-                  pin: true,
-                })
+                .add(
+                  { content: image },
+                  {
+                    cidVersion: 1,
+                    pin: true,
+                  }
+                )
                 .catch(() => {
                   return undefined;
                 })) ?? {};
