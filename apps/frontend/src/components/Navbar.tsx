@@ -48,6 +48,7 @@ const Navbar = () => {
       height="20"
       px="24"
       backdropFilter="blur(16px)"
+      zIndex={10}
     >
       <Heading letterSpacing={1} fontSize="32px" mr="6">
         {" "}
@@ -56,7 +57,7 @@ const Navbar = () => {
 
       <Flex align="center">
         {connected && (
-          <Link href="/create" passHref>
+          <Link href="/mint" passHref>
             <Button mr="6">Create</Button>
           </Link>
         )}

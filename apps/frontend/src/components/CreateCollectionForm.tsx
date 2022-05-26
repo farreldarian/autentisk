@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 import { FormEvent, useState } from "react";
-import { useAutentisk } from "../modules/contracts";
+import { useAutentisk } from "../modules/contracts/useAutentisk";
 
 export default function CreateCollectionForm() {
   const { writeAsync, isLoading, isSuccess, error } = useAutentisk(

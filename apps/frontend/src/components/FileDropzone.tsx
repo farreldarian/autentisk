@@ -2,6 +2,7 @@ import { Group, Text, MantineTheme, useMantineTheme } from "@mantine/core";
 import { Upload, Photo, X, Icon as TablerIcon } from "tabler-icons-react";
 import { DropzoneStatus, IMAGE_MIME_TYPE } from "@mantine/dropzone";
 import { Dropzone } from "@mantine/dropzone";
+
 export default function FileDropzone() {
   const theme = useMantineTheme();
   function getIconColor(status: DropzoneStatus, theme: MantineTheme) {
@@ -48,6 +49,7 @@ export default function FileDropzone() {
       </div>
     </Group>
   );
+
   return (
     <Dropzone
       onDrop={(files) => console.log("accepted files", files)}
