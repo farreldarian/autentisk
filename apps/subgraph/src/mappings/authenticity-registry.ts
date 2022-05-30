@@ -23,7 +23,8 @@ export function handleAuthenticityRequested(
 export function handleAuthenticityFulfilled(
   event: AuthenticityFulfilled
 ): void {
-  const request = new AuthenticityRequest(event.params.requestId.toHex())
+  const request = AuthenticityRequest.load(event.params.requestId.toHex())
+  if (!request) throw new Error('Missing request')
   request.similarity = event.params.similarityThreshold
   request.status = event.params.isAccepted ? 'Registered' : 'Rejected'
   request.save()
