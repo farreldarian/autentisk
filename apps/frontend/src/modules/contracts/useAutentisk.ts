@@ -5,7 +5,7 @@ import { constants } from "ethers";
 
 const ADDRESSES = {
   [chain.polygonMumbai.id]: {
-    Autentisk: "0x63e5ADAB12697794e5d45392b73B12fd231856BA",
+    Autentisk: "0x9D120BfC080F788Bc16db59333dDA022a70489e9",
   },
 };
 
