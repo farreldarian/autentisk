@@ -15,13 +15,16 @@ const SIMILARITY_THRESHOLD = parseEther('0.5')
 
 async function estimateAddress(
   ethers: typeof _ethers,
-  deployer: SignerWithAddress
+  deployer: SignerWithAddress,
+  afterTx: number = 1
 ) {
   const { keccak256, RLP, hexlify } = ethers.utils
   const nonce = await deployer.getTransactionCount()
   return (
     '0x' +
-    keccak256(RLP.encode([deployer.address, hexlify(nonce + 1)])).slice(26)
+    keccak256(RLP.encode([deployer.address, hexlify(nonce + afterTx)])).slice(
+      26
+    )
   )
 }
 
@@ -44,7 +47,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     }
   }
 
-  const autentisk = await estimateAddress(ethers, deployer)
+  const autentisk = await estimateAddress(ethers, deployer, 2)
 
   const registry = await deploy('AuthenticityRegistry', {
     from: deployer.address,
