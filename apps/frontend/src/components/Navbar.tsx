@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, HStack } from '@chakra-ui/react'
+import { Button, Flex, Heading } from '@chakra-ui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { isNil } from 'lodash'
 import Link from 'next/link'
@@ -28,15 +28,15 @@ const Navbar = () => {
         <Link href='/'>Autentisk</Link>
       </Heading>
 
-      <HStack spacing={'6'}>
+      <Flex>
         {connected && (
           <Link href='/mint' passHref>
-            <Button>Create</Button>
+            <Button mr='6'>Create</Button>
           </Link>
         )}
 
         <ConnectButton showBalance={false} />
-      </HStack>
+      </Flex>
     </Flex>
   )
 }
