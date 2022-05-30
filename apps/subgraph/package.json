@@ -2,9 +2,11 @@
   "name": "autentisk",
   "license": "UNLICENSED",
   "scripts": {
+    "prepare:maticmum": "pnpm run --filter scripts prepare-subgraph -- --chainId 80001",
     "codegen": "graph codegen",
     "build": "graph build",
     "deploy": "graph deploy --node https://api.thegraph.com/deploy/ farreldarian/autentisk",
+    "deploy:maticmum": "pnpm prepare:maticmum && pnpm codegen && pnpm deploy",
     "create-local": "graph create --node http://localhost:8020/ farreldarian/autentisk",
     "remove-local": "graph remove --node http://localhost:8020/ farreldarian/autentisk",
     "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 farreldarian/autentisk"
