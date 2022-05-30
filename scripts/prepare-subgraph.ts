@@ -26,15 +26,15 @@ function writeManifest(manifest: string) {
   fs.writeFileSync('../apps/subgraph/subgraph.yaml', manifest)
 }
 
-async function main() {
+function main() {
   const chainId = Number(getArgs('chainId'))
 
-  const deployment = await getDeployment(chainId, 'Autentisk')
+  const deployment = getDeployment(chainId, 'Autentisk')
 
   const manifest = Mustache.render(getTemplate(), {
     network: getSubgraphNetworkName(chainId),
     address: deployment.address,
-    startBlock: deployment.receipt!.blockNumber,
+    startBlock: deployment.startBlock,
   })
   writeManifest(manifest)
 }
