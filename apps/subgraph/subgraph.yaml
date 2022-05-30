@@ -6,7 +6,7 @@ dataSources:
     name: Autentisk
     network: mumbai
     source:
-      address: "0x63e5ADAB12697794e5d45392b73B12fd231856BA"
+      address: "0x9D120BfC080F788Bc16db59333dDA022a70489e9"
       abi: Autentisk
       startBlock: 26471803
     mapping:
