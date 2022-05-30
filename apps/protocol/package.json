@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "deploy:maticmum": "hardhat deploy --network maticmum"
+    "deploy:maticmum": "hardhat deploy --network maticmum && ts-node scripts/write-deployment"
   },
   "dependencies": {
     "@chainlink/contracts": "^0.4.1",
