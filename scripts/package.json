@@ -5,6 +5,7 @@
     "prepare-subgraph": "ts-node prepare-subgraph.ts"
   },
   "dependencies": {
+    "contract": "workspace:*",
     "@types/mustache": "^4.1.2",
     "@types/node": "^17.0.36",
     "ethers": "^5.6.8",

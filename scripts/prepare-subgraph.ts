@@ -1,6 +1,6 @@
 import fs from 'fs'
-import { providers } from 'ethers'
 import Mustache from 'mustache'
+import { getDeployment } from 'contract'
 
 function getArgs(name: string): string {
   const args = process.argv
@@ -18,15 +18,6 @@ function getSubgraphNetworkName(chainId: number): string {
   }
 }
 
-async function getDeployment(chainId: number, contract: string) {
-  const network = providers.getNetwork(chainId)
-  return (
-    await import(
-      `../apps/protocol/deployments/${network.name}/${contract}.json`
-    )
-  ).default
-}
-
 function getTemplate() {
   return fs.readFileSync('../apps/subgraph/subgraph.template.yaml', 'utf-8')
 }
@@ -39,12 +30,11 @@ async function main() {
   const chainId = Number(getArgs('chainId'))
 
   const deployment = await getDeployment(chainId, 'Autentisk')
-  const template = getTemplate()
 
-  const manifest = Mustache.render(template, {
+  const manifest = Mustache.render(getTemplate(), {
     network: getSubgraphNetworkName(chainId),
     address: deployment.address,
-    startBlock: deployment.receipt.blockNumber,
+    startBlock: deployment.receipt!.blockNumber,
   })
   writeManifest(manifest)
 }
