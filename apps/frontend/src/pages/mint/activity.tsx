@@ -11,12 +11,15 @@ import {
   Tr,
 } from '@chakra-ui/react'
 import { shortenIfAddress } from '@usedapp/core'
+import { useNetwork } from 'wagmi'
 import { useMintActivityQuery } from '../../../generated/graphql'
 import { parseIfIpfs } from '../../common/utils/ipfs'
+import getAddressExplorerUrl from '../../common/utils/misc/get-address-explorer-url'
 import MintLayout from '../../layouts/mint/MintLayout'
 
 export default function History() {
   const [{ data }] = useMintActivityQuery()
+  const { activeChain } = useNetwork()
 
   return (
     <MintLayout>
@@ -34,7 +37,15 @@ export default function History() {
           <Tbody>
             {data?.authenticityRequests.map((item, i) => (
               <Tr key={i}>
-                <Td>{shortenIfAddress(item.collection.owner.id)}</Td>
+                <Td>
+                  <Link
+                    href={getAddressExplorerUrl(item.collection.owner.id)}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    {shortenIfAddress(item.collection.owner.id)}
+                  </Link>
+                </Td>
                 <Td>{item.collection.name}</Td>
                 <Td display={'flex'} gap='2'>
                   {item.similarity && (
@@ -60,7 +71,6 @@ export default function History() {
                     href={parseIfIpfs(item.tokenUri)}
                     target='_blank'
                     rel='noreferrer'
-                    variant='ghost'
                   >
                     uri
                   </Link>
