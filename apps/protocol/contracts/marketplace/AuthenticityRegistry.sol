@@ -38,6 +38,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
 
     string public s_classifierUrl;
     uint256 public s_similarityThreshold;
+    bool public s_pending;
 
     address public s_oracle;
     bytes32 public s_jobId;
@@ -86,6 +87,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             "TokenURI has been registered"
         );
         require(bytes(tokenURI).length > 0, "Token URI can't be empty");
+        require(!s_pending, "Pending classification");
 
         Chainlink.Request memory request = buildChainlinkRequest(
             s_jobId,
@@ -103,6 +105,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             collection
         );
         s_signatureToRequestId[uriSignature] = requestId_;
+        s_pending = true;
 
         emit AuthenticityRequested(uriSignature, collection, requestId_);
     }
@@ -111,6 +114,8 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
         public
         recordChainlinkFulfillment(requestId)
     {
+        s_pending = false;
+
         AuthenticityRequest memory request = s_authenticityRequests[requestId];
         delete s_authenticityRequests[requestId];
 
