@@ -5,6 +5,7 @@ import type { HardhatRuntimeEnvironment } from "hardhat/types";
 import { ethers as _ethers } from "hardhat";
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { AuthenticityRegistry__factory } from "../typechain";
+import { erc20 } from "../typechain/factories/@openzeppelin/contracts/token";
 
 const LINK_ADDRESS = "0x326c977e6efc84e512bb9c30f76e30c160ed06fb";
 const ORACLE = "0xc8D925525CA8759812d0c299B90247917d4d4b7C";
@@ -43,7 +44,7 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
 
   const autentisk = await estimateAddress(ethers, deployer);
 
-  await deploy("AuthenticityRegistry", {
+  const registry = await deploy("AuthenticityRegistry", {
     from: deployer.address,
     args: [
       controller.address,
@@ -57,5 +58,10 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
     ],
     log: true,
   });
+
+  console.log("Sending 0.1 LINK");
+  const link = erc20.IERC20__factory.connect(LINK_ADDRESS, deployer);
+  await link.transfer(registry.address, parseEther("0.1"));
+  console.log("Registry is ready to be used!");
 };
 export default func;
