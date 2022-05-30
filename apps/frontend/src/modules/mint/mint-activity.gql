@@ -1,0 +1,16 @@
+query MintActivity {
+  authenticityRequests {
+    tokenUri
+    status
+    similarity
+
+    collection {
+      id
+      name
+
+      owner {
+        id
+      }
+    }
+  }
+}
