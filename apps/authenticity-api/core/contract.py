@@ -1,5 +1,5 @@
 from web3 import Web3, HTTPProvider
-from constants.deployed_contracts import DEPLOYED_CONTRACTS
+from .constants.deployed_contracts import DEPLOYED_CONTRACTS
 from .env import API_KEY
 from .unit import format_ether
 
