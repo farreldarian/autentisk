@@ -10,7 +10,7 @@ def get_w3():
 
 
 def get_registry_contract(w3=get_w3()):
-    deployment = DEPLOYED_CONTRACTS[80001]["Autentisk"]
+    deployment = DEPLOYED_CONTRACTS[80001]["AuthenticityRegistry"]
     return w3.eth.contract(address=deployment['address'], abi=deployment['abi'])
 
 
