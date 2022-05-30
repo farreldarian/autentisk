@@ -1,9 +1,8 @@
-import { BigNumber, constants } from 'ethers'
-import { keccak256, parseEther } from 'ethers/lib/utils'
+import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
+import { parseEther } from 'ethers/lib/utils'
+import { ethers as _ethers } from 'hardhat'
 import type { DeployFunction } from 'hardhat-deploy/types'
 import type { HardhatRuntimeEnvironment } from 'hardhat/types'
-import { ethers as _ethers } from 'hardhat'
-import type { SignerWithAddress } from '@nomiclabs/hardhat-ethers/signers'
 import { AuthenticityRegistry__factory } from '../typechain'
 import { erc20 } from '../typechain/factories/@openzeppelin/contracts/token'
 

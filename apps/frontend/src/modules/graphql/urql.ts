@@ -1,5 +1,5 @@
-import { createClient } from "urql";
+import { createClient } from 'urql'
 
 export const client = createClient({
-  url: "https://api.thegraph.com/subgraphs/name/farreldarian/autentisk",
-});
+  url: 'https://api.thegraph.com/subgraphs/name/farreldarian/autentisk',
+})

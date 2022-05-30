@@ -6,6 +6,7 @@ module.exports = {
   jsxSingleQuote: true,
   trailingComma: 'es5',
   bracketSameLine: false,
+  plugins: ['./node_modules/prettier-plugin-organize-imports'],
   overrides: [
     {
       files: '*.yaml',

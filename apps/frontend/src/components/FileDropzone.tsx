@@ -1,18 +1,17 @@
-import { Group, Text, MantineTheme, useMantineTheme } from "@mantine/core";
-import { Upload, Photo, X, Icon as TablerIcon } from "tabler-icons-react";
-import { DropzoneStatus, IMAGE_MIME_TYPE } from "@mantine/dropzone";
-import { Dropzone } from "@mantine/dropzone";
+import { Group, MantineTheme, Text, useMantineTheme } from '@mantine/core'
+import { Dropzone, DropzoneStatus, IMAGE_MIME_TYPE } from '@mantine/dropzone'
+import { Icon as TablerIcon, Photo, Upload, X } from 'tabler-icons-react'
 
 export default function FileDropzone() {
-  const theme = useMantineTheme();
+  const theme = useMantineTheme()
   function getIconColor(status: DropzoneStatus, theme: MantineTheme) {
     return status.accepted
-      ? theme.colors[theme.primaryColor][theme.colorScheme === "dark" ? 4 : 6]
+      ? theme.colors[theme.primaryColor][theme.colorScheme === 'dark' ? 4 : 6]
       : status.rejected
-      ? theme.colors.red[theme.colorScheme === "dark" ? 4 : 6]
-      : theme.colorScheme === "dark"
+      ? theme.colors.red[theme.colorScheme === 'dark' ? 4 : 6]
+      : theme.colorScheme === 'dark'
       ? theme.colors.dark[0]
-      : theme.colors.gray[7];
+      : theme.colors.gray[7]
   }
 
   function ImageUploadIcon({
@@ -20,21 +19,21 @@ export default function FileDropzone() {
     ...props
   }: React.ComponentProps<TablerIcon> & { status: DropzoneStatus }) {
     if (status.accepted) {
-      return <Upload {...props} />;
+      return <Upload {...props} />
     }
 
     if (status.rejected) {
-      return <X {...props} />;
+      return <X {...props} />
     }
 
-    return <Photo {...props} />;
+    return <Photo {...props} />
   }
 
   const dropzoneChildren = (status: DropzoneStatus, theme: MantineTheme) => (
     <Group
-      position="center"
-      spacing="xl"
-      style={{ minHeight: 220, pointerEvents: "none" }}
+      position='center'
+      spacing='xl'
+      style={{ minHeight: 220, pointerEvents: 'none' }}
     >
       <ImageUploadIcon
         status={status}
@@ -43,21 +42,21 @@ export default function FileDropzone() {
       />
 
       <div>
-        <Text size="xl" inline>
+        <Text size='xl' inline>
           Drag images here or click to select files
         </Text>
       </div>
     </Group>
-  );
+  )
 
   return (
     <Dropzone
-      onDrop={(files) => console.log("accepted files", files)}
-      onReject={(files) => console.log("rejected files", files)}
+      onDrop={(files) => console.log('accepted files', files)}
+      onReject={(files) => console.log('rejected files', files)}
       maxSize={3 * 1024 ** 2}
       accept={IMAGE_MIME_TYPE}
     >
       {(status) => dropzoneChildren(status, theme)}
     </Dropzone>
-  );
+  )
 }

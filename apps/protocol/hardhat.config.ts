@@ -1,59 +1,59 @@
-import * as dotenv from "dotenv";
-import "hardhat-deploy";
-import { HardhatUserConfig, task } from "hardhat/config";
-import "@nomiclabs/hardhat-etherscan";
-import "@nomiclabs/hardhat-waffle";
-import "@typechain/hardhat";
-import "hardhat-gas-reporter";
-import "solidity-coverage";
-import "hardhat-abi-exporter";
+import '@nomiclabs/hardhat-etherscan'
+import '@nomiclabs/hardhat-waffle'
+import '@typechain/hardhat'
+import * as dotenv from 'dotenv'
+import 'hardhat-abi-exporter'
+import 'hardhat-deploy'
+import 'hardhat-gas-reporter'
+import { HardhatUserConfig, task } from 'hardhat/config'
+import 'solidity-coverage'
 
-import "./tasks";
+import './tasks'
 
-dotenv.config();
+dotenv.config()
 
 // This is a sample Hardhat task. To learn how to create your own go to
 // https://hardhat.org/guides/create-task.html
-task("accounts", "Prints the list of accounts", async (taskArgs, hre) => {
-  const accounts = await hre.ethers.getSigners();
+task('accounts', 'Prints the list of accounts', async (taskArgs, hre) => {
+  const accounts = await hre.ethers.getSigners()
 
   for (const account of accounts) {
-    console.log(account.address);
+    console.log(account.address)
   }
-});
+})
 
 // You need to export an object to set up your config
 // Go to https://hardhat.org/config/ to learn more
 
 const config: HardhatUserConfig = {
-  solidity: "0.8.13",
+  solidity: '0.8.13',
   networks: {
     polygon: {
-      url: "https://polygon-rpc.com",
+      url: 'https://polygon-rpc.com',
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
     maticmum: {
       url:
-        "https://polygon-mumbai.g.alchemy.com/v2/" +
-          process.env.ALCHEMY_API_KEY ?? "",
+        'https://polygon-mumbai.g.alchemy.com/v2/' +
+          process.env.ALCHEMY_API_KEY ?? '',
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
     },
   },
   gasReporter: {
     enabled: process.env.REPORT_GAS !== undefined,
-    currency: "USD",
+    currency: 'USD',
   },
   etherscan: {
     apiKey: process.env.ETHERSCAN_API_KEY,
   },
   typechain: {
-    outDir: "typechain",
+    outDir: 'typechain',
   },
   abiExporter: [
     {
-      path: "../subgraph/abis",
+      path: '../subgraph/abis',
       flat: true,
     },
   ],
@@ -61,6 +61,6 @@ const config: HardhatUserConfig = {
     deployer: { default: 0 },
     controller: { default: 0 },
   },
-};
+}
 
-export default config;
+export default config

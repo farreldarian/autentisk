@@ -1,6 +1,6 @@
+import { getDeployment } from 'contract'
 import fs from 'fs'
 import Mustache from 'mustache'
-import { getDeployment } from 'contract'
 
 function getArgs(name: string): string {
   const args = process.argv

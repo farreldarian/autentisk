@@ -1,8 +1,8 @@
-import { Autentisk__factory } from '../../../generated/typechain'
-import { useContractWrite, useNetwork } from 'wagmi'
-import { constants } from 'ethers'
 import { getDeployment } from 'contract'
+import { constants } from 'ethers'
 import { useEffect, useState } from 'react'
+import { useContractWrite, useNetwork } from 'wagmi'
+import { Autentisk__factory } from '../../../generated/typechain'
 
 async function getAddress(chainId?: number) {
   if (!chainId) return constants.AddressZero

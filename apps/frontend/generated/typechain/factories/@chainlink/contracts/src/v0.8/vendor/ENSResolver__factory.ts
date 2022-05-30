@@ -2,44 +2,44 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { Contract, Signer, utils } from "ethers";
-import type { Provider } from "@ethersproject/providers";
+import type { Provider } from '@ethersproject/providers'
+import { Contract, Signer, utils } from 'ethers'
 import type {
   ENSResolver,
   ENSResolverInterface,
-} from "../../../../../../@chainlink/contracts/src/v0.8/vendor/ENSResolver";
+} from '../../../../../../@chainlink/contracts/src/v0.8/vendor/ENSResolver'
 
 const _abi = [
   {
     inputs: [
       {
-        internalType: "bytes32",
-        name: "node",
-        type: "bytes32",
+        internalType: 'bytes32',
+        name: 'node',
+        type: 'bytes32',
       },
     ],
-    name: "addr",
+    name: 'addr',
     outputs: [
       {
-        internalType: "address",
-        name: "",
-        type: "address",
+        internalType: 'address',
+        name: '',
+        type: 'address',
       },
     ],
-    stateMutability: "view",
-    type: "function",
+    stateMutability: 'view',
+    type: 'function',
   },
-];
+]
 
 export class ENSResolver__factory {
-  static readonly abi = _abi;
+  static readonly abi = _abi
   static createInterface(): ENSResolverInterface {
-    return new utils.Interface(_abi) as ENSResolverInterface;
+    return new utils.Interface(_abi) as ENSResolverInterface
   }
   static connect(
     address: string,
     signerOrProvider: Signer | Provider
   ): ENSResolver {
-    return new Contract(address, _abi, signerOrProvider) as ENSResolver;
+    return new Contract(address, _abi, signerOrProvider) as ENSResolver
   }
 }

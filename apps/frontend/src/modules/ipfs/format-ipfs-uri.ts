@@ -1,3 +1,3 @@
 export default function formatIpfsUri(cidOrPath: string) {
-  return `ipfs://${cidOrPath}`;
+  return `ipfs://${cidOrPath}`
 }

@@ -1,24 +1,23 @@
 import {
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
-  FormErrorMessage,
-} from "@chakra-ui/react";
-import { errors } from "ethers";
-import { Field, useFormikContext } from "formik";
-import { MintFormProps } from "./MintFormProps";
+} from '@chakra-ui/react'
+import { useFormikContext } from 'formik'
+import { MintFormProps } from './MintFormProps'
 
 export default function NameField() {
   const { isSubmitting, errors, touched, getFieldProps } =
-    useFormikContext<MintFormProps>();
+    useFormikContext<MintFormProps>()
 
   return (
     <FormControl isInvalid={!!errors.name && !!touched.name}>
-      <FormLabel htmlFor="name" fontWeight={"bold"}>
+      <FormLabel htmlFor='name' fontWeight={'bold'}>
         Name
       </FormLabel>
-      <Input id="name" isDisabled={isSubmitting} {...getFieldProps("name")} />
+      <Input id='name' isDisabled={isSubmitting} {...getFieldProps('name')} />
       <FormErrorMessage>{errors.name}</FormErrorMessage>
     </FormControl>
-  );
+  )
 }

@@ -1,27 +1,25 @@
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalFooter,
-  ModalBody,
-  ModalCloseButton,
-  Button,
-  Text,
   Box,
-  Avatar,
-} from "@chakra-ui/react";
-import { HiLogout } from "react-icons/hi";
-import { useMemo } from "react";
-import { useNetwork } from "wagmi";
-import { ChainId, shortenIfAddress } from "@usedapp/core";
+  Button,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  Text,
+} from '@chakra-ui/react'
+import { shortenIfAddress } from '@usedapp/core'
+import { useMemo } from 'react'
+import { HiLogout } from 'react-icons/hi'
+import { useNetwork } from 'wagmi'
 interface AccountModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  onClick: () => void;
-  chainId: number;
-  balance?: string;
-  account?: string;
+  isOpen: boolean
+  onClose: () => void
+  onClick: () => void
+  chainId: number
+  balance?: string
+  account?: string
 }
 
 export default function AccountModal({
@@ -32,17 +30,17 @@ export default function AccountModal({
   balance,
   account,
 }: AccountModalProps) {
-  const { activeChain } = useNetwork();
+  const { activeChain } = useNetwork()
 
   const wrongNetwork = useMemo(() => {
-    return chainId !== 4;
-  }, [chainId]);
+    return chainId !== 4
+  }, [chainId])
   return (
     <Modal isOpen={isOpen} onClose={onClose} isCentered>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>
-          Connected with MetaMask{" "}
+          Connected with MetaMask{' '}
           {/* <Text fontWeight="normal" fontSize="md">
             on <strong>{ChainId[activeChain?.id]}</strong> network
           </Text> */}
@@ -50,12 +48,12 @@ export default function AccountModal({
 
         <ModalBody
           padding={6}
-          width="full"
-          justifySelf="center"
-          justifyContent="start"
+          width='full'
+          justifySelf='center'
+          justifyContent='start'
           gap={6}
-          display="flex"
-          alignItems="center"
+          display='flex'
+          alignItems='center'
         >
           {wrongNetwork ? (
             <Box
@@ -63,7 +61,7 @@ export default function AccountModal({
               height={2}
               padding={2}
               borderRadius={100}
-              bg="#FF3D00"
+              bg='#FF3D00'
             />
           ) : (
             <Box
@@ -71,24 +69,24 @@ export default function AccountModal({
               height={2}
               padding={2}
               borderRadius={100}
-              bg="#42FF00"
+              bg='#42FF00'
             />
           )}
           <Box>
             {wrongNetwork ? (
-              <Text fontWeight="bold">Wrong Network !</Text>
+              <Text fontWeight='bold'>Wrong Network !</Text>
             ) : (
-              <Text fontWeight="bold">{balance} ETH</Text>
+              <Text fontWeight='bold'>{balance} ETH</Text>
             )}
 
             <Text>{shortenIfAddress(account)}</Text>
           </Box>
         </ModalBody>
         <ModalFooter>
-          <Box width="full">
+          <Box width='full'>
             <Button
-              justifyContent="space-between"
-              width="full"
+              justifyContent='space-between'
+              width='full'
               onClick={onClick}
             >
               Disconnect <HiLogout />
@@ -97,5 +95,5 @@ export default function AccountModal({
         </ModalFooter>
       </ModalContent>
     </Modal>
-  );
+  )
 }

@@ -1,13 +1,13 @@
-import { create } from "ipfs-http-client";
+import { create } from 'ipfs-http-client'
 
 // const IPFS_HOST = "api.thegraph.com/ipfs";
-const IPFS_HOST = "ipfs.infura.io";
+const IPFS_HOST = 'ipfs.infura.io'
 
 export default function getIpfs() {
   return create({
     host: IPFS_HOST,
-    protocol: "https",
+    protocol: 'https',
     port: 5001,
-    apiPath: "/api/v0",
-  });
+    apiPath: '/api/v0',
+  })
 }

@@ -1,33 +1,32 @@
 import {
   Box,
-  Heading,
+  Button,
   FormControl,
   FormLabel,
+  Heading,
   Input,
-  Button,
-  FormErrorMessage,
   Text,
-} from "@chakra-ui/react";
-import { FormEvent, useState } from "react";
-import { useAutentisk } from "../modules/contracts/useAutentisk";
+} from '@chakra-ui/react'
+import { FormEvent } from 'react'
+import { useAutentisk } from '../modules/contracts/useAutentisk'
 
 export default function CreateCollectionForm() {
   const { writeAsync, isLoading, isSuccess, error } = useAutentisk(
-    "createCollection",
-    ["", ""]
-  );
+    'createCollection',
+    ['', '']
+  )
 
   async function onSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const name = e.target["name"].value;
-    const symbol = e.target["symbol"].value;
+    e.preventDefault()
+    const name = e.target['name'].value
+    const symbol = e.target['symbol'].value
 
-    await writeAsync({ args: [name, symbol] });
+    await writeAsync({ args: [name, symbol] })
   }
 
   return (
     <Box>
-      <Heading as="h2" size="lg" isTruncated>
+      <Heading as='h2' size='lg' isTruncated>
         Create New Collection
       </Heading>
 
@@ -37,7 +36,7 @@ export default function CreateCollectionForm() {
             <strong>Collection Name</strong>
           </FormLabel>
 
-          <Input id="name" />
+          <Input id='name' />
         </FormControl>
 
         <FormControl marginTop={3}>
@@ -45,25 +44,25 @@ export default function CreateCollectionForm() {
             <strong>Symbol</strong>
           </FormLabel>
 
-          <Input id="symbol" />
+          <Input id='symbol' />
         </FormControl>
 
-        <Button colorScheme={"blue"} mt="6" type="submit" isLoading={isLoading}>
+        <Button colorScheme={'blue'} mt='6' type='submit' isLoading={isLoading}>
           <>Create Collection</>
         </Button>
 
         {error && (
-          <Text mt="1.5" color="red">
+          <Text mt='1.5' color='red'>
             {error?.message}
           </Text>
         )}
 
         {isSuccess && (
-          <Text mt="1.5" color="green">
+          <Text mt='1.5' color='green'>
             Success!
           </Text>
         )}
       </form>
     </Box>
-  );
+  )
 }
