@@ -5,7 +5,8 @@ import useFallbackAccountAddress from '../../common/hooks/useFallbackAccountAddr
 import MintLayout from '../../layouts/mint/MintLayout'
 import { useAutentisk } from '../../modules/contracts/useAutentisk'
 import formatIpfsUri from '../../modules/ipfs/format-ipfs-uri'
-import getIpfs from '../../modules/ipfs/get-ipfs'
+import pinContent from '../../modules/ipfs/pin-content'
+import pinFile from '../../modules/ipfs/pin-file'
 import DescriptionField from '../../modules/mint/DescriptionField'
 import ImageFormSection from '../../modules/mint/ImageFormSection'
 import makeTokenMetadata from '../../modules/mint/makeTokenMetadata'
@@ -21,7 +22,7 @@ const validationSchema = Yup.object({
 
 export default function Mint() {
   const { address } = useFallbackAccountAddress()
-  const { writeAsync } = useAutentisk('mint', [])
+  const { writeAsync, status } = useAutentisk('mint', [])
   const toast = useToast({
     isClosable: true,
     position: 'bottom-right',
@@ -47,19 +48,7 @@ export default function Mint() {
             return
           }
 
-          const client = getIpfs()
-          const { cid: imageCid } =
-            (await client
-              .add(
-                { content: image },
-                {
-                  cidVersion: 1,
-                  pin: true,
-                }
-              )
-              .catch(() => {
-                return undefined
-              })) ?? {}
+          const imageCid = await pinFile(image)
           if (!imageCid) {
             toast({
               title: 'Mint Failed',
@@ -76,14 +65,7 @@ export default function Mint() {
             formatIpfsUri(imageCid.toString())
           )
 
-          const { cid: tokenCid } =
-            (await client
-              .add(JSON.stringify(metadata, null, 2), {
-                cidVersion: 1,
-                pin: true,
-              })
-              .catch(() => undefined)) ?? {}
-
+          const tokenCid = await pinContent(JSON.stringify(metadata, null, 2))
           if (!tokenCid) {
             toast({
               title: 'Mint Failed',
