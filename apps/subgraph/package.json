@@ -1,5 +1,5 @@
 {
-  "name": "autentisk",
+  "name": "subgraph",
   "license": "UNLICENSED",
   "scripts": {
     "prepare:maticmum": "pnpm run --filter scripts prepare-subgraph -- --chainId 80001",
