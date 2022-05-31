@@ -1,0 +1,13 @@
+query TokenPage($id: ID!) {
+  token(id: $id) {
+    uri
+
+    owner {
+      id
+    }
+
+    collection {
+      id
+    }
+  }
+}

@@ -760,7 +760,7 @@ export type CollectionQueryVariables = Exact<{
 }>;
 
 
-export type CollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', name: string, owner: { __typename?: 'Account', id: string }, tokens: Array<{ __typename?: 'Token', id: string, uri: string, owner: { __typename?: 'Account', id: string } }> } | null };
+export type CollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', name: string, owner: { __typename?: 'Account', id: string }, tokens: Array<{ __typename?: 'Token', id: string, scId: any, uri: string, owner: { __typename?: 'Account', id: string } }> } | null };
 
 export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -789,6 +789,13 @@ export type UserCollectionsQueryVariables = Exact<{
 
 export type UserCollectionsQuery = { __typename?: 'Query', collections: Array<{ __typename?: 'Collection', id: string, name: string }> };
 
+export type TokenPageQueryVariables = Exact<{
+  id: Scalars['ID'];
+}>;
+
+
+export type TokenPageQuery = { __typename?: 'Query', token?: { __typename?: 'Token', uri: string, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', id: string } } | null };
+
 
 export const CollectionDocument = gql`
     query Collection($address: ID!) {
@@ -799,6 +806,7 @@ export const CollectionDocument = gql`
     }
     tokens {
       id
+      scId
       uri
       owner {
         id
@@ -902,4 +910,21 @@ export const UserCollectionsDocument = gql`
 
 export function useUserCollectionsQuery(options: Omit<Urql.UseQueryArgs<UserCollectionsQueryVariables>, 'query'>) {
   return Urql.useQuery<UserCollectionsQuery>({ query: UserCollectionsDocument, ...options });
+};
+export const TokenPageDocument = gql`
+    query TokenPage($id: ID!) {
+  token(id: $id) {
+    uri
+    owner {
+      id
+    }
+    collection {
+      id
+    }
+  }
+}
+    `;
+
+export function useTokenPageQuery(options: Omit<Urql.UseQueryArgs<TokenPageQueryVariables>, 'query'>) {
+  return Urql.useQuery<TokenPageQuery>({ query: TokenPageDocument, ...options });
 };

@@ -133,7 +133,13 @@ export default function CollectionInfo({ address }: Props) {
             width='full'
           >
             {data?.collection?.tokens.map((token, i) => (
-              <NftCard key={i} uri={token.uri} owner={token.owner.id} />
+              <NftCard
+                key={i}
+                uri={token.uri}
+                owner={token.owner.id}
+                collectionAddress={address}
+                tokenId={token.scId}
+              />
             ))}
           </Box>
         </Box>

@@ -6,6 +6,7 @@ query Collection($address: ID!) {
     }
     tokens {
       id
+      scId
       uri
       owner {
         id
