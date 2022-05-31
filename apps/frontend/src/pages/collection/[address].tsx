@@ -54,7 +54,7 @@ export default function CollectionInfo({ address }: Props) {
           backgroundSize='cover'
           backgroundAttachment='fixed'
           backgroundRepeat='no-repeat'
-          height='100vh'
+          height='80vh'
           justifyContent='space-between'
           {...(metadata && { backgroundImage: parseIfIpfs(metadata.image) })}
         >
@@ -104,41 +104,25 @@ export default function CollectionInfo({ address }: Props) {
         <Box
           mt={6}
           py={10}
-          px={8}
+          px={12}
           maxW='full'
           background='transparent'
           backdropFilter='blur(20px)'
         >
           <Box
-            backdropFilter='blur(20px)'
             borderRadius='2xl'
-            padding={6}
-            maxWidth='50%'
+            w='fit-content'
+            py='6'
+            px='12'
             display='flex'
-            textColor='Black'
             background='white'
-            boxShadow='4px 4px 10px black'
+            shadow='lg'
             mt='-28'
             justifyContent='space-evenly'
           >
-            <Box pr='10' borderRight='2px'>
-              <Text>Collection of</Text>
-              <Text fontWeight='700'>3</Text>
-            </Box>
-
-            <Box pr='10' borderRight='2px'>
-              <Text>Owned by</Text>
-              <Text fontWeight='700'>1</Text>
-            </Box>
-
-            <Box pr='10' borderRight='2px'>
-              <Text>Floor price</Text>
-              <Text fontWeight='700'>0.32</Text>
-            </Box>
-
             <Box>
-              <Text>Total Sales</Text>
-              <Text fontWeight='700'>2</Text>
+              <Text>Tokens</Text>
+              <Text fontWeight='700'>{data?.collection?.tokens.length}</Text>
             </Box>
           </Box>
 
