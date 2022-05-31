@@ -65,7 +65,10 @@ export default function FeaturedSection({
               <Box
                 padding={3}
                 borderRadius={'lg'}
-                boxShadow={'2px 2px 3px black'}
+                shadow='lg'
+                cursor={'pointer'}
+                transition='150ms ease-in-out'
+                _hover={{ bg: 'white', shadow: 'xl' }}
               >
                 {shortenIfAddress(owner)}
               </Box>
@@ -79,7 +82,10 @@ export default function FeaturedSection({
                 <Box
                   padding={3}
                   borderRadius={'lg'}
-                  boxShadow={'2px 2px 3px black'}
+                  shadow='lg'
+                  cursor={'pointer'}
+                  transition='150ms ease-in-out'
+                  _hover={{ bg: 'white', shadow: 'xl' }}
                 >
                   {collectionName}
                 </Box>
@@ -92,9 +98,7 @@ export default function FeaturedSection({
             <Text fontSize={"5xl"}>{featured.price} ETH</Text>
           </Box> */}
 
-          <Button colorScheme={'blackAlpha'} variant={'outline'}>
-            View NFT
-          </Button>
+          <Button colorScheme={'blue'}>View NFT</Button>
         </Box>
       </Box>
     </section>
