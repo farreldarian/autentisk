@@ -7,5 +7,5 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 EXPOSE $PORT
 ENV PORT=$PORT
-CMD ["prisma", "generate"]
+RUN ["prisma", "generate"]
 CMD ["python", "main.py"]
