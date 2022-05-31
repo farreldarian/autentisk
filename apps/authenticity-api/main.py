@@ -10,6 +10,7 @@ from core.image import load_image
 from core.contract import get_request_id, get_sig, get_similarity_threshold
 from core.encoder import get_encoder
 from core.s3 import get_vectors_key, upload_vector, download_vector
+from prisma import Prisma
 
 app = FastAPI()
 encoder = get_encoder()
@@ -26,6 +27,13 @@ async def root(tokenUri: str = None):
     request_id = get_request_id(tokenUri)
     if request_id is None:
         return {"error": "2", "detail": "Request not coming from contract"}
+    
+    prisma = Prisma()
+
+    uri_sig = get_sig(tokenUri)
+    stored = prisma.similarity.find_unique(where={'id': uri_sig})
+    if stored is not None:
+        return {"similarity": parse_ether(stored.similarity)}
 
     image_url = get_image_url(tokenUri)
     image = load_image(image_url)
@@ -34,17 +42,36 @@ async def root(tokenUri: str = None):
 
     vec_keys = get_vectors_key()
     if len(vec_keys) == 0:
-        upload_vector(np.array(query_vec), get_sig(tokenUri))
-        return {"similarity": 9999}
+        prisma.similarity.create(data={
+            'id': uri_sig,
+            'similarity': 99,
+            'imageUrl': image_url
+        })
+        upload_vector(np.array(query_vec), uri_sig)
+        return {"similarity": 99}
 
     dataset_vec = [download_vector(key) for key in vec_keys]
     closest = float('inf')
-    for vec in dataset_vec:
+    closest_key = None
+    for [key, vec] in zip(vec_keys, dataset_vec):
         dist = cosine(query_vec, vec)
-        closest = np.min([dist, closest])
+        if dist < closest:
+            closest = dist
+            closest_key = key
 
     if closest >= get_similarity_threshold():
-        upload_vector(np.array(query_vec), get_sig(tokenUri))
+        prisma.similarity.create(data={
+            'id': uri_sig,
+            'similarity': closest,
+            'imageUrl': image_url
+        })
+        upload_vector(np.array(query_vec), uri_sig)
+    elif closest_key is not None:
+        prisma.closest_similarity.create(data={
+            'incomingId': uri_sig,
+            'originalId': closest
+        })
+
 
     return {"similarity": parse_ether(closest)}
 

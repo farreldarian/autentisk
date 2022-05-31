@@ -1,0 +1,26 @@
+generator client {
+  provider = "prisma-client-py"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Similarity {
+  id         String @id
+  similarity Int
+  imageUrl   String
+
+  cloned  ClosestSimilarity[] @relation("original")
+  copying ClosestSimilarity[] @relation("incoming")
+}
+
+model ClosestSimilarity {
+  incomingId String
+  originalId String
+
+  incoming Similarity @relation("incoming", fields: [incomingId], references: [id])
+  original Similarity @relation("original", fields: [originalId], references: [id])
+  @@id([originalId, incomingId])
+}
