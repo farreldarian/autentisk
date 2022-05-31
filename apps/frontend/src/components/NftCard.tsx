@@ -4,25 +4,19 @@ import {
   Heading,
   Image,
   Stack,
-  Text,
   useColorModeValue,
 } from '@chakra-ui/react'
+import { parseIfIpfs } from '../common/utils/ipfs'
+import { useNftMetadata } from '../modules/nft/nft-metadata'
+
 interface NftCardProps {
-  name: string
-  author: string
+  uri: string
   owner: string
-  status: string
-  price: string
-  image: string
 }
-export default function NftCard({
-  name,
-  author,
-  owner,
-  status,
-  price,
-  image,
-}: NftCardProps) {
+
+export default function NftCard({ uri, owner }: NftCardProps) {
+  const { data: metadata } = useNftMetadata(uri)
+
   return (
     <Center py={12}>
       <Box
@@ -49,7 +43,9 @@ export default function NftCard({
             pos: 'absolute',
             top: 5,
             left: 0,
-            backgroundImage: `url(${image})`,
+            ...(metadata && {
+              backgroundImage: `url(${parseIfIpfs(metadata!.image)})`,
+            }),
             filter: 'blur(15px)',
             zIndex: -1,
           }}
@@ -59,27 +55,29 @@ export default function NftCard({
             },
           }}
         >
-          <Image
-            alt='nft'
-            rounded={'lg'}
-            height={230}
-            width={282}
-            objectFit={'cover'}
-            src={image}
-          />
+          {metadata && (
+            <Image
+              alt='nft'
+              rounded={'lg'}
+              height={230}
+              width={282}
+              objectFit={'cover'}
+              src={parseIfIpfs(metadata.image)}
+            />
+          )}
         </Box>
         <Stack pt={10} align={'left'}>
-          <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
+          {/* <Text color={'gray.500'} fontSize={'sm'} textTransform={'uppercase'}>
             {author}
-          </Text>
+          </Text> */}
           <Heading fontSize={'2xl'} fontFamily={'body'} fontWeight={500}>
-            {name}
+            {metadata?.name}
           </Heading>
-          <Stack direction={'row'} align={'center'}>
+          {/* <Stack direction={'row'} align={'center'}>
             <Text fontWeight={800} fontSize={'xl'}>
               {price} ETH
             </Text>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Box>
     </Center>

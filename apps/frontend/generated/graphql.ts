@@ -66,7 +66,7 @@ export type AuthenticityRequest = {
   __typename?: 'AuthenticityRequest';
   collection: Collection;
   id: Scalars['ID'];
-  similarity?: Maybe<Scalars['BigInt']>;
+  similarity?: Maybe<Scalars['BigDecimal']>;
   status: AuthenticityRequestStatus;
   tokenUri: Scalars['String'];
   tokenUriSignature: Scalars['String'];
@@ -109,14 +109,14 @@ export type AuthenticityRequest_Filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
-  similarity?: InputMaybe<Scalars['BigInt']>;
-  similarity_gt?: InputMaybe<Scalars['BigInt']>;
-  similarity_gte?: InputMaybe<Scalars['BigInt']>;
-  similarity_in?: InputMaybe<Array<Scalars['BigInt']>>;
-  similarity_lt?: InputMaybe<Scalars['BigInt']>;
-  similarity_lte?: InputMaybe<Scalars['BigInt']>;
-  similarity_not?: InputMaybe<Scalars['BigInt']>;
-  similarity_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  similarity?: InputMaybe<Scalars['BigDecimal']>;
+  similarity_gt?: InputMaybe<Scalars['BigDecimal']>;
+  similarity_gte?: InputMaybe<Scalars['BigDecimal']>;
+  similarity_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  similarity_lt?: InputMaybe<Scalars['BigDecimal']>;
+  similarity_lte?: InputMaybe<Scalars['BigDecimal']>;
+  similarity_not?: InputMaybe<Scalars['BigDecimal']>;
+  similarity_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
   status?: InputMaybe<AuthenticityRequestStatus>;
   status_in?: InputMaybe<Array<AuthenticityRequestStatus>>;
   status_not?: InputMaybe<AuthenticityRequestStatus>;
@@ -755,6 +755,13 @@ export enum _SubgraphErrorPolicy_ {
   Deny = 'deny'
 }
 
+export type CollectionQueryVariables = Exact<{
+  address: Scalars['ID'];
+}>;
+
+
+export type CollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', name: string, owner: { __typename?: 'Account', id: string }, tokens: Array<{ __typename?: 'Token', id: string, uri: string, owner: { __typename?: 'Account', id: string } }> } | null };
+
 export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -763,7 +770,7 @@ export type CollectionsQuery = { __typename?: 'Query', collections: Array<{ __ty
 export type FeaturedQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type FeaturedQuery = { __typename?: 'Query', tokens: Array<{ __typename?: 'Token', scId: any, uri: string, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', name: string } }> };
+export type FeaturedQuery = { __typename?: 'Query', tokens: Array<{ __typename?: 'Token', scId: any, uri: string, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', id: string, name: string } }> };
 
 export type MintActivityQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -778,6 +785,27 @@ export type UserCollectionsQueryVariables = Exact<{
 export type UserCollectionsQuery = { __typename?: 'Query', collections: Array<{ __typename?: 'Collection', id: string, name: string }> };
 
 
+export const CollectionDocument = gql`
+    query Collection($address: ID!) {
+  collection(id: $address) {
+    name
+    owner {
+      id
+    }
+    tokens {
+      id
+      uri
+      owner {
+        id
+      }
+    }
+  }
+}
+    `;
+
+export function useCollectionQuery(options: Omit<Urql.UseQueryArgs<CollectionQueryVariables>, 'query'>) {
+  return Urql.useQuery<CollectionQuery>({ query: CollectionDocument, ...options });
+};
 export const CollectionsDocument = gql`
     query Collections {
   collections {
@@ -802,6 +830,7 @@ export const FeaturedDocument = gql`
       id
     }
     collection {
+      id
       name
     }
   }

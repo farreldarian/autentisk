@@ -1,0 +1,15 @@
+query Collection($address: ID!) {
+  collection(id: $address) {
+    name
+    owner {
+      id
+    }
+    tokens {
+      id
+      uri
+      owner {
+        id
+      }
+    }
+  }
+}

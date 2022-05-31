@@ -1,5 +1,6 @@
 import { Box, Button, Image, Skeleton, Text } from '@chakra-ui/react'
 import { shortenIfAddress } from '@usedapp/core'
+import Link from 'next/link'
 import { useMemo } from 'react'
 import { useFeaturedQuery } from '../../../generated/graphql'
 import { parseIfIpfs } from '../../common/utils/ipfs'
@@ -68,13 +69,17 @@ export default function FeaturedSection() {
               <Text color={'blackAlpha.500'} fontWeight={'semibold'}>
                 Collection
               </Text>
-              <Box
-                padding={3}
-                borderRadius={'lg'}
-                boxShadow={'2px 2px 3px black'}
-              >
-                {featured?.collection.name}
-              </Box>
+              {featured.collection && (
+                <Link href={`/collection/${featured.collection.id}`} passHref>
+                  <Box
+                    padding={3}
+                    borderRadius={'lg'}
+                    boxShadow={'2px 2px 3px black'}
+                  >
+                    {featured?.collection.name}
+                  </Box>
+                </Link>
+              )}
             </Box>
           </Box>
 
