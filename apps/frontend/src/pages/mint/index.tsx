@@ -1,5 +1,6 @@
 import { Button, useToast, VStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import { create } from 'ipfs-http-client'
 import * as Yup from 'yup'
 import useFallbackAccountAddress from '../../common/hooks/useFallbackAccountAddress'
 import MintLayout from '../../layouts/mint/MintLayout'
@@ -75,6 +76,9 @@ export default function Mint() {
             setSubmitting(false)
             return
           }
+
+          const graphIpfs = create({ url: 'https://api.thegraph.com/ipfs/v0' })
+          await graphIpfs.add(tokenCid.toString())
 
           const tokenUri = formatIpfsUri(tokenCid.toString())
 
