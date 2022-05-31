@@ -40,6 +40,6 @@ type AuthenticityRequest @entity {
   collection: Collection!
   tokenUri: String!
   tokenUriSignature: String!
-  similarity: BigInt
+  similarity: BigDecimal
   status: AuthenticityRequestStatus!
 }

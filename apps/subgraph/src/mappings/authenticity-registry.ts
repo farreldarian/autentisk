@@ -1,3 +1,4 @@
+import { BigDecimal } from '@graphprotocol/graph-ts'
 import { AuthenticityRequest } from '../../generated/schema'
 import {
   AuthenticityFulfilled,
@@ -25,7 +26,9 @@ export function handleAuthenticityFulfilled(
 ): void {
   const request = AuthenticityRequest.load(event.params.requestId.toHex())
   if (!request) throw new Error('Missing request')
-  request.similarity = event.params.similarityThreshold
+  request.similarity = event.params.similarityThreshold.divDecimal(
+    BigDecimal.fromString('1e18')
+  )
   request.status = event.params.isAccepted ? 'Registered' : 'Rejected'
   request.save()
 }
