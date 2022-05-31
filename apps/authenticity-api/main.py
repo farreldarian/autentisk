@@ -70,7 +70,7 @@ async def root(tokenUri: str = None):
     elif closest_key is not None:
         await prisma.closestsimilarity.create(data={
             'incomingId': uri_sig,
-            'originalId': closest
+            'originalId': closest_key
         })
 
     return {"similarity": parse_ether(closest)}
