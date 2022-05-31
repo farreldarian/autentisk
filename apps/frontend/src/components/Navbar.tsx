@@ -1,7 +1,7 @@
 import { Button, Flex, Heading } from '@chakra-ui/react'
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { isNil } from 'lodash'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 
@@ -25,14 +25,20 @@ const Navbar = () => {
       zIndex={10}
     >
       <Heading letterSpacing={1} size='lg' mr='6'>
-        <Link href='/'>Autentisk</Link>
+        <NextLink href='/'>Autentisk</NextLink>
       </Heading>
 
-      <Flex>
+      <Flex align='center' gap='6'>
+        <NextLink href='/mint/activity' passHref>
+          <Button colorScheme={'blackAlpha'} variant='ghost' color='black'>
+            Activity
+          </Button>
+        </NextLink>
+
         {connected && (
-          <Link href='/mint' passHref>
-            <Button mr='6'>Create</Button>
-          </Link>
+          <NextLink href='/mint' passHref>
+            <Button>Create</Button>
+          </NextLink>
         )}
 
         <ConnectButton showBalance={false} />
