@@ -22,6 +22,7 @@ export default function Home() {
             collectionId={data.featured[0].collection.id}
             collectionName={data.featured[0].collection.name}
             owner={data.featured[0].owner.id}
+            tokenId={data.featured[0].scId}
             tokenUri={data.featured[0].uri}
           />
         )}

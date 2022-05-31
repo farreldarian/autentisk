@@ -5,6 +5,7 @@ import { parseIfIpfs } from '../../common/utils/ipfs'
 import { useNftMetadata } from '../nft/nft-metadata'
 
 type Props = {
+  tokenId: string
   tokenUri: string
   collectionId: string
   collectionName: string
@@ -12,6 +13,7 @@ type Props = {
 }
 
 export default function FeaturedSection({
+  tokenId,
   tokenUri,
   collectionId,
   collectionName,
@@ -98,7 +100,9 @@ export default function FeaturedSection({
             <Text fontSize={"5xl"}>{featured.price} ETH</Text>
           </Box> */}
 
-          <Button colorScheme={'blue'}>View NFT</Button>
+          <Link href={`/collection/${collectionId}/${tokenId}`} passHref>
+            <Button colorScheme={'blue'}>View NFT</Button>
+          </Link>
         </Box>
       </Box>
     </section>
