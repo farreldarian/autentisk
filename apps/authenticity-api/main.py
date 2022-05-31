@@ -49,7 +49,7 @@ async def root(tokenUri: str = None):
             'imageUrl': image_url
         })
         upload_vector(np.array(query_vec), uri_sig)
-        return {"similarity": 99}
+        return {"similarity": parse_ether(99)}
 
     dataset_vec = [download_vector(key) for key in vec_keys]
     closest = float('inf')
