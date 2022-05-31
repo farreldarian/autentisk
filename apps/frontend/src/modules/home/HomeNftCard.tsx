@@ -27,9 +27,11 @@ export default function HomeNftCard({ tokenUri }: Props) {
       justifyContent={'flex-end'}
       color={'white'}
     >
-      <Text fontSize={'3xl'} textShadow={'2px 2px black'}>
-        {metadata.name}
-      </Text>
+      {metadata && (
+        <Text fontSize={'3xl'} textShadow={'2px 2px black'}>
+          {metadata.name}
+        </Text>
+      )}
 
       {/* <Text fontSize={'2xl'}>{data.price} ETH</Text> */}
 
