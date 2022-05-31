@@ -772,6 +772,11 @@ export type FeaturedQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type FeaturedQuery = { __typename?: 'Query', tokens: Array<{ __typename?: 'Token', scId: any, uri: string, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', id: string, name: string } }> };
 
+export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type HomeQuery = { __typename?: 'Query', featured: Array<{ __typename?: 'Token', scId: any, uri: string, collection: { __typename?: 'Collection', id: string, name: string }, owner: { __typename?: 'Account', id: string } }>, tokens: Array<{ __typename?: 'Token', scId: any, uri: string, collection: { __typename?: 'Collection', id: string } }> };
+
 export type MintActivityQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -839,6 +844,32 @@ export const FeaturedDocument = gql`
 
 export function useFeaturedQuery(options?: Omit<Urql.UseQueryArgs<FeaturedQueryVariables>, 'query'>) {
   return Urql.useQuery<FeaturedQuery>({ query: FeaturedDocument, ...options });
+};
+export const HomeDocument = gql`
+    query Home {
+  featured: tokens(first: 1) {
+    scId
+    uri
+    collection {
+      id
+      name
+    }
+    owner {
+      id
+    }
+  }
+  tokens(skip: 1) {
+    scId
+    uri
+    collection {
+      id
+    }
+  }
+}
+    `;
+
+export function useHomeQuery(options?: Omit<Urql.UseQueryArgs<HomeQueryVariables>, 'query'>) {
+  return Urql.useQuery<HomeQuery>({ query: HomeDocument, ...options });
 };
 export const MintActivityDocument = gql`
     query MintActivity {

@@ -1,0 +1,24 @@
+query Home {
+  featured: tokens(first: 1) {
+    scId
+    uri
+
+    collection {
+      id
+      name
+    }
+
+    owner {
+      id
+    }
+  }
+
+  tokens(skip: 1) {
+    scId
+    uri
+
+    collection {
+      id
+    }
+  }
+}

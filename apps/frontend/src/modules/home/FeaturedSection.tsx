@@ -1,17 +1,23 @@
 import { Box, Button, Image, Skeleton, Text } from '@chakra-ui/react'
 import { shortenIfAddress } from '@usedapp/core'
 import Link from 'next/link'
-import { useMemo } from 'react'
-import { useFeaturedQuery } from '../../../generated/graphql'
 import { parseIfIpfs } from '../../common/utils/ipfs'
 import { useNftMetadata } from '../nft/nft-metadata'
 
-export default function FeaturedSection() {
-  const [{ data: gqlData }] = useFeaturedQuery()
-  const featured = useMemo(() => gqlData?.tokens.at(0), [gqlData?.tokens])
-  const { data: metadata } = useNftMetadata(featured?.uri)
+type Props = {
+  tokenUri: string
+  collectionId: string
+  collectionName: string
+  owner: string
+}
 
-  if (!featured) return <></>
+export default function FeaturedSection({
+  tokenUri,
+  collectionId,
+  collectionName,
+  owner,
+}: Props) {
+  const { data: metadata } = useNftMetadata(tokenUri)
 
   return (
     <section>
@@ -61,7 +67,7 @@ export default function FeaturedSection() {
                 borderRadius={'lg'}
                 boxShadow={'2px 2px 3px black'}
               >
-                {shortenIfAddress(featured?.owner.id)}
+                {shortenIfAddress(owner)}
               </Box>
             </Box>
 
@@ -69,17 +75,15 @@ export default function FeaturedSection() {
               <Text color={'blackAlpha.500'} fontWeight={'semibold'}>
                 Collection
               </Text>
-              {featured.collection && (
-                <Link href={`/collection/${featured.collection.id}`} passHref>
-                  <Box
-                    padding={3}
-                    borderRadius={'lg'}
-                    boxShadow={'2px 2px 3px black'}
-                  >
-                    {featured?.collection.name}
-                  </Box>
-                </Link>
-              )}
+              <Link href={`/collection/${collectionId}`} passHref>
+                <Box
+                  padding={3}
+                  borderRadius={'lg'}
+                  boxShadow={'2px 2px 3px black'}
+                >
+                  {collectionName}
+                </Box>
+              </Link>
             </Box>
           </Box>
 
