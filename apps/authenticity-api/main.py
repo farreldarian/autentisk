@@ -10,8 +10,7 @@ from core.image import load_image
 from core.contract import get_request_id, get_sig, get_similarity_threshold
 from core.encoder import get_encoder
 from core.s3 import get_vectors_key, upload_vector, download_vector
-# from prisma import Prisma
-from core.prisma import Prisma
+from prisma import Prisma
 
 app = FastAPI()
 encoder = get_encoder()
