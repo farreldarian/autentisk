@@ -60,12 +60,12 @@ async def root(tokenUri: str = None):
             closest = dist
             closest_key = key
 
+    await prisma.similarity.create(data={
+        'id': uri_sig,
+        'similarity': closest,
+        'imageUrl': image_url
+    })
     if closest >= get_similarity_threshold():
-        await prisma.similarity.create(data={
-            'id': uri_sig,
-            'similarity': closest,
-            'imageUrl': image_url
-        })
         upload_vector(np.array(query_vec), uri_sig)
     elif closest_key is not None:
         await prisma.closestsimilarity.create(data={
