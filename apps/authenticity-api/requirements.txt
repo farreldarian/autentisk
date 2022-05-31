@@ -32,13 +32,16 @@ google-auth==2.6.6
 google-auth-oauthlib==0.4.6
 google-pasta==0.2.0
 grpcio==1.46.3
-h11==0.13.0
+h11==0.12.0
 h5py==3.7.0
 hexbytes==0.2.2
+httpcore==0.15.0
 httptools==0.4.0
+httpx==0.23.0
 idna==3.3
 importlib-metadata==4.11.4
 ipfshttpclient==0.8.0a2
+Jinja2==3.1.2
 jmespath==1.0.0
 jsonschema==4.5.1
 keras==2.9.0
@@ -46,6 +49,7 @@ Keras-Preprocessing==1.1.2
 libclang==14.0.1
 lru-dict==1.1.7
 Markdown==3.3.7
+MarkupSafe==2.1.1
 multiaddr==0.0.9
 multidict==6.0.2
 netaddr==0.8.0
@@ -55,6 +59,7 @@ opt-einsum==3.3.0
 packaging==21.3
 parsimonious==0.8.1
 Pillow==9.1.1
+prisma==0.6.6
 protobuf==3.19.4
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
@@ -67,6 +72,7 @@ python-dotenv==0.20.0
 PyYAML==6.0
 requests==2.27.1
 requests-oauthlib==1.3.1
+rfc3986==1.5.0
 rlp==2.0.1
 rsa==4.8
 s3transfer==0.5.2
