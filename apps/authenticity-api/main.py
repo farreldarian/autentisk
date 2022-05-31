@@ -68,7 +68,7 @@ async def root(tokenUri: str = None):
         })
         upload_vector(np.array(query_vec), uri_sig)
     elif closest_key is not None:
-        await prisma.closest_similarity.create(data={
+        await prisma.closestSimilarity.create(data={
             'incomingId': uri_sig,
             'originalId': closest
         })
