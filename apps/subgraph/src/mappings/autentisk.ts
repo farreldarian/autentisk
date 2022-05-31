@@ -2,7 +2,10 @@ import {
   AuthenticityRegistryCreated,
   CollectionCreated,
 } from '../../generated/Autentisk/Autentisk'
-import { AuthenticityRegistry } from '../../generated/templates'
+import {
+  AutentiskERC721,
+  AuthenticityRegistry,
+} from '../../generated/templates'
 import { getAccountId, getOrCreateAccount } from '../modules/account'
 import { createCollection, getCollectionId } from '../modules/collection'
 
@@ -14,6 +17,7 @@ export function handleCollectionCreated(event: CollectionCreated): void {
     owner.id,
     event.params.collectionAddress
   )
+  AutentiskERC721.create(event.params.collectionAddress)
 }
 
 export function handleAuthenticityRegistryCreated(
