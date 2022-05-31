@@ -14,14 +14,14 @@ const Navbar = () => {
     <Flex
       align='center'
       justify={'space-between'}
-      bg='#F7FAFC60'
+      bg='#F7FAFC50'
       position='sticky'
       top={0}
       height='20'
       px='24'
-      borderBottom='1px'
-      borderColor={'whiteAlpha.500'}
-      backdropFilter='blur(16px)'
+      // borderBottom='1px'
+      // borderColor={'whiteAlpha.500'}
+      backdropFilter='blur(24px)'
       zIndex={10}
     >
       <Heading letterSpacing={1} size='lg' mr='6'>
