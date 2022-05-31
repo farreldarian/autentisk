@@ -1,7 +1,8 @@
-import { Box, Button, Image, Text } from '@chakra-ui/react'
+import { Box, Button, Image, Skeleton, Text } from '@chakra-ui/react'
 import { shortenIfAddress } from '@usedapp/core'
 import { useMemo } from 'react'
 import { useFeaturedQuery } from '../../../generated/graphql'
+import { parseIfIpfs } from '../../common/utils/ipfs'
 import { useNftMetadata } from '../nft/nft-metadata'
 
 export default function FeaturedSection() {
@@ -20,13 +21,15 @@ export default function FeaturedSection() {
         display='flex'
       >
         <Box w={'25%'} maxH={'30%'}>
-          <Image
-            w={'100%'}
-            h={'100%'}
-            objectFit={'cover'}
-            alt='featured-nft'
-            src={metadata?.image}
-          />
+          <Skeleton isLoaded={!!metadata?.image}>
+            <Image
+              w={'100%'}
+              h={'100%'}
+              objectFit={'cover'}
+              alt='featured-nft'
+              src={parseIfIpfs(metadata!.image)}
+            />
+          </Skeleton>
         </Box>
 
         <Box
