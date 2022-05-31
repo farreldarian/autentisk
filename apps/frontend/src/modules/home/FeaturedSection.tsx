@@ -22,13 +22,15 @@ export default function FeaturedSection() {
       >
         <Box w={'25%'} maxH={'30%'}>
           <Skeleton isLoaded={!!metadata?.image}>
-            <Image
-              w={'100%'}
-              h={'100%'}
-              objectFit={'cover'}
-              alt='featured-nft'
-              src={parseIfIpfs(metadata!.image)}
-            />
+            {metadata?.image && (
+              <Image
+                w={'100%'}
+                h={'100%'}
+                objectFit={'cover'}
+                alt='featured-nft'
+                src={parseIfIpfs(metadata!.image)}
+              />
+            )}
           </Skeleton>
         </Box>
 
