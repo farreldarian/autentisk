@@ -2,11 +2,11 @@ import { Box, Image, Skeleton, Text } from '@chakra-ui/react'
 import { shortenIfAddress } from '@usedapp/core'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import { useMemo } from 'react'
-import { useCollectionQuery } from '../../../generated/graphql'
-import { parseIfIpfs } from '../../common/utils/ipfs'
-import Layout from '../../components/Layout'
-import NftCard from '../../components/NftCard'
-import { useNftMetadata } from '../../modules/nft/nft-metadata'
+import { useCollectionQuery } from '../../../../generated/graphql'
+import { parseIfIpfs } from '../../../common/utils/ipfs'
+import Layout from '../../../components/Layout'
+import NftCard from '../../../components/NftCard'
+import { useNftMetadata } from '../../../modules/nft/nft-metadata'
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {

@@ -20,6 +20,7 @@ export default function NftCard({ uri, owner }: NftCardProps) {
   return (
     <Center py={12}>
       <Box
+        cursor='pointer'
         role={'group'}
         p={6}
         maxW={'330px'}
@@ -46,12 +47,12 @@ export default function NftCard({ uri, owner }: NftCardProps) {
             ...(metadata && {
               backgroundImage: `url(${parseIfIpfs(metadata!.image)})`,
             }),
-            filter: 'blur(15px)',
+            filter: 'blur(16px)',
             zIndex: -1,
           }}
           _groupHover={{
             _after: {
-              filter: 'blur(20px)',
+              filter: 'blur(32px)',
             },
           }}
         >
