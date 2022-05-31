@@ -29,9 +29,10 @@ async def root(tokenUri: str = None):
         return {"error": "2", "detail": "Request not coming from contract"}
     
     prisma = Prisma()
+    await prisma.connect()
 
     uri_sig = get_sig(tokenUri)
-    stored = prisma.similarity.find_unique(where={'id': uri_sig})
+    stored = await prisma.similarity.find_unique(where={'id': uri_sig})
     if stored is not None:
         return {"similarity": parse_ether(stored.similarity)}
 
@@ -42,7 +43,7 @@ async def root(tokenUri: str = None):
 
     vec_keys = get_vectors_key()
     if len(vec_keys) == 0:
-        prisma.similarity.create(data={
+        await prisma.similarity.create(data={
             'id': uri_sig,
             'similarity': 99,
             'imageUrl': image_url
@@ -60,14 +61,14 @@ async def root(tokenUri: str = None):
             closest_key = key
 
     if closest >= get_similarity_threshold():
-        prisma.similarity.create(data={
+        await prisma.similarity.create(data={
             'id': uri_sig,
             'similarity': closest,
             'imageUrl': image_url
         })
         upload_vector(np.array(query_vec), uri_sig)
     elif closest_key is not None:
-        prisma.closest_similarity.create(data={
+        await prisma.closest_similarity.create(data={
             'incomingId': uri_sig,
             'originalId': closest
         })
