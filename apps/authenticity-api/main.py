@@ -71,7 +71,7 @@ async def root(tokenUri: str = None):
 
     prisma = await get_prisma()
     uri_sig = get_sig(tokenUri)
-    stored = get_stored_sig(prisma, uri_sig)
+    stored = await get_stored_sig(prisma, uri_sig)
     if stored is not None:
         return {"similarity": parse_ether(stored.similarity)}
 
@@ -80,17 +80,17 @@ async def root(tokenUri: str = None):
 
     vec_keys = get_vectors_key()
     if len(vec_keys) == 0:
-        save_record(prisma, uri_sig, 99, image_url)
+        await save_record(prisma, uri_sig, 99, image_url)
         upload_vector(np.array(query_vec), uri_sig)
         return {"similarity": parse_ether(99)}
 
     closest, closest_key = find_similarities(vec_keys, query_vec)
 
-    save_record(prisma, uri_sig, closest, image_url)
+    await save_record(prisma, uri_sig, closest, image_url)
     if closest >= get_similarity_threshold():
         upload_vector(np.array(query_vec), uri_sig)
     elif closest_key is not None:
-        save_similar_image(prisma, uri_sig, closest_key)
+        await save_similar_image(prisma, uri_sig, closest_key)
 
     return {"similarity": parse_ether(closest)}
 
