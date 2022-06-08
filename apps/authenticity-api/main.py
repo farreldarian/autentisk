@@ -4,7 +4,7 @@ import uvicorn
 from fastapi import FastAPI
 from scipy.spatial.distance import cosine
 from core.env import PORT, SKIP_REQUEST_ID_CHECK
-from core.unit import parse_ether
+from core.unit import parse_ether, format_ether
 from core.token_metadata import get_image_url
 from core.image import load_image
 from core.contract import get_request_id, get_sig, get_similarity_threshold
@@ -24,7 +24,8 @@ def encode(image):
 def find_similarities(vec_keys, query_vec):
     dataset_vec = [download_vector(key) for key in vec_keys]
 
-    closest: np.float64 = cosine(query_vec, dataset_vec[0])
+    closest: np.float64 = cosine(
+        query_vec, format_ether(int(Decimal(dataset_vec[0]))))
     closest_key: str = vec_keys[0]
 
     for [key, vec] in zip(vec_keys[1:], dataset_vec[1:]):
@@ -81,7 +82,7 @@ async def root(tokenUri: str = None):
     if stored is not None:
         print("")
         print("Found duplicate request, using previous result.")
-        return {"similarity": int(Decimal(stored.similarity))}
+        return {"similarity": stored.similarity}
     else:
         print("[Data is New]")
 
@@ -95,11 +96,11 @@ async def root(tokenUri: str = None):
     new_data = len(vec_keys) == 0
     if new_data:
         print("Accepting image since the dataset is empty.")
-
-        await save_record(prisma, uri_sig, 99, image_url)
+        similarity = parse_ether(99)
+        await save_record(prisma, uri_sig, similarity, image_url)
         upload_vector(np.array(query_vec), uri_sig)
 
-        return {"similarity": parse_ether(99)}
+        return {"similarity": similarity}
 
     closest, closest_key = find_similarities(vec_keys, query_vec)
 
@@ -111,8 +112,9 @@ async def root(tokenUri: str = None):
         print(f"Rejected")
         await save_similar_image(prisma, uri_sig, closest_key)
 
-    await save_record(prisma, uri_sig, closest, image_url)
-    return {"similarity": parse_ether(closest)}
+    similarity = parse_ether(closest)
+    await save_record(prisma, uri_sig, similarity, image_url)
+    return {"similarity": similarity}
 
 
 if __name__ == "__main__":
