@@ -1,13 +1,7 @@
 import { getDeployment } from 'contract'
 import fs from 'fs'
 import Mustache from 'mustache'
-
-function getArgs(name: string): string {
-  const args = process.argv
-  const infoIdx = args.indexOf('--' + name)
-  if (infoIdx === -1) throw new Error('Must specify --' + name)
-  return args[infoIdx + 1]
-}
+import { getRequiredArgs } from './helpers/get-required-args'
 
 function getSubgraphNetworkName(chainId: number): string {
   switch (chainId) {
@@ -27,14 +21,20 @@ function writeManifest(manifest: string) {
 }
 
 function main() {
-  const chainId = Number(getArgs('chainId'))
+  const chainId = Number(getRequiredArgs('chainId'))
 
-  const deployment = getDeployment(chainId, 'Autentisk')
+  const networks = JSON.parse(
+    fs.readFileSync('../apps/subgraph/networks.json', 'utf-8')
+  )
+  const autentiskDeployment = getDeployment(chainId, 'Autentisk')
 
+  const networkName = getSubgraphNetworkName(chainId)
   const manifest = Mustache.render(getTemplate(), {
-    network: getSubgraphNetworkName(chainId),
-    address: deployment.address,
-    startBlock: deployment.startBlock,
+    network: networkName,
+    AsksV1_1__address: networks[networkName]['AsksV1_1']['address'],
+    AsksV1_1__startBlock: networks[networkName]['AsksV1_1']['startBlock'],
+    Autentisk__address: autentiskDeployment.address,
+    Autentisk__startBlock: autentiskDeployment.startBlock,
   })
   writeManifest(manifest)
 }

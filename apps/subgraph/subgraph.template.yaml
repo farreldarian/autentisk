@@ -3,12 +3,20 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
+    name: AskV1_1
+    network: {{network}}
+    source:
+      address: '{{AskV1_1__address}}'
+      abi: AskV1_1
+      startBlock: {{AskV1_1__startBlock}}
+    mapping:
+  - kind: ethereum
     name: Autentisk
     network: {{network}}
     source:
-      address: '{{address}}'
+      address: '{{Autentisk__address}}'
       abi: Autentisk
-      startBlock: {{startBlock}}
+      startBlock: {{Autentisk__startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.5

@@ -1,7 +1,8 @@
 {
-  "rinkeby": {
-    "Contract": {
-      "address": "0x0000000000000000000000000000000000000000"
+  "mumbai": {
+    "AskV1_1": {
+      "address": "0xCe6cEf2A9028e1C3B21647ae3B4251038109f42a",
+      "startBlock": 24358938
     }
   }
 }
