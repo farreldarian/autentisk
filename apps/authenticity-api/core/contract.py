@@ -1,3 +1,4 @@
+from typing import Optional
 from web3 import Web3, HTTPProvider
 from .constants.deployed_contracts import DEPLOYED_CONTRACTS
 from .env import API_KEY
@@ -18,7 +19,7 @@ def get_sig(uri: str) -> str:
     return Web3.solidityKeccak(['string'], [uri]).hex()
 
 
-def get_request_id(uri: str, registry=get_registry_contract()) -> None | str:
+def get_request_id(uri: str, registry=get_registry_contract()):
     uri_sig = get_sig(uri)
     bytes = registry.functions.s_signatureToRequestId(uri_sig)\
         .call()\
