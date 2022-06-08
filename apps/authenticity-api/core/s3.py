@@ -2,6 +2,7 @@ import boto3
 import io
 import pickle
 import numpy as np
+from .unit import format_ether
 from .env import S3_ACCESS_KEY_ID, S3_SECREET_ACCESS_KEY
 
 BUCKET_NAME = 'autentisk'
@@ -20,9 +21,10 @@ def get_vectors_key(client=get_client()):
                                  )
     if "Contents" not in res.keys():
         return []
-    
+
     keys = [content['Key'] for content in res['Contents']]
     return [key for key in keys if key != 'vectors/']
+
 
 def upload_vector(vector, name, client=get_client()):
     arr = io.BytesIO()
@@ -35,6 +37,7 @@ def upload_vector(vector, name, client=get_client()):
         Key=f"vectors/{name}"
     )
 
+
 def download_vector(key, client=get_client()):
     arr = io.BytesIO()
     response = client.download_fileobj(
@@ -44,4 +47,4 @@ def download_vector(key, client=get_client()):
     )
     arr.seek(0)
     arr = pickle.load(arr)
-    return np.array(arr)
+    return np.array(format_ether(arr))

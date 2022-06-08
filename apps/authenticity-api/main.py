@@ -21,18 +21,14 @@ def encode(image):
     return encoder(np.array([image]))[0]
 
 
-def process_db_vec(vec):
-    return format_ether(int(Decimal(vec)))
-
-
 def find_similarities(vec_keys, query_vec):
     dataset_vec = [download_vector(key) for key in vec_keys]
 
-    closest: np.float64 = cosine(query_vec, process_db_vec(dataset_vec[0]))
+    closest: np.float64 = cosine(query_vec, dataset_vec[0])
     closest_key: str = vec_keys[0]
 
     for [key, vec] in zip(vec_keys[1:], dataset_vec[1:]):
-        dist = cosine(query_vec, process_db_vec(vec))
+        dist = cosine(query_vec, vec)
         if dist < closest:
             closest = dist
             closest_key = key
@@ -44,7 +40,7 @@ async def save_record(prisma: Prisma, uri_sig: str, closest: np.float64, image_u
     print("Saving similarity... ", end="")
     await prisma.similarity.create(data={
         'id': uri_sig,
-        'similarity': closest,
+        'similarity': str(closest),
         'imageUrl': image_url
     })
     print("[Done]")
@@ -115,7 +111,7 @@ async def root(tokenUri: str = None):
         print(f"Rejected")
         await save_similar_image(prisma, uri_sig, closest_key)
 
-    similarity = parse_ether(closest)
+    similarity = int(Decimal(parse_ether(closest)))
     await save_record(prisma, uri_sig, similarity, image_url)
     return {"similarity": similarity}
 
