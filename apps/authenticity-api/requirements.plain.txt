@@ -1,0 +1,7 @@
+web3
+numpy
+uvicorn
+fastapi
+scipy 
+prisma
+pillow
