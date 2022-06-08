@@ -4,7 +4,7 @@ from .ipfs import parse_if_ipfs
 
 
 def get_image_url(token_uri: str):
-    print("Fetching image... ", end="")
+    print("Fetching image url... ", end="")
     url = parse_if_ipfs(token_uri)
     res = urlopen(url)
     metadata = json.loads(res.read())
