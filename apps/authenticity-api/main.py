@@ -11,6 +11,7 @@ from core.contract import get_request_id, get_sig, get_similarity_threshold
 from core.encoder import get_encoder
 from core.s3 import get_vectors_key, upload_vector, download_vector
 from prisma import Prisma
+from decimal import Decimal
 
 app = FastAPI()
 encoder = get_encoder()
@@ -79,7 +80,7 @@ async def root(tokenUri: str = None):
     stored = await prisma.similarity.find_unique(where={'id': uri_sig})
     if stored is not None:
         print("Found duplicate request, using previous result.")
-        return {"similarity": stored.similarity}
+        return {"similarity": int(Decimal(stored.similarity))}
     else:
         print("[Data is New]")
 
@@ -93,12 +94,11 @@ async def root(tokenUri: str = None):
     new_data = len(vec_keys) == 0
     if new_data:
         print("Accepting image since the dataset is empty.")
-        similarity = str(parse_ether(99))
 
-        await save_record(prisma, uri_sig, similarity, image_url)
+        await save_record(prisma, uri_sig, 99, image_url)
         upload_vector(np.array(query_vec), uri_sig)
 
-        return {"similarity": similarity}
+        return {"similarity": parse_ether(99)}
 
     closest, closest_key = find_similarities(vec_keys, query_vec)
 
@@ -110,9 +110,8 @@ async def root(tokenUri: str = None):
         print(f"Rejected")
         await save_similar_image(prisma, uri_sig, closest_key)
 
-    similarity = str(parse_ether(closest))
-    await save_record(prisma, uri_sig, similarity, image_url)
-    return {"similarity": similarity}
+    await save_record(prisma, uri_sig, closest, image_url)
+    return {"similarity": parse_ether(closest)}
 
 
 if __name__ == "__main__":
