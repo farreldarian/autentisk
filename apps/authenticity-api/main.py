@@ -62,6 +62,8 @@ async def root(tokenUri: str = None):
     if request_id is None:
         return {"error": "2", "detail": "Request not coming from contract"}
 
+    print(f"Processing tokenURI: \"{tokenUri}\" for request: \"{request_id}\'")
+
     prisma = Prisma()
     await prisma.connect()
     uri_sig = get_sig(tokenUri)
@@ -69,6 +71,7 @@ async def root(tokenUri: str = None):
     # Find for existing data
     stored = await prisma.similarity.find_unique(where={'id': uri_sig})
     if stored is not None:
+        print("Found duplicate request, using previous result.")
         return {"similarity": parse_ether(stored.similarity)}
 
     image_url = get_image_url(tokenUri)
@@ -77,6 +80,7 @@ async def root(tokenUri: str = None):
     vec_keys = get_vectors_key()
     new_data = len(vec_keys) == 0
     if new_data:
+        print("Accepting image since the dataset is empty.")
         await save_record(prisma, uri_sig, 99, image_url)
         upload_vector(np.array(query_vec), uri_sig)
         return {"similarity": parse_ether(99)}
@@ -87,8 +91,10 @@ async def root(tokenUri: str = None):
 
     accepted = closest >= get_similarity_threshold()
     if accepted:
+        print("Accepted")
         upload_vector(np.array(query_vec), uri_sig)
     else:
+        print(f"Rejected")
         await save_similar_image(prisma, uri_sig, closest_key)
 
     return {"similarity": parse_ether(closest)}
