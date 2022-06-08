@@ -1,5 +1,19 @@
+fragment ActivityRow on AuthenticityRequest {
+  status
+  similarity
+  tokenUri
+  tokenUriSignature
+  collection {
+    name
+    owner {
+      id
+    }
+  }
+}
+
 query MintActivity {
   authenticityRequests {
+    ...ActivityRow
     tokenUri
     status
     similarity

@@ -1,4 +1,4 @@
-import { Button, useToast, VStack } from '@chakra-ui/react'
+import { Box, Button, useToast, VStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
 import * as Yup from 'yup'
 import useFallbackAccountAddress from '../../common/hooks/useFallbackAccountAddress'
@@ -31,88 +31,90 @@ export default function Mint() {
 
   return (
     <MintLayout>
-      <Formik<MintFormProps>
-        initialValues={{
-          name: '',
-          description: '',
-          image: undefined,
-          collectionId: '',
-        }}
-        onSubmit={async (
-          { description, name, image, collectionId },
-          { setFieldError, setSubmitting }
-        ) => {
-          if (!image) {
-            setFieldError('image', 'Image is required')
+      <Box maxW='container.md' mx='auto'>
+        <Formik<MintFormProps>
+          initialValues={{
+            name: '',
+            description: '',
+            image: undefined,
+            collectionId: '',
+          }}
+          onSubmit={async (
+            { description, name, image, collectionId },
+            { setFieldError, setSubmitting }
+          ) => {
+            if (!image) {
+              setFieldError('image', 'Image is required')
+              setSubmitting(false)
+              return
+            }
+
+            const imageCid = await pinFile(image)
+            if (!imageCid) {
+              toast({
+                title: 'Mint Failed',
+                description: 'Failed uploading image',
+                status: 'error',
+              })
+              setSubmitting(false)
+              return
+            }
+
+            const metadata = makeTokenMetadata(
+              name,
+              description,
+              formatIpfsUri(imageCid.toString())
+            )
+
+            const tokenCid = await pinContent(JSON.stringify(metadata, null, 2))
+            if (!tokenCid) {
+              toast({
+                title: 'Mint Failed',
+                description: 'Failed uploading token metadata',
+                status: 'error',
+              })
+              setSubmitting(false)
+              return
+            }
+
+            const tokenUri = formatIpfsUri(tokenCid.toString())
+
+            try {
+              await writeAsync({
+                args: [
+                  collectionId,
+                  address,
+                  tokenUri,
+                  encodeURIComponent(tokenUri),
+                ],
+              })
+            } catch (e) {
+              toast({
+                title: 'Mint Failed',
+                // description: e.error.message,
+                status: 'error',
+              })
+            }
+
             setSubmitting(false)
-            return
-          }
-
-          const imageCid = await pinFile(image)
-          if (!imageCid) {
-            toast({
-              title: 'Mint Failed',
-              description: 'Failed uploading image',
-              status: 'error',
-            })
-            setSubmitting(false)
-            return
-          }
-
-          const metadata = makeTokenMetadata(
-            name,
-            description,
-            formatIpfsUri(imageCid.toString())
-          )
-
-          const tokenCid = await pinContent(JSON.stringify(metadata, null, 2))
-          if (!tokenCid) {
-            toast({
-              title: 'Mint Failed',
-              description: 'Failed uploading token metadata',
-              status: 'error',
-            })
-            setSubmitting(false)
-            return
-          }
-
-          const tokenUri = formatIpfsUri(tokenCid.toString())
-
-          try {
-            await writeAsync({
-              args: [
-                collectionId,
-                address,
-                tokenUri,
-                encodeURIComponent(tokenUri),
-              ],
-            })
-          } catch (e) {
-            toast({
-              title: 'Mint Failed',
-              // description: e.error.message,
-              status: 'error',
-            })
-          }
-
-          setSubmitting(false)
-        }}
-        validationSchema={validationSchema}
-      >
-        {({ isSubmitting }) => (
-          <Form>
-            <VStack marginTop={12} spacing='6' align={'start'}>
-              <UserCollectionsInput />
-              <ImageFormSection />
-              <NameField />
-              <DescriptionField />
-              <Button type='submit' isLoading={isSubmitting}>
-                Next
-              </Button>
-            </VStack>
-          </Form>
-        )}
-      </Formik>
+          }}
+          validationSchema={validationSchema}
+        >
+          {({ isSubmitting }) => (
+            <Form>
+              <VStack marginTop={12} spacing='6' align={'start'}>
+                <UserCollectionsInput />
+                <ImageFormSection />
+                <NameField />
+                <DescriptionField />
+                <Button type='submit' isLoading={isSubmitting}>
+                  Next
+                </Button>
+              </VStack>
+            </Form>
+          )}
+        </Formik>
+      </Box>
     </MintLayout>
   )
 }

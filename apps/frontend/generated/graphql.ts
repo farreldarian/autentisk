@@ -62,6 +62,126 @@ export enum Account_OrderBy {
   Tokens = 'tokens'
 }
 
+export type Ask = {
+  __typename?: 'Ask';
+  buyer: Account;
+  currency: Scalars['String'];
+  id: Scalars['ID'];
+  price: Scalars['BigDecimal'];
+  seller: Account;
+  token: Token;
+};
+
+export type Ask_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  buyer?: InputMaybe<Scalars['String']>;
+  buyer_contains?: InputMaybe<Scalars['String']>;
+  buyer_contains_nocase?: InputMaybe<Scalars['String']>;
+  buyer_ends_with?: InputMaybe<Scalars['String']>;
+  buyer_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  buyer_gt?: InputMaybe<Scalars['String']>;
+  buyer_gte?: InputMaybe<Scalars['String']>;
+  buyer_in?: InputMaybe<Array<Scalars['String']>>;
+  buyer_lt?: InputMaybe<Scalars['String']>;
+  buyer_lte?: InputMaybe<Scalars['String']>;
+  buyer_not?: InputMaybe<Scalars['String']>;
+  buyer_not_contains?: InputMaybe<Scalars['String']>;
+  buyer_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  buyer_not_ends_with?: InputMaybe<Scalars['String']>;
+  buyer_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  buyer_not_in?: InputMaybe<Array<Scalars['String']>>;
+  buyer_not_starts_with?: InputMaybe<Scalars['String']>;
+  buyer_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  buyer_starts_with?: InputMaybe<Scalars['String']>;
+  buyer_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  currency?: InputMaybe<Scalars['String']>;
+  currency_contains?: InputMaybe<Scalars['String']>;
+  currency_contains_nocase?: InputMaybe<Scalars['String']>;
+  currency_ends_with?: InputMaybe<Scalars['String']>;
+  currency_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  currency_gt?: InputMaybe<Scalars['String']>;
+  currency_gte?: InputMaybe<Scalars['String']>;
+  currency_in?: InputMaybe<Array<Scalars['String']>>;
+  currency_lt?: InputMaybe<Scalars['String']>;
+  currency_lte?: InputMaybe<Scalars['String']>;
+  currency_not?: InputMaybe<Scalars['String']>;
+  currency_not_contains?: InputMaybe<Scalars['String']>;
+  currency_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  currency_not_ends_with?: InputMaybe<Scalars['String']>;
+  currency_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  currency_not_in?: InputMaybe<Array<Scalars['String']>>;
+  currency_not_starts_with?: InputMaybe<Scalars['String']>;
+  currency_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  currency_starts_with?: InputMaybe<Scalars['String']>;
+  currency_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  price?: InputMaybe<Scalars['BigDecimal']>;
+  price_gt?: InputMaybe<Scalars['BigDecimal']>;
+  price_gte?: InputMaybe<Scalars['BigDecimal']>;
+  price_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  price_lt?: InputMaybe<Scalars['BigDecimal']>;
+  price_lte?: InputMaybe<Scalars['BigDecimal']>;
+  price_not?: InputMaybe<Scalars['BigDecimal']>;
+  price_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  seller?: InputMaybe<Scalars['String']>;
+  seller_contains?: InputMaybe<Scalars['String']>;
+  seller_contains_nocase?: InputMaybe<Scalars['String']>;
+  seller_ends_with?: InputMaybe<Scalars['String']>;
+  seller_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  seller_gt?: InputMaybe<Scalars['String']>;
+  seller_gte?: InputMaybe<Scalars['String']>;
+  seller_in?: InputMaybe<Array<Scalars['String']>>;
+  seller_lt?: InputMaybe<Scalars['String']>;
+  seller_lte?: InputMaybe<Scalars['String']>;
+  seller_not?: InputMaybe<Scalars['String']>;
+  seller_not_contains?: InputMaybe<Scalars['String']>;
+  seller_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  seller_not_ends_with?: InputMaybe<Scalars['String']>;
+  seller_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  seller_not_in?: InputMaybe<Array<Scalars['String']>>;
+  seller_not_starts_with?: InputMaybe<Scalars['String']>;
+  seller_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  seller_starts_with?: InputMaybe<Scalars['String']>;
+  seller_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  token?: InputMaybe<Scalars['String']>;
+  token_contains?: InputMaybe<Scalars['String']>;
+  token_contains_nocase?: InputMaybe<Scalars['String']>;
+  token_ends_with?: InputMaybe<Scalars['String']>;
+  token_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  token_gt?: InputMaybe<Scalars['String']>;
+  token_gte?: InputMaybe<Scalars['String']>;
+  token_in?: InputMaybe<Array<Scalars['String']>>;
+  token_lt?: InputMaybe<Scalars['String']>;
+  token_lte?: InputMaybe<Scalars['String']>;
+  token_not?: InputMaybe<Scalars['String']>;
+  token_not_contains?: InputMaybe<Scalars['String']>;
+  token_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  token_not_ends_with?: InputMaybe<Scalars['String']>;
+  token_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  token_not_in?: InputMaybe<Array<Scalars['String']>>;
+  token_not_starts_with?: InputMaybe<Scalars['String']>;
+  token_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  token_starts_with?: InputMaybe<Scalars['String']>;
+  token_starts_with_nocase?: InputMaybe<Scalars['String']>;
+};
+
+export enum Ask_OrderBy {
+  Buyer = 'buyer',
+  Currency = 'currency',
+  Id = 'id',
+  Price = 'price',
+  Seller = 'seller',
+  Token = 'token'
+}
+
 export type AuthenticityRequest = {
   __typename?: 'AuthenticityRequest';
   collection: Collection;
@@ -293,6 +413,8 @@ export type Query = {
   _meta?: Maybe<_Meta_>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
+  ask?: Maybe<Ask>;
+  asks: Array<Ask>;
   authenticityRequest?: Maybe<AuthenticityRequest>;
   authenticityRequests: Array<AuthenticityRequest>;
   collection?: Maybe<Collection>;
@@ -323,6 +445,24 @@ export type QueryAccountsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<Account_Filter>;
+};
+
+
+export type QueryAskArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryAsksArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Ask_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Ask_Filter>;
 };
 
 
@@ -396,6 +536,8 @@ export type Subscription = {
   _meta?: Maybe<_Meta_>;
   account?: Maybe<Account>;
   accounts: Array<Account>;
+  ask?: Maybe<Ask>;
+  asks: Array<Ask>;
   authenticityRequest?: Maybe<AuthenticityRequest>;
   authenticityRequests: Array<AuthenticityRequest>;
   collection?: Maybe<Collection>;
@@ -426,6 +568,24 @@ export type SubscriptionAccountsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<Account_Filter>;
+};
+
+
+export type SubscriptionAskArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionAsksArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Ask_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Ask_Filter>;
 };
 
 
@@ -777,10 +937,12 @@ export type HomeQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type HomeQuery = { __typename?: 'Query', featured: Array<{ __typename?: 'Token', scId: any, uri: string, collection: { __typename?: 'Collection', id: string, name: string }, owner: { __typename?: 'Account', id: string } }>, tokens: Array<{ __typename?: 'Token', scId: any, uri: string, collection: { __typename?: 'Collection', id: string } }> };
 
+export type ActivityRowFragment = { __typename?: 'AuthenticityRequest', status: AuthenticityRequestStatus, similarity?: any | null, tokenUri: string, tokenUriSignature: string, collection: { __typename?: 'Collection', name: string, owner: { __typename?: 'Account', id: string } } };
+
 export type MintActivityQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MintActivityQuery = { __typename?: 'Query', authenticityRequests: Array<{ __typename?: 'AuthenticityRequest', tokenUri: string, status: AuthenticityRequestStatus, similarity?: any | null, collection: { __typename?: 'Collection', id: string, name: string, owner: { __typename?: 'Account', id: string } } }> };
+export type MintActivityQuery = { __typename?: 'Query', authenticityRequests: Array<{ __typename?: 'AuthenticityRequest', tokenUri: string, status: AuthenticityRequestStatus, similarity?: any | null, tokenUriSignature: string, collection: { __typename?: 'Collection', id: string, name: string, owner: { __typename?: 'Account', id: string } } }> };
 
 export type UserCollectionsQueryVariables = Exact<{
   owner: Scalars['String'];
@@ -796,7 +958,20 @@ export type TokenPageQueryVariables = Exact<{
 
 export type TokenPageQuery = { __typename?: 'Query', token?: { __typename?: 'Token', uri: string, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', id: string } } | null };
 
-
+export const ActivityRowFragmentDoc = gql`
+    fragment ActivityRow on AuthenticityRequest {
+  status
+  similarity
+  tokenUri
+  tokenUriSignature
+  collection {
+    name
+    owner {
+      id
+    }
+  }
+}
+    `;
 export const CollectionDocument = gql`
     query Collection($address: ID!) {
   collection(id: $address) {
@@ -882,6 +1057,7 @@ export function useHomeQuery(options?: Omit<Urql.UseQueryArgs<HomeQueryVariables
 export const MintActivityDocument = gql`
     query MintActivity {
   authenticityRequests {
+    ...ActivityRow
     tokenUri
     status
     similarity
@@ -894,7 +1070,7 @@ export const MintActivityDocument = gql`
     }
   }
 }
-    `;
+    ${ActivityRowFragmentDoc}`;
 
 export function useMintActivityQuery(options?: Omit<Urql.UseQueryArgs<MintActivityQueryVariables>, 'query'>) {
   return Urql.useQuery<MintActivityQuery>({ query: MintActivityDocument, ...options });

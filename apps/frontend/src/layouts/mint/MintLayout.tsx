@@ -14,7 +14,7 @@ export default function MintLayout({ children }: Props) {
 
   return (
     <Layout>
-      <Container maxW='container.md' minH='calc(100vh - 80px)' py='12'>
+      <Container maxW='container.lg' minH='calc(100vh - 80px)' py='12'>
         <HStack spacing={'6'}>
           <MintHeading href='/mint' isActive={!onActivity}>
             Mint NFT
