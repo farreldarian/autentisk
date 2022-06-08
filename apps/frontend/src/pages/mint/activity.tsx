@@ -2,10 +2,8 @@ import {
   Link,
   Table,
   TableContainer,
-  Tag,
   Tbody,
   Td,
-  Text,
   Th,
   Thead,
   Tr,
@@ -16,6 +14,7 @@ import { useMintActivityQuery } from '../../../generated/graphql'
 import { parseIfIpfs } from '../../common/utils/ipfs'
 import getAddressExplorerUrl from '../../common/utils/misc/get-address-explorer-url'
 import MintLayout from '../../layouts/mint/MintLayout'
+import SimilarityText from '../../modules/mint/SimilarityText'
 
 export default function History() {
   const [{ data }] = useMintActivityQuery()
@@ -48,23 +47,10 @@ export default function History() {
                 </Td>
                 <Td>{item.collection.name}</Td>
                 <Td display={'flex'} gap='2'>
-                  {item.similarity && (
-                    <Text color={item.status === 'Rejected' ? 'red' : 'green'}>
-                      {item.similarity}
-                    </Text>
-                  )}
-
-                  <Tag
-                    colorScheme={
-                      item.status === 'Pending'
-                        ? 'orange'
-                        : item.status === 'Rejected'
-                        ? 'red'
-                        : 'green'
-                    }
-                  >
-                    {item.status}
-                  </Tag>
+                  <SimilarityText
+                    status={item.status}
+                    distance={item.similarity}
+                  />
                 </Td>
                 <Td>
                   <Link
