@@ -20,6 +20,8 @@ dataSources:
       abis:
         - name: AsksV1_1
           file: ./abis/AsksV1_1.json
+        - name: IERC20Metadata
+          file: ./abis/IERC20Metadata.json
       eventHandlers:
         - event: AskCreated(indexed address,indexed uint256,(address,address,address,uint16,uint256))
           handler: handleAskCreated
