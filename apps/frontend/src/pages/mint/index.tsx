@@ -23,11 +23,7 @@ const validationSchema = Yup.object({
 export default function Mint() {
   const { address } = useFallbackAccountAddress()
   const { writeAsync, status } = useAutentisk('mint', [])
-  const toast = useToast({
-    isClosable: true,
-    position: 'bottom-right',
-    variant: 'solid',
-  })
+  const toast = useToast()
 
   return (
     <MintLayout>
