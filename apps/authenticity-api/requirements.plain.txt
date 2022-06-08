@@ -5,3 +5,4 @@ fastapi
 scipy 
 prisma
 pillow
+boto3
