@@ -111,7 +111,8 @@ async def root(tokenUri: str = None):
         upload_vector(np.array(query_vec), uri_sig)
     else:
         print(f"Rejected with similarity {closest}")
-        await save_similar_image(prisma, uri_sig, closest_key.split('/')[-1])
+
+    await save_similar_image(prisma, uri_sig, closest_key.split('/')[-1])
 
     return {"similarity": similarity}
 
