@@ -3,7 +3,7 @@ import numpy as np
 import uvicorn
 from fastapi import FastAPI
 from scipy.spatial.distance import cosine
-from core.env import PORT
+from core.env import PORT, SKIP_REQUEST_ID_CHECK
 from core.unit import parse_ether
 from core.token_metadata import get_image_url
 from core.image import load_image
@@ -62,9 +62,11 @@ async def root(tokenUri: str = None):
     tokenUri = unquote(unquote(tokenUri))
 
     # Request ID Check
-    request_id = get_request_id(tokenUri)
-    if request_id is None:
-        return {"error": "2", "detail": "Request not coming from contract"}
+    request_id = "-"
+    if not SKIP_REQUEST_ID_CHECK:
+        request_id = get_request_id(tokenUri)
+        if request_id is None:
+            return {"error": "2", "detail": "Request not coming from contract"}
 
     print(f"Processing tokenURI: \"{tokenUri}\" for request: \"{request_id}\"")
 
