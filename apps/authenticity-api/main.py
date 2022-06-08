@@ -36,18 +36,22 @@ def find_similarities(vec_keys, query_vec):
 
 
 async def save_record(prisma: Prisma, uri_sig: str, closest: np.float64, image_url: str):
+    print("Saving similarity... ", end="")
     await prisma.similarity.create(data={
         'id': uri_sig,
         'similarity': closest,
         'imageUrl': image_url
     })
+    print("[Done]")
 
 
 async def save_similar_image(prisma: Prisma, query_key: str, closest_key: str):
+    print("Saving closest similarity... ", end="")
     await prisma.closestsimilarity.create(data={
         'incomingId': query_key,
         'originalId': closest_key,
     })
+    print("[Done]")
 
 
 @app.get("/")
@@ -62,32 +66,39 @@ async def root(tokenUri: str = None):
     if request_id is None:
         return {"error": "2", "detail": "Request not coming from contract"}
 
-    print(f"Processing tokenURI: \"{tokenUri}\" for request: \"{request_id}\'")
+    print(f"Processing tokenURI: \"{tokenUri}\" for request: \"{request_id}\"")
 
     prisma = Prisma()
     await prisma.connect()
     uri_sig = get_sig(tokenUri)
 
     # Find for existing data
+    print("Searching for existing data... ", end="")
     stored = await prisma.similarity.find_unique(where={'id': uri_sig})
     if stored is not None:
         print("Found duplicate request, using previous result.")
         return {"similarity": parse_ether(stored.similarity)}
+    else:
+        print("[Data is New]")
 
     image_url = get_image_url(tokenUri)
-    query_vec = encode(load_image(image_url))
+    image = load_image(image_url)
+    print("Encoding image... ", end="")
+    query_vec = encode(image)
+    print("[Done]")
 
     vec_keys = get_vectors_key()
     new_data = len(vec_keys) == 0
     if new_data:
         print("Accepting image since the dataset is empty.")
-        await save_record(prisma, uri_sig, 99, image_url)
+        similarity = str(parse_ether(99))
+
+        await save_record(prisma, uri_sig, similarity, image_url)
         upload_vector(np.array(query_vec), uri_sig)
-        return {"similarity": parse_ether(99)}
+
+        return {"similarity": similarity}
 
     closest, closest_key = find_similarities(vec_keys, query_vec)
-
-    await save_record(prisma, uri_sig, closest, image_url)
 
     accepted = closest >= get_similarity_threshold()
     if accepted:
@@ -97,7 +108,9 @@ async def root(tokenUri: str = None):
         print(f"Rejected")
         await save_similar_image(prisma, uri_sig, closest_key)
 
-    return {"similarity": parse_ether(closest)}
+    similarity = str(parse_ether(closest))
+    await save_record(prisma, uri_sig, similarity, image_url)
+    return {"similarity": similarity}
 
 
 if __name__ == "__main__":

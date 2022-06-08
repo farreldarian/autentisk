@@ -9,7 +9,7 @@ datasource db {
 
 model Similarity {
   id         String @id
-  similarity Int
+  similarity String
   imageUrl   String
 
   cloned  ClosestSimilarity[] @relation("original")
