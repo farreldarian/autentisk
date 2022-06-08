@@ -79,7 +79,7 @@ async def root(tokenUri: str = None):
     stored = await prisma.similarity.find_unique(where={'id': uri_sig})
     if stored is not None:
         print("Found duplicate request, using previous result.")
-        return {"similarity": parse_ether(stored.similarity)}
+        return {"similarity": stored.similarity}
     else:
         print("[Data is New]")
 
