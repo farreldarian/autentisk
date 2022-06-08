@@ -43,3 +43,12 @@ type AuthenticityRequest @entity {
   similarity: BigDecimal
   status: AuthenticityRequestStatus!
 }
+
+type Ask @entity {
+  id: ID!
+  token: Token!
+  seller: Account!
+  currency: String!
+  price: BigDecimal!
+  buyer: Account!
+}

@@ -3,13 +3,31 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: AskV1_1
+    name: AsksV1_1
     network: {{network}}
     source:
-      address: '{{AskV1_1__address}}'
-      abi: AskV1_1
-      startBlock: {{AskV1_1__startBlock}}
+      address: '{{AsksV1_1__address}}'
+      abi: AsksV1_1
+      startBlock: {{AsksV1_1__startBlock}}
     mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Ask
+      abis:
+        - name: AsksV1_1
+          file: ./abis/AsksV1_1.json
+      eventHandlers:
+        - event: AskCreated(indexed address,indexed uint256,(address,address,address,uint16,uint256))
+          handler: handleAskCreated
+        - event: AskPriceUpdated(indexed address,indexed uint256,(address,address,address,uint16,uint256))
+          handler: handleAskPriceUpdated
+        - event: AskCanceled(indexed address,indexed uint256,(address,address,address,uint16,uint256))
+          handler: handleAskCanceled
+        - event: AskFilled(indexed address,indexed uint256,indexed address,address,(address,address,address,uint16,uint256))
+          handler: handleAskFilled
+      file: ./src/mappings/asks-v1-1.ts
   - kind: ethereum
     name: Autentisk
     network: {{network}}
