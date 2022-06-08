@@ -21,15 +21,18 @@ def encode(image):
     return encoder(np.array([image]))[0]
 
 
+def process_db_vec(vec):
+    return format_ether(int(Decimal(vec)))
+
+
 def find_similarities(vec_keys, query_vec):
     dataset_vec = [download_vector(key) for key in vec_keys]
 
-    closest: np.float64 = cosine(
-        query_vec, format_ether(int(Decimal(dataset_vec[0]))))
+    closest: np.float64 = cosine(query_vec, process_db_vec(dataset_vec[0]))
     closest_key: str = vec_keys[0]
 
     for [key, vec] in zip(vec_keys[1:], dataset_vec[1:]):
-        dist = cosine(query_vec, vec)
+        dist = cosine(query_vec, process_db_vec(vec))
         if dist < closest:
             closest = dist
             closest_key = key
