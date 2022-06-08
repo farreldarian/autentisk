@@ -81,7 +81,7 @@ async def root(tokenUri: str = None):
     if stored is not None:
         print("")
         print("Found duplicate request, using previous result.")
-        return {"similarity": stored.similarity}
+        return {"similarity": int(stored.similarity)}
     else:
         print("[Data is New]")
 
