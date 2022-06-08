@@ -1,3 +1,4 @@
+import { QuestionIcon } from '.pnpm/@chakra-ui+icons@1.1.7_5qblqjf622vzzkdskgddihcrca/node_modules/@chakra-ui/icons'
 import {
   Flex,
   Link,
@@ -5,6 +6,7 @@ import {
   Tag,
   Td,
   Text,
+  Tooltip,
   Tr,
   VStack,
 } from '@chakra-ui/react'
@@ -86,21 +88,37 @@ export default function ActivityRow(props: Props) {
 
               <VStack justify='center' align={'flex-start'}>
                 {similarity && (
-                  <Text
-                    color={status === 'Rejected' ? 'red' : 'green'}
-                    fontSize='sm'
-                  >
-                    {similarity}%
-                  </Text>
+                  <Flex gap='1'>
+                    <Text
+                      color={status === 'Rejected' ? 'red' : 'green'}
+                      fontSize='sm'
+                    >
+                      {similarity}%
+                    </Text>
+
+                    <Tooltip label='Cosine Similarity' fontSize='md'>
+                      <Text color='gray.300' cursor='pointer'>
+                        <QuestionIcon />
+                      </Text>
+                    </Tooltip>
+                  </Flex>
                 )}
 
                 {distance && (
-                  <Text
-                    color={status === 'Rejected' ? 'red' : 'green'}
-                    fontSize='sm'
-                  >
-                    {Number(distance).toFixed(2)}
-                  </Text>
+                  <Flex gap='2'>
+                    <Text
+                      color={status === 'Rejected' ? 'red' : 'green'}
+                      fontSize='sm'
+                    >
+                      {Number(distance).toFixed(2)}
+                    </Text>
+
+                    <Tooltip label='Cosine Distance' fontSize='md'>
+                      <Text color='gray.300' cursor='pointer'>
+                        <QuestionIcon />
+                      </Text>
+                    </Tooltip>
+                  </Flex>
                 )}
               </VStack>
             </Flex>
