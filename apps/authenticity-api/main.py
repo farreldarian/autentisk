@@ -104,6 +104,8 @@ async def root(tokenUri: str = None):
     closest, closest_key = find_similarities(vec_keys, query_vec)
 
     accepted = closest >= get_similarity_threshold()
+    similarity = int(Decimal(parse_ether(closest)))
+    await save_record(prisma, uri_sig, similarity, image_url)
     if accepted:
         print("Accepted")
         upload_vector(np.array(query_vec), uri_sig)
@@ -111,8 +113,6 @@ async def root(tokenUri: str = None):
         print(f"Rejected")
         await save_similar_image(prisma, uri_sig, closest_key)
 
-    similarity = int(Decimal(parse_ether(closest)))
-    await save_record(prisma, uri_sig, similarity, image_url)
     return {"similarity": similarity}
 
 
