@@ -95,7 +95,7 @@ async def root(tokenUri: str = None):
     new_data = len(vec_keys) == 0
     if new_data:
         print("Accepting image since the dataset is empty.")
-        similarity = parse_ether(99)
+        similarity = parse_ether(1)
         await save_record(prisma, uri_sig, similarity, image_url)
         upload_vector(np.array(query_vec), uri_sig)
 
