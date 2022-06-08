@@ -79,6 +79,7 @@ async def root(tokenUri: str = None):
     print("Searching for existing data... ", end="")
     stored = await prisma.similarity.find_unique(where={'id': uri_sig})
     if stored is not None:
+        print("")
         print("Found duplicate request, using previous result.")
         return {"similarity": int(Decimal(stored.similarity))}
     else:
