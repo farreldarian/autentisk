@@ -1,4 +1,4 @@
-IPFS_GATEWAY = 'https://ipfs.io/ipfs/'
+IPFS_GATEWAY = 'https://ipfs.infura.io:5001/api/v0'
 
 
 def parse_if_ipfs(uri: str):
