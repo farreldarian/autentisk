@@ -31,4 +31,5 @@ export function createAsk(
       throw new Error("Can't get decimal")
     }
   }
+  ask.save()
 }
