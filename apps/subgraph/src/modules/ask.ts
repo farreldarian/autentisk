@@ -4,7 +4,7 @@ import { Ask } from '../../generated/schema'
 import { ZERO_ADDRESS } from '../constants'
 
 export function getAskId(collection: Address, tokenId: BigInt): string {
-  return `${collection}-${tokenId}`
+  return `${collection.toHex()}-${tokenId.toString()}`
 }
 
 export function createAsk(

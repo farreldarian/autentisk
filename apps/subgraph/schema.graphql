@@ -50,5 +50,5 @@ type Ask @entity {
   seller: Account!
   currency: String!
   price: BigDecimal!
-  buyer: Account!
+  buyer: Account
 }
