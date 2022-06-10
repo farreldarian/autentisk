@@ -44,11 +44,28 @@ type AuthenticityRequest @entity {
   status: AuthenticityRequestStatus!
 }
 
+type Currency @entity {
+  id: ID!
+  symbol: String!
+  decimal: Int!
+}
+
+type AskHistory @entity {
+  id: ID!
+  token: Token!
+  seller: Account!
+  currency: Currency!
+  price: BigDecimal!
+  buyer: Account
+  createdAt: BigInt!
+  soldAt: BigInt
+}
+
 type Ask @entity {
   id: ID!
   token: Token!
   seller: Account!
-  currency: String!
+  currency: Currency!
   price: BigDecimal!
-  buyer: Account
+  createdAt: BigInt!
 }

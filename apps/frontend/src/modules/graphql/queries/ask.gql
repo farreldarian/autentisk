@@ -1,0 +1,10 @@
+query ActiveAsk($tokenId: String!) {
+  asks(where: { token: $tokenId }) {
+    currency {
+      id
+      symbol
+      decimal
+    }
+    price
+  }
+}

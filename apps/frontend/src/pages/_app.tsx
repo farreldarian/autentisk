@@ -40,7 +40,7 @@ function MyApp({ Component, pageProps }) {
                 fetch(resource, init).then((res) => res.json()),
             }}
           >
-            <RainbowKitProvider chains={chains}>
+            <RainbowKitProvider chains={chains} showRecentTransactions>
               <ChakraProvider theme={theme}>
                 <Component {...pageProps} />
               </ChakraProvider>

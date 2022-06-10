@@ -64,15 +64,27 @@ export enum Account_OrderBy {
 
 export type Ask = {
   __typename?: 'Ask';
-  buyer: Account;
-  currency: Scalars['String'];
+  createdAt: Scalars['BigInt'];
+  currency: Currency;
   id: Scalars['ID'];
   price: Scalars['BigDecimal'];
   seller: Account;
   token: Token;
 };
 
-export type Ask_Filter = {
+export type AskHistory = {
+  __typename?: 'AskHistory';
+  buyer?: Maybe<Account>;
+  createdAt: Scalars['BigInt'];
+  currency: Currency;
+  id: Scalars['ID'];
+  price: Scalars['BigDecimal'];
+  seller: Account;
+  soldAt?: Maybe<Scalars['BigInt']>;
+  token: Token;
+};
+
+export type AskHistory_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   buyer?: InputMaybe<Scalars['String']>;
@@ -95,6 +107,122 @@ export type Ask_Filter = {
   buyer_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   buyer_starts_with?: InputMaybe<Scalars['String']>;
   buyer_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  currency?: InputMaybe<Scalars['String']>;
+  currency_contains?: InputMaybe<Scalars['String']>;
+  currency_contains_nocase?: InputMaybe<Scalars['String']>;
+  currency_ends_with?: InputMaybe<Scalars['String']>;
+  currency_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  currency_gt?: InputMaybe<Scalars['String']>;
+  currency_gte?: InputMaybe<Scalars['String']>;
+  currency_in?: InputMaybe<Array<Scalars['String']>>;
+  currency_lt?: InputMaybe<Scalars['String']>;
+  currency_lte?: InputMaybe<Scalars['String']>;
+  currency_not?: InputMaybe<Scalars['String']>;
+  currency_not_contains?: InputMaybe<Scalars['String']>;
+  currency_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  currency_not_ends_with?: InputMaybe<Scalars['String']>;
+  currency_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  currency_not_in?: InputMaybe<Array<Scalars['String']>>;
+  currency_not_starts_with?: InputMaybe<Scalars['String']>;
+  currency_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  currency_starts_with?: InputMaybe<Scalars['String']>;
+  currency_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  price?: InputMaybe<Scalars['BigDecimal']>;
+  price_gt?: InputMaybe<Scalars['BigDecimal']>;
+  price_gte?: InputMaybe<Scalars['BigDecimal']>;
+  price_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  price_lt?: InputMaybe<Scalars['BigDecimal']>;
+  price_lte?: InputMaybe<Scalars['BigDecimal']>;
+  price_not?: InputMaybe<Scalars['BigDecimal']>;
+  price_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
+  seller?: InputMaybe<Scalars['String']>;
+  seller_contains?: InputMaybe<Scalars['String']>;
+  seller_contains_nocase?: InputMaybe<Scalars['String']>;
+  seller_ends_with?: InputMaybe<Scalars['String']>;
+  seller_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  seller_gt?: InputMaybe<Scalars['String']>;
+  seller_gte?: InputMaybe<Scalars['String']>;
+  seller_in?: InputMaybe<Array<Scalars['String']>>;
+  seller_lt?: InputMaybe<Scalars['String']>;
+  seller_lte?: InputMaybe<Scalars['String']>;
+  seller_not?: InputMaybe<Scalars['String']>;
+  seller_not_contains?: InputMaybe<Scalars['String']>;
+  seller_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  seller_not_ends_with?: InputMaybe<Scalars['String']>;
+  seller_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  seller_not_in?: InputMaybe<Array<Scalars['String']>>;
+  seller_not_starts_with?: InputMaybe<Scalars['String']>;
+  seller_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  seller_starts_with?: InputMaybe<Scalars['String']>;
+  seller_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  soldAt?: InputMaybe<Scalars['BigInt']>;
+  soldAt_gt?: InputMaybe<Scalars['BigInt']>;
+  soldAt_gte?: InputMaybe<Scalars['BigInt']>;
+  soldAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  soldAt_lt?: InputMaybe<Scalars['BigInt']>;
+  soldAt_lte?: InputMaybe<Scalars['BigInt']>;
+  soldAt_not?: InputMaybe<Scalars['BigInt']>;
+  soldAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  token?: InputMaybe<Scalars['String']>;
+  token_contains?: InputMaybe<Scalars['String']>;
+  token_contains_nocase?: InputMaybe<Scalars['String']>;
+  token_ends_with?: InputMaybe<Scalars['String']>;
+  token_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  token_gt?: InputMaybe<Scalars['String']>;
+  token_gte?: InputMaybe<Scalars['String']>;
+  token_in?: InputMaybe<Array<Scalars['String']>>;
+  token_lt?: InputMaybe<Scalars['String']>;
+  token_lte?: InputMaybe<Scalars['String']>;
+  token_not?: InputMaybe<Scalars['String']>;
+  token_not_contains?: InputMaybe<Scalars['String']>;
+  token_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  token_not_ends_with?: InputMaybe<Scalars['String']>;
+  token_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  token_not_in?: InputMaybe<Array<Scalars['String']>>;
+  token_not_starts_with?: InputMaybe<Scalars['String']>;
+  token_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  token_starts_with?: InputMaybe<Scalars['String']>;
+  token_starts_with_nocase?: InputMaybe<Scalars['String']>;
+};
+
+export enum AskHistory_OrderBy {
+  Buyer = 'buyer',
+  CreatedAt = 'createdAt',
+  Currency = 'currency',
+  Id = 'id',
+  Price = 'price',
+  Seller = 'seller',
+  SoldAt = 'soldAt',
+  Token = 'token'
+}
+
+export type Ask_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  createdAt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_gte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  createdAt_lt?: InputMaybe<Scalars['BigInt']>;
+  createdAt_lte?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not?: InputMaybe<Scalars['BigInt']>;
+  createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   currency?: InputMaybe<Scalars['String']>;
   currency_contains?: InputMaybe<Scalars['String']>;
   currency_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -174,7 +302,7 @@ export type Ask_Filter = {
 };
 
 export enum Ask_OrderBy {
-  Buyer = 'buyer',
+  CreatedAt = 'createdAt',
   Currency = 'currency',
   Id = 'id',
   Price = 'price',
@@ -401,6 +529,60 @@ export enum Collection_OrderBy {
   Tokens = 'tokens'
 }
 
+export type Currency = {
+  __typename?: 'Currency';
+  decimal: Scalars['Int'];
+  id: Scalars['ID'];
+  symbol: Scalars['String'];
+};
+
+export type Currency_Filter = {
+  /** Filter for the block changed event. */
+  _change_block?: InputMaybe<BlockChangedFilter>;
+  decimal?: InputMaybe<Scalars['Int']>;
+  decimal_gt?: InputMaybe<Scalars['Int']>;
+  decimal_gte?: InputMaybe<Scalars['Int']>;
+  decimal_in?: InputMaybe<Array<Scalars['Int']>>;
+  decimal_lt?: InputMaybe<Scalars['Int']>;
+  decimal_lte?: InputMaybe<Scalars['Int']>;
+  decimal_not?: InputMaybe<Scalars['Int']>;
+  decimal_not_in?: InputMaybe<Array<Scalars['Int']>>;
+  id?: InputMaybe<Scalars['ID']>;
+  id_gt?: InputMaybe<Scalars['ID']>;
+  id_gte?: InputMaybe<Scalars['ID']>;
+  id_in?: InputMaybe<Array<Scalars['ID']>>;
+  id_lt?: InputMaybe<Scalars['ID']>;
+  id_lte?: InputMaybe<Scalars['ID']>;
+  id_not?: InputMaybe<Scalars['ID']>;
+  id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  symbol?: InputMaybe<Scalars['String']>;
+  symbol_contains?: InputMaybe<Scalars['String']>;
+  symbol_contains_nocase?: InputMaybe<Scalars['String']>;
+  symbol_ends_with?: InputMaybe<Scalars['String']>;
+  symbol_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  symbol_gt?: InputMaybe<Scalars['String']>;
+  symbol_gte?: InputMaybe<Scalars['String']>;
+  symbol_in?: InputMaybe<Array<Scalars['String']>>;
+  symbol_lt?: InputMaybe<Scalars['String']>;
+  symbol_lte?: InputMaybe<Scalars['String']>;
+  symbol_not?: InputMaybe<Scalars['String']>;
+  symbol_not_contains?: InputMaybe<Scalars['String']>;
+  symbol_not_contains_nocase?: InputMaybe<Scalars['String']>;
+  symbol_not_ends_with?: InputMaybe<Scalars['String']>;
+  symbol_not_ends_with_nocase?: InputMaybe<Scalars['String']>;
+  symbol_not_in?: InputMaybe<Array<Scalars['String']>>;
+  symbol_not_starts_with?: InputMaybe<Scalars['String']>;
+  symbol_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  symbol_starts_with?: InputMaybe<Scalars['String']>;
+  symbol_starts_with_nocase?: InputMaybe<Scalars['String']>;
+};
+
+export enum Currency_OrderBy {
+  Decimal = 'decimal',
+  Id = 'id',
+  Symbol = 'symbol'
+}
+
 /** Defines the order direction, either ascending or descending */
 export enum OrderDirection {
   Asc = 'asc',
@@ -414,11 +596,15 @@ export type Query = {
   account?: Maybe<Account>;
   accounts: Array<Account>;
   ask?: Maybe<Ask>;
+  askHistories: Array<AskHistory>;
+  askHistory?: Maybe<AskHistory>;
   asks: Array<Ask>;
   authenticityRequest?: Maybe<AuthenticityRequest>;
   authenticityRequests: Array<AuthenticityRequest>;
   collection?: Maybe<Collection>;
   collections: Array<Collection>;
+  currencies: Array<Currency>;
+  currency?: Maybe<Currency>;
   token?: Maybe<Token>;
   tokenMetadata: Array<TokenMetadata>;
   tokens: Array<Token>;
@@ -449,6 +635,24 @@ export type QueryAccountsArgs = {
 
 
 export type QueryAskArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type QueryAskHistoriesArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AskHistory_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<AskHistory_Filter>;
+};
+
+
+export type QueryAskHistoryArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
@@ -502,6 +706,24 @@ export type QueryCollectionsArgs = {
 };
 
 
+export type QueryCurrenciesArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Currency_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Currency_Filter>;
+};
+
+
+export type QueryCurrencyArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
 export type QueryTokenArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
@@ -537,11 +759,15 @@ export type Subscription = {
   account?: Maybe<Account>;
   accounts: Array<Account>;
   ask?: Maybe<Ask>;
+  askHistories: Array<AskHistory>;
+  askHistory?: Maybe<AskHistory>;
   asks: Array<Ask>;
   authenticityRequest?: Maybe<AuthenticityRequest>;
   authenticityRequests: Array<AuthenticityRequest>;
   collection?: Maybe<Collection>;
   collections: Array<Collection>;
+  currencies: Array<Currency>;
+  currency?: Maybe<Currency>;
   token?: Maybe<Token>;
   tokenMetadata: Array<TokenMetadata>;
   tokens: Array<Token>;
@@ -572,6 +798,24 @@ export type SubscriptionAccountsArgs = {
 
 
 export type SubscriptionAskArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
+};
+
+
+export type SubscriptionAskHistoriesArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<AskHistory_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<AskHistory_Filter>;
+};
+
+
+export type SubscriptionAskHistoryArgs = {
   block?: InputMaybe<Block_Height>;
   id: Scalars['ID'];
   subgraphError?: _SubgraphErrorPolicy_;
@@ -622,6 +866,24 @@ export type SubscriptionCollectionsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   subgraphError?: _SubgraphErrorPolicy_;
   where?: InputMaybe<Collection_Filter>;
+};
+
+
+export type SubscriptionCurrenciesArgs = {
+  block?: InputMaybe<Block_Height>;
+  first?: InputMaybe<Scalars['Int']>;
+  orderBy?: InputMaybe<Currency_OrderBy>;
+  orderDirection?: InputMaybe<OrderDirection>;
+  skip?: InputMaybe<Scalars['Int']>;
+  subgraphError?: _SubgraphErrorPolicy_;
+  where?: InputMaybe<Currency_Filter>;
+};
+
+
+export type SubscriptionCurrencyArgs = {
+  block?: InputMaybe<Block_Height>;
+  id: Scalars['ID'];
+  subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
@@ -922,6 +1184,13 @@ export type CollectionQueryVariables = Exact<{
 
 export type CollectionQuery = { __typename?: 'Query', collection?: { __typename?: 'Collection', name: string, owner: { __typename?: 'Account', id: string }, tokens: Array<{ __typename?: 'Token', id: string, scId: any, uri: string, owner: { __typename?: 'Account', id: string } }> } | null };
 
+export type ActiveAskQueryVariables = Exact<{
+  tokenId: Scalars['String'];
+}>;
+
+
+export type ActiveAskQuery = { __typename?: 'Query', asks: Array<{ __typename?: 'Ask', price: any, currency: { __typename?: 'Currency', id: string, symbol: string, decimal: number } }> };
+
 export type CollectionsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -993,6 +1262,22 @@ export const CollectionDocument = gql`
 
 export function useCollectionQuery(options: Omit<Urql.UseQueryArgs<CollectionQueryVariables>, 'query'>) {
   return Urql.useQuery<CollectionQuery>({ query: CollectionDocument, ...options });
+};
+export const ActiveAskDocument = gql`
+    query ActiveAsk($tokenId: String!) {
+  asks(where: {token: $tokenId}) {
+    currency {
+      id
+      symbol
+      decimal
+    }
+    price
+  }
+}
+    `;
+
+export function useActiveAskQuery(options: Omit<Urql.UseQueryArgs<ActiveAskQueryVariables>, 'query'>) {
+  return Urql.useQuery<ActiveAskQuery>({ query: ActiveAskDocument, ...options });
 };
 export const CollectionsDocument = gql`
     query Collections {

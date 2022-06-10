@@ -17,6 +17,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Ask
+        - Currency
       abis:
         - name: AsksV1_1
           file: ./abis/AsksV1_1.json
