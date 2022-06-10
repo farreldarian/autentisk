@@ -66,7 +66,7 @@ export default function FeaturedSection({
 
               <Box
                 padding={3}
-                borderRadius={'lg'}
+                borderRadius={'xl'}
                 shadow='lg'
                 cursor={'pointer'}
                 transition='150ms ease-in-out'
@@ -83,7 +83,7 @@ export default function FeaturedSection({
               <Link href={`/collection/${collectionId}`} passHref>
                 <Box
                   padding={3}
-                  borderRadius={'lg'}
+                  borderRadius={'xl'}
                   shadow='lg'
                   cursor={'pointer'}
                   transition='150ms ease-in-out'

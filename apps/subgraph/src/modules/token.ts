@@ -20,7 +20,8 @@ export function createToken(
   scId: BigInt,
   contract: Address,
   ownerId: string,
-  collectionId: string
+  collectionId: string,
+  blockTime: BigInt
 ): void {
   const nft = AutentiskERC721.bind(contract)
 
@@ -30,5 +31,6 @@ export function createToken(
   token.metadata = tryCreateMetadata(id, token.uri)
   token.owner = ownerId
   token.collection = collectionId
+  token.mintedAt = blockTime
   token.save()
 }

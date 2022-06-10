@@ -19,6 +19,7 @@ type Token @entity {
   owner: Account!
   collection: Collection!
   metadata: TokenMetadata
+  mintedAt: BigInt!
 }
 
 type TokenMetadata @entity {

@@ -1,6 +1,19 @@
-import { Box, Divider, Flex, Heading, Text } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Grid,
+  Heading,
+  Text,
+  VStack,
+} from '@chakra-ui/react'
+import { shortenIfAddress } from '@usedapp/core'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
+import NextLink from 'next/link'
+import { FaEthereum } from 'react-icons/fa'
+import { SiIpfs } from 'react-icons/si'
 import { useTokenPageQuery } from '../../../../generated/graphql'
 import { parseIfIpfs } from '../../../common/utils/ipfs'
 import Layout from '../../../components/Layout'
@@ -55,23 +68,119 @@ export default function TokenPage({ collectionAddress, tokenId }: Props) {
           </Box>
         </Box>
 
-        <Box p='24'>
-          <Flex>
-            <Heading>{metadata?.name}</Heading>
+        <Box
+          p={{ base: '6', md: '12', lg: '24' }}
+          maxW={{ base: 'container.md', lg: 'container.xl' }}
+          mx='auto'
+        >
+          <Grid
+            templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
+            gap={{ base: '6', md: '12', lg: '24' }}
+          >
+            <Flex flexDir={'column'} alignItems='start' gap='6'>
+              <Heading>{metadata?.name}</Heading>
+
+              <Flex gap='6'>
+                <VStack alignItems={'start'}>
+                  <Text>Owned by</Text>
+
+                  <a
+                    href={`https://mumbai.polygonscan.com/address/${data?.token?.owner.id}`}
+                    target='_blank'
+                    rel='noreferrer'
+                  >
+                    <Box
+                      padding={3}
+                      borderRadius={'xl'}
+                      shadow='lg'
+                      cursor={'pointer'}
+                      transition='150ms ease-in-out'
+                      _hover={{ bg: 'white', shadow: 'xl' }}
+                    >
+                      {shortenIfAddress(data?.token?.owner.id)}
+                    </Box>
+                  </a>
+                </VStack>
+
+                <Box borderLeft={'1px'} borderColor='gray.200'></Box>
+
+                <VStack alignItems={'start'}>
+                  <Text>Collection</Text>
+
+                  <NextLink
+                    href={`/collection/${data?.token?.collection.id}`}
+                    passHref
+                  >
+                    <Box
+                      padding={3}
+                      borderRadius={'xl'}
+                      shadow='lg'
+                      cursor={'pointer'}
+                      transition='150ms ease-in-out'
+                      _hover={{ bg: 'white', shadow: 'xl' }}
+                    >
+                      {data?.token?.collection.name}
+                    </Box>
+                  </NextLink>
+                </VStack>
+              </Flex>
+            </Flex>
+
             <FixedSaleBox
               tokenId={tokenId}
               collectionAddress={collectionAddress}
-              ml='auto'
-              maxW='container.sm'
               w='full'
             />
-          </Flex>
+          </Grid>
 
-          <Box mt='12'>
-            <Heading size='lg'>Description</Heading>
-            <Divider mt='3' />
-            <Text mt='3'>{metadata?.description}</Text>
-          </Box>
+          <Grid
+            templateColumns={{ base: '1fr', lg: '1fr 1fr' }}
+            gap={{ base: '6', md: '12', lg: '24' }}
+            mt='12'
+          >
+            <Box>
+              <Heading size='lg'>Description</Heading>
+              <Divider mt='3' />
+
+              <Text mt='3'>{metadata?.description}</Text>
+
+              <Heading size='lg' mt={{ base: '6', lg: '12' }}>
+                Details
+              </Heading>
+              <Divider mt='3' />
+
+              <Flex flexDir={'column'} alignItems='start' mt='6' gap='3'>
+                <Button
+                  as='a'
+                  href={`https://mumbai.polygonscan.com/token/${collectionAddress}?a=${tokenId}`}
+                  target='_blank'
+                  variant={'ghost'}
+                  colorScheme='blackAlpha'
+                  leftIcon={<FaEthereum size='24' />}
+                >
+                  View on explorer
+                </Button>
+
+                {data?.token && (
+                  <Button
+                    as='a'
+                    href={parseIfIpfs(data?.token?.uri)}
+                    target='_blank'
+                    variant={'ghost'}
+                    colorScheme='blackAlpha'
+                    leftIcon={<SiIpfs size='24' />}
+                  >
+                    View metadata
+                  </Button>
+                )}
+              </Flex>
+            </Box>
+
+            <Box>
+              <Heading size='lg'>History</Heading>
+              <Divider mt='3' />
+            </Box>
+          </Grid>
         </Box>
       </Box>
     </Layout>

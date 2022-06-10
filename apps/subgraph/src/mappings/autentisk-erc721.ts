@@ -11,7 +11,8 @@ export function handleTokenTransfer(event: Transfer): void {
       event.params.tokenId,
       event.address,
       to.id,
-      getCollectionId(event.address)
+      getCollectionId(event.address),
+      event.block.timestamp
     )
   }
 }

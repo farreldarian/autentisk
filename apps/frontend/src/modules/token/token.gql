@@ -1,6 +1,7 @@
 query TokenPage($id: ID!) {
   token(id: $id) {
     uri
+    mintedAt
 
     owner {
       id
@@ -8,6 +9,7 @@ query TokenPage($id: ID!) {
 
     collection {
       id
+      name
     }
   }
 }

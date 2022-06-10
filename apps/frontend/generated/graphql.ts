@@ -920,6 +920,7 @@ export type Token = {
   collection: Collection;
   id: Scalars['ID'];
   metadata?: Maybe<TokenMetadata>;
+  mintedAt: Scalars['BigInt'];
   owner: Account;
   scId: Scalars['BigInt'];
   uri: Scalars['String'];
@@ -1086,6 +1087,14 @@ export type Token_Filter = {
   metadata_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   metadata_starts_with?: InputMaybe<Scalars['String']>;
   metadata_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  mintedAt?: InputMaybe<Scalars['BigInt']>;
+  mintedAt_gt?: InputMaybe<Scalars['BigInt']>;
+  mintedAt_gte?: InputMaybe<Scalars['BigInt']>;
+  mintedAt_in?: InputMaybe<Array<Scalars['BigInt']>>;
+  mintedAt_lt?: InputMaybe<Scalars['BigInt']>;
+  mintedAt_lte?: InputMaybe<Scalars['BigInt']>;
+  mintedAt_not?: InputMaybe<Scalars['BigInt']>;
+  mintedAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   owner?: InputMaybe<Scalars['String']>;
   owner_contains?: InputMaybe<Scalars['String']>;
   owner_contains_nocase?: InputMaybe<Scalars['String']>;
@@ -1140,6 +1149,7 @@ export enum Token_OrderBy {
   Collection = 'collection',
   Id = 'id',
   Metadata = 'metadata',
+  MintedAt = 'mintedAt',
   Owner = 'owner',
   ScId = 'scId',
   Uri = 'uri'
@@ -1225,7 +1235,7 @@ export type TokenPageQueryVariables = Exact<{
 }>;
 
 
-export type TokenPageQuery = { __typename?: 'Query', token?: { __typename?: 'Token', uri: string, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', id: string } } | null };
+export type TokenPageQuery = { __typename?: 'Query', token?: { __typename?: 'Token', uri: string, mintedAt: any, owner: { __typename?: 'Account', id: string }, collection: { __typename?: 'Collection', id: string, name: string } } | null };
 
 export const ActivityRowFragmentDoc = gql`
     fragment ActivityRow on AuthenticityRequest {
@@ -1376,11 +1386,13 @@ export const TokenPageDocument = gql`
     query TokenPage($id: ID!) {
   token(id: $id) {
     uri
+    mintedAt
     owner {
       id
     }
     collection {
       id
+      name
     }
   }
 }
