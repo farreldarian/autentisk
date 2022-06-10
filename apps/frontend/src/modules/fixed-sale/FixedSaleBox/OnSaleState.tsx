@@ -11,6 +11,7 @@ interface Props {
   collectionAddress: string
   tokenId: string
   currency: {
+    id: string
     symbol: string
     decimal: number
   }
