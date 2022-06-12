@@ -1,17 +1,20 @@
 import {
   Box,
-  Button,
   FormControl,
   FormLabel,
   Heading,
   Input,
   Text,
 } from '@chakra-ui/react'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
+import TxButton from '../common/components/TxButton'
+import useToast from '../common/hooks/useToast'
 import { useAutentisk } from '../modules/contracts/useAutentisk'
 
 export default function CreateCollectionForm() {
-  const { writeAsync, isLoading, isSuccess, error } = useAutentisk(
+  const toast = useToast()
+  const [tx, setTx] = useState<string | undefined>()
+  const { writeAsync, isSuccess, error, status } = useAutentisk(
     'createCollection',
     ['', '']
   )
@@ -21,7 +24,15 @@ export default function CreateCollectionForm() {
     const name = e.target['name'].value
     const symbol = e.target['symbol'].value
 
-    await writeAsync({ args: [name, symbol] })
+    try {
+      const tx = await writeAsync({ args: [name, symbol] })
+      setTx(tx.hash)
+      toast({ status: 'success', title: `Submitted transaction` })
+    } catch (e) {
+      if (e.error?.data?.message) {
+        toast({ status: 'error', title: e.error.data.message })
+      }
+    }
   }
 
   return (
@@ -47,19 +58,19 @@ export default function CreateCollectionForm() {
           <Input id='symbol' />
         </FormControl>
 
-        <Button colorScheme={'blue'} mt='6' type='submit' isLoading={isLoading}>
+        <TxButton
+          colorScheme={'blue'}
+          mt='6'
+          type='submit'
+          txHash={tx}
+          status={status}
+        >
           <>Create Collection</>
-        </Button>
+        </TxButton>
 
         {error && (
           <Text mt='1.5' color='red'>
             {error?.message}
-          </Text>
-        )}
-
-        {isSuccess && (
-          <Text mt='1.5' color='green'>
-            Success!
           </Text>
         )}
       </form>
