@@ -108,12 +108,7 @@ export default function Mint() {
                 <ImageFormSection />
                 <NameField />
                 <DescriptionField />
-                <TxButton
-                  type='submit'
-                  status={status}
-                  txHash={tx}
-                  isLoading={isSubmitting}
-                >
+                <TxButton type='submit' status={status} txHash={tx}>
                   Mint
                 </TxButton>
               </VStack>
