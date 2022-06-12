@@ -11,23 +11,8 @@ const _abi = [
     inputs: [
       {
         internalType: "address",
-        name: "oracle",
+        name: "registry",
         type: "address",
-      },
-      {
-        internalType: "uint256",
-        name: "fee",
-        type: "uint256",
-      },
-      {
-        internalType: "string",
-        name: "classifierUrl",
-        type: "string",
-      },
-      {
-        internalType: "uint256",
-        name: "similarityThreshold",
-        type: "uint256",
       },
     ],
     stateMutability: "nonpayable",
@@ -147,6 +132,11 @@ const _abi = [
       {
         internalType: "string",
         name: "tokenURI",
+        type: "string",
+      },
+      {
+        internalType: "string",
+        name: "encodedTokenURI",
         type: "string",
       },
     ],

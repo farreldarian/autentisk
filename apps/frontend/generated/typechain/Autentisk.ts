@@ -30,7 +30,7 @@ export interface AutentiskInterface extends utils.Interface {
     "AUTHENTICITY_REGISTRY()": FunctionFragment;
     "createCollection(string,string)": FunctionFragment;
     "fulfillMint(address,address,string)": FunctionFragment;
-    "mint(address,address,string)": FunctionFragment;
+    "mint(address,address,string,string)": FunctionFragment;
     "owner()": FunctionFragment;
     "renounceOwnership()": FunctionFragment;
     "s_collectionOwners(address)": FunctionFragment;
@@ -65,7 +65,7 @@ export interface AutentiskInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "mint",
-    values: [string, string, string]
+    values: [string, string, string, string]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -209,6 +209,7 @@ export interface Autentisk extends BaseContract {
       collection: string,
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
 
@@ -250,6 +251,7 @@ export interface Autentisk extends BaseContract {
     collection: string,
     to: string,
     tokenURI: string,
+    encodedTokenURI: string,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
 
@@ -288,6 +290,7 @@ export interface Autentisk extends BaseContract {
       collection: string,
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -353,6 +356,7 @@ export interface Autentisk extends BaseContract {
       collection: string,
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
 
@@ -397,6 +401,7 @@ export interface Autentisk extends BaseContract {
       collection: string,
       to: string,
       tokenURI: string,
+      encodedTokenURI: string,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;
 

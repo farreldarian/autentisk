@@ -26,6 +26,7 @@ export default function Mint() {
   const { address } = useFallbackAccountAddress()
 
   const [tx, setTx] = useState<string | undefined>()
+  const [isUploading, setUploading] = useState(false)
   const { writeAsync, status } = useAutentisk('mint', [])
 
   const toast = useToast()
@@ -42,14 +43,19 @@ export default function Mint() {
           }}
           onSubmit={async (
             { description, name, image, collectionId },
-            { setFieldError, setSubmitting }
+            { setFieldError }
           ) => {
+            setUploading(true)
             if (!image) {
               setFieldError('image', 'Image is required')
-              setSubmitting(false)
+              setUploading(false)
               return
             }
 
+            toast({
+              title: 'Uploading Image to IPFS',
+              status: 'info',
+            })
             const imageCid = await pinFile(image)
             if (!imageCid) {
               toast({
@@ -57,10 +63,19 @@ export default function Mint() {
                 description: 'Failed uploading image',
                 status: 'error',
               })
-              setSubmitting(false)
+              setUploading(false)
               return
+            } else {
+              toast({
+                title: 'Image Uploaded to IPFS',
+                status: 'success',
+              })
             }
 
+            toast({
+              title: 'Uploading Metadata to IPFS',
+              status: 'info',
+            })
             const metadata = makeTokenMetadata(
               name,
               description,
@@ -74,9 +89,16 @@ export default function Mint() {
                 description: 'Failed uploading token metadata',
                 status: 'error',
               })
-              setSubmitting(false)
+              setUploading(false)
               return
+            } else {
+              toast({
+                title: 'Metadata Uploaded to IPFS',
+                status: 'success',
+              })
             }
+
+            setUploading(false)
 
             const tokenUri = formatIpfsUri(tokenCid.toString())
 
@@ -96,8 +118,6 @@ export default function Mint() {
                 toast({ status: 'error', title: e.error.data.message })
               }
             }
-
-            setSubmitting(false)
           }}
           validationSchema={validationSchema}
         >
@@ -108,7 +128,12 @@ export default function Mint() {
                 <ImageFormSection />
                 <NameField />
                 <DescriptionField />
-                <TxButton type='submit' status={status} txHash={tx}>
+                <TxButton
+                  type='submit'
+                  status={status}
+                  txHash={tx}
+                  isLoading={isUploading}
+                >
                   Mint
                 </TxButton>
               </VStack>

@@ -1,6 +1,5 @@
 import { Button, ButtonProps } from '@chakra-ui/react'
 import { ReactNode } from 'react'
-import { Target } from 'tabler-icons-react'
 import { useNetwork, useWaitForTransaction } from 'wagmi'
 
 interface Props extends ButtonProps {
@@ -10,7 +9,14 @@ interface Props extends ButtonProps {
 }
 
 export default function TxButton(props: Props) {
-  const { children, status, txHash, onClick, ...rest } = props
+  const {
+    children,
+    status,
+    txHash,
+    onClick,
+    isLoading: parentIsLoading,
+    ...rest
+  } = props
 
   const { activeChain } = useNetwork()
   const { isLoading } = useWaitForTransaction({ hash: txHash })
@@ -19,13 +25,13 @@ export default function TxButton(props: Props) {
   function redirectToTxPage() {
     const url = activeChain?.blockExplorers?.etherscan.url
     if (!url || !txHash) return
-    window.open(`${url}/tx/${txHash}`, )
+    window.open(`${url}/tx/${txHash}`)
   }
 
   return (
     <Button
       {...rest}
-      isLoading={status === 'loading'}
+      isLoading={parentIsLoading || status === 'loading'}
       onClick={(e) => (isMining ? redirectToTxPage() : onClick && onClick(e))}
     >
       {isMining ? <>Mining...</> : <>{children}</>}
