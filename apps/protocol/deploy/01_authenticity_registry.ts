@@ -11,7 +11,7 @@ const ORACLE = '0xc8D925525CA8759812d0c299B90247917d4d4b7C'
 const JOB_ID = 'bbf0badad29d49dc887504bacfbb905b'
 const FEE = parseEther('0.01')
 const CLASSIFIER_URL = 'https://autentisk-production.up.railway.app/'
-const SIMILARITY_THRESHOLD = parseEther('0.5')
+const SIMILARITY_THRESHOLD = parseEther('0.3')
 
 async function estimateAddress(
   ethers: typeof _ethers,
