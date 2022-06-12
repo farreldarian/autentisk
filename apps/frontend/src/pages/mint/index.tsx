@@ -1,6 +1,8 @@
-import { Box, Button, useToast, VStack } from '@chakra-ui/react'
+import { Box, useToast, VStack } from '@chakra-ui/react'
 import { Form, Formik } from 'formik'
+import { useState } from 'react'
 import * as Yup from 'yup'
+import TxButton from '../../common/components/TxButton'
 import useFallbackAccountAddress from '../../common/hooks/useFallbackAccountAddress'
 import MintLayout from '../../layouts/mint/MintLayout'
 import { useAutentisk } from '../../modules/contracts/useAutentisk'
@@ -22,7 +24,10 @@ const validationSchema = Yup.object({
 
 export default function Mint() {
   const { address } = useFallbackAccountAddress()
+
+  const [tx, setTx] = useState<string | undefined>()
   const { writeAsync, status } = useAutentisk('mint', [])
+
   const toast = useToast()
 
   return (
@@ -76,7 +81,7 @@ export default function Mint() {
             const tokenUri = formatIpfsUri(tokenCid.toString())
 
             try {
-              await writeAsync({
+              const tx = await writeAsync({
                 args: [
                   collectionId,
                   address,
@@ -84,12 +89,12 @@ export default function Mint() {
                   encodeURIComponent(tokenUri),
                 ],
               })
+              setTx(tx.hash)
+              toast({ status: 'success', title: `Submitted transaction` })
             } catch (e) {
-              toast({
-                title: 'Mint Failed',
-                // description: e.error.message,
-                status: 'error',
-              })
+              if (e.error?.data?.message) {
+                toast({ status: 'error', title: e.error.data.message })
+              }
             }
 
             setSubmitting(false)
@@ -103,9 +108,14 @@ export default function Mint() {
                 <ImageFormSection />
                 <NameField />
                 <DescriptionField />
-                <Button type='submit' isLoading={isSubmitting}>
-                  Next
-                </Button>
+                <TxButton
+                  type='submit'
+                  status={status}
+                  txHash={tx}
+                  isLoading={isSubmitting}
+                >
+                  Mint
+                </TxButton>
               </VStack>
             </Form>
           )}
