@@ -8,8 +8,6 @@ import 'hardhat-gas-reporter'
 import { HardhatUserConfig, task } from 'hardhat/config'
 import 'solidity-coverage'
 
-import './tasks'
-
 dotenv.config()
 
 // This is a sample Hardhat task. To learn how to create your own go to
