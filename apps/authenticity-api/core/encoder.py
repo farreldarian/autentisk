@@ -8,7 +8,8 @@ MODEL_ZIPPED_FILE_PATH = './model.zip'
 MODEL_URL = 'https://drive.google.com/file/d/1-iMxqa019ST5_sApayrS42cS6ulRvIrs/view?usp=sharing'
 
 def is_downloaded():
-    return os.exists(MODEL_PATH)
+    return os.path.isdir(MODEL_PATH)
+    
 
 def download_model():
     response = requests.get(MODEL_URL)
