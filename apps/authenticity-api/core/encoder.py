@@ -1,7 +1,7 @@
 from tensorflow.keras.models import load_model
 
-ENCODER_PATH = './model/encoder'
+ENCODER_PATH = './model'
 
 
-def get_encoder():
+def get_model():
     return load_model(ENCODER_PATH)

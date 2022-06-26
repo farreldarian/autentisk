@@ -8,17 +8,17 @@ from core.unit import parse_ether, format_ether
 from core.token_metadata import get_image_url
 from core.image import load_image
 from core.contract import get_request_id, get_sig, get_similarity_threshold
-from core.encoder import get_encoder
+from core.encoder import get_model
 from core.s3 import get_vectors_key, upload_vector, download_vector
 from prisma import Prisma
 from decimal import Decimal
 
 app = FastAPI()
-encoder = get_encoder()
+model = get_model()
 
 
 def encode(image):
-    return encoder(np.array([image]))[0]
+    return model.encoder(np.array([image]))[0]
 
 
 def find_similarities(vec_keys, query_vec):
