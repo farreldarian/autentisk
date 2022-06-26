@@ -25,7 +25,7 @@ def classify(query, dataset_vec):
     for vec in dataset_vec:
         data.append([query, vec])
     data = np.array(data)
-    return model.encoder(data)
+    return model.distance(data)
 
 def find_similarities(vec_keys, query_vec):
     dataset_vec = [download_vector(key) for key in vec_keys]
