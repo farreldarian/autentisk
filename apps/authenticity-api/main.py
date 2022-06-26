@@ -20,17 +20,24 @@ model = get_model()
 def encode(image):
     return model.encoder(np.array([image]))[0]
 
+def classify(query, dataset_vec):
+    data = []
+    for vec in dataset_vec:
+        data.append([query, vec])
+    data = np.array(data)
+    return model.encoder(data)
 
 def find_similarities(vec_keys, query_vec):
     dataset_vec = [download_vector(key) for key in vec_keys]
 
-    closest: np.float64 = cosine(query_vec, dataset_vec[0])
+    predictions = classify(query_vec, dataset_vec)
+
+    closest: np.float64 = predictions[0]
     closest_key: str = vec_keys[0]
 
-    for [key, vec] in zip(vec_keys[1:], dataset_vec[1:]):
-        dist = cosine(query_vec, vec)
-        if dist < closest:
-            closest = dist
+    for [key, prediction] in zip(vec_keys[1:], predictions[1:]):
+        if prediction > closest:
+            closest = prediction
             closest_key = key
 
     return closest, closest_key
@@ -95,7 +102,7 @@ async def root(tokenUri: str = None):
     new_data = len(vec_keys) == 0
     if new_data:
         print("Accepting image since the dataset is empty.")
-        similarity = parse_ether(1)
+        similarity = parse_ether(0)
         await save_record(prisma, uri_sig, similarity, image_url)
         upload_vector(np.array(query_vec), uri_sig)
 
@@ -103,7 +110,7 @@ async def root(tokenUri: str = None):
 
     closest, closest_key = find_similarities(vec_keys, query_vec)
 
-    accepted = closest >= get_similarity_threshold()
+    accepted = closest <= get_similarity_threshold()
     similarity = int(Decimal(parse_ether(closest)))
     await save_record(prisma, uri_sig, similarity, image_url)
     if accepted:
