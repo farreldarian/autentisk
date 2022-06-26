@@ -1,7 +1,26 @@
 from tensorflow.keras.models import load_model
+import requests
+from zipfile import ZipFile
+import os
 
-ENCODER_PATH = './model'
+MODEL_PATH = './model'
+MODEL_ZIPPED_FILE_PATH = './model.zip'
+MODEL_URL = 'https://drive.google.com/file/d/1-iMxqa019ST5_sApayrS42cS6ulRvIrs/view?usp=sharing'
+
+def is_downloaded():
+    return os.exists(MODEL_PATH)
+
+def download_model():
+    response = requests.get(MODEL_URL)
+    with open(MODEL_ZIPPED_FILE_PATH, "wb") as f:
+        f.write(response.content)
+    
+    with ZipFile(MODEL_ZIPPED_FILE_PATH, 'r') as f:
+        f.extractall()
 
 
 def get_model():
-    return load_model(ENCODER_PATH)
+    if not is_downloaded():
+        download_model()
+
+    return load_model(MODEL_PATH)
