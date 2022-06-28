@@ -30,12 +30,12 @@ def find_similarities(vec_keys, query_vec):
 
     predictions = classify(query_vec, dataset_vec).numpy()
 
-    closest: np.float64 = predictions[0]
+    closest: np.float64 = predictions[0][0]
     closest_key: str = vec_keys[0]
 
     for [key, prediction] in zip(vec_keys[1:], predictions[1:]):
-        if prediction > closest:
-            closest = prediction
+        if prediction[0] > closest:
+            closest = prediction[0]
             closest_key = key
 
     return closest, closest_key
