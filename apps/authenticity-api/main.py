@@ -28,7 +28,7 @@ def classify(query, dataset_vec):
 def find_similarities(vec_keys, query_vec):
     dataset_vec = [download_vector(key) for key in vec_keys]
 
-    predictions = classify(query_vec, dataset_vec)
+    predictions = classify(query_vec, dataset_vec).numpy()
 
     closest: np.float64 = predictions[0]
     closest_key: str = vec_keys[0]
