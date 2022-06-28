@@ -7,7 +7,7 @@ import os
 
 MODEL_PATH = './model'
 MODEL_ZIPPED_FILE_PATH = './model.zip'
-MODEL_URL = 'https://drive.google.com/u/0/uc?id=1-iMxqa019ST5_sApayrS42cS6ulRvIrs&export=download&confirm=t'
+MODEL_URL = 'https://drive.google.com/u/0/uc?id=1n-BlaxZkkXflJBDvDR1JJk8qd_Fn10bN&export=download&confirm=t'
 
 def is_downloaded():
     return os.path.isdir(MODEL_PATH)
