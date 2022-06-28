@@ -13,4 +13,4 @@ def load_image(URL):
             .resize((224, 224))
     print("[Done]")
 
-    return np.array(img)
+    return np.array(img) / 255
