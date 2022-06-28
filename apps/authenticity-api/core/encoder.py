@@ -1,4 +1,6 @@
 from tensorflow.keras.models import load_model
+from tensorflow.keras import Model
+from tensorflow.keras import layers
 import requests
 from zipfile import ZipFile
 import os
@@ -24,6 +26,20 @@ def download_model():
     print("[Done]")
 
 
+def get_encoder(model):
+    return model.get_layer('encoder')
+
+
+def build_classifier(model):
+    input_a = layers.Input(shape=(128))
+    input_b = layers.Input(shape=(128))
+    out = model.get_layer('distance')(input_a, input_b)
+    out = model.get_layer('classificator')(out)
+    result = Model(inputs=[input_a, input_b], outputs=out)
+    result.compile()
+    return result
+
+
 def get_model():
     if not is_downloaded():
         download_model()
@@ -31,4 +47,5 @@ def get_model():
     print("Loading Model... ", end='')
     model = load_model(MODEL_PATH)
     print("[Done]")
-    return model
+
+    return get_encoder(model), build_classifier(model)

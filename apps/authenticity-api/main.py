@@ -14,18 +14,16 @@ from prisma import Prisma
 from decimal import Decimal
 
 app = FastAPI()
-model = get_model()
+encoder, classifier = get_model()
 
 
 def encode(image):
-    return model.encoder(np.array([image]))[0]
+    return encoder(np.array([image]))[0]
 
 def classify(query, dataset_vec):
-    data = []
-    for vec in dataset_vec:
-        data.append([query, vec])
-    data = np.array(data)
-    return model.distance(data)
+    query = np.array([query for _ in range(len(dataset_vec))])
+    dataset_vec = np.array(dataset_vec)
+    return classifier([query, dataset_vec])
 
 def find_similarities(vec_keys, query_vec):
     dataset_vec = [download_vector(key) for key in vec_keys]
