@@ -47,4 +47,4 @@ def download_vector(key, client=get_client()):
     )
     arr.seek(0)
     arr = pickle.load(arr)
-    return np.array(format_ether(arr))
+    return np.array(arr)
