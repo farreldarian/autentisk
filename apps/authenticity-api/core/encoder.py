@@ -29,5 +29,6 @@ def get_model():
         download_model()
 
     print("Loading Model... ", sep='')
-    yield load_model(MODEL_PATH)
+    model = load_model(MODEL_PATH)
     print("[Done]")
+    return model
