@@ -112,10 +112,10 @@ async def root(tokenUri: str = None):
     similarity = int(Decimal(parse_ether(closest)))
     await save_record(prisma, uri_sig, similarity, image_url)
     if accepted:
-        print(f"Accepted with similarity {closest}")
+        print(f"Accepted with {(closest * 100):.2f}% similarity")
         upload_vector(np.array(query_vec), uri_sig)
     else:
-        print(f"Rejected with similarity {closest}")
+        print(f"Rejected with {(closest * 100):.2f}% similarity")
 
     await save_similar_image(prisma, uri_sig, closest_key.split('/')[-1])
 
