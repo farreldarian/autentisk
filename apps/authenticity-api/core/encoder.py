@@ -12,16 +12,22 @@ def is_downloaded():
     
 
 def download_model():
+    print("Downloading... ", sep='')
     response = requests.get(MODEL_URL)
     with open(MODEL_ZIPPED_FILE_PATH, "wb") as f:
         f.write(response.content)
+    print("[Done]")
     
+    print("Extracting... ", sep='')
     with ZipFile(MODEL_ZIPPED_FILE_PATH, 'r') as f:
         f.extractall()
+    print("[Done]")
 
 
 def get_model():
     if not is_downloaded():
         download_model()
 
-    return load_model(MODEL_PATH)
+    print("Loading Model... ", sep='')
+    yield load_model(MODEL_PATH)
+    print("[Done]")
