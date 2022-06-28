@@ -16,7 +16,7 @@ export default function History() {
               <Th>Minter</Th>
               <Th>Collection</Th>
               <Th>Status</Th>
-              <Th>Most Similar</Th>
+              <Th>Similarity</Th>
               <Th></Th>
             </Tr>
           </Thead>
