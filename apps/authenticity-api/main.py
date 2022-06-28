@@ -26,6 +26,7 @@ def classify(query, dataset_vec):
     return classifier([query, dataset_vec])
 
 def find_similarities(vec_keys, query_vec):
+    print(f"Comparing with {len(vec_keys)} images... ", end="")
     dataset_vec = [download_vector(key) for key in vec_keys]
 
     predictions = classify(query_vec, dataset_vec).numpy()
@@ -38,6 +39,7 @@ def find_similarities(vec_keys, query_vec):
             closest = prediction[0]
             closest_key = key
 
+    print("[Done]")
     return closest, closest_key
 
 
