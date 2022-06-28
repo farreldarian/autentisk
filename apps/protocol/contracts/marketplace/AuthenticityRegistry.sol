@@ -85,6 +85,7 @@ contract AuthenticityRegistry is ChainlinkClient, Ownable {
             s_autentics[uriSignature] == address(0),
             "TokenURI has been registered"
         );
+        require(s_signatureToRequestId[uriSignature] == 0, "Identical pending request");
         require(bytes(tokenURI).length > 0, "Token URI can't be empty");
 
         Chainlink.Request memory request = buildChainlinkRequest(
