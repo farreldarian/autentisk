@@ -14,6 +14,7 @@ export default function TxButton(props: Props) {
     status,
     txHash,
     onClick,
+    type,
     isLoading: parentIsLoading,
     ...rest
   } = props
@@ -32,6 +33,7 @@ export default function TxButton(props: Props) {
     <Button
       {...rest}
       isLoading={parentIsLoading || status === 'loading'}
+      type={isMining ? 'button' : type}
       onClick={(e) => (isMining ? redirectToTxPage() : onClick && onClick(e))}
     >
       {isMining ? <>Mining...</> : <>{children}</>}
