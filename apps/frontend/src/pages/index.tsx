@@ -46,7 +46,12 @@ export default function Home() {
               justifyContent={'space-between'}
             >
               {data?.tokens.map((token, i) => (
-                <HomeNftCard tokenUri={token.uri} key={i} />
+                <HomeNftCard
+                  collectionId={token.collection.id}
+                  tokenId={token.scId}
+                  tokenUri={token.uri}
+                  key={i}
+                />
               ))}
             </Box>
           </Box>

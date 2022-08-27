@@ -1,12 +1,19 @@
 import { Box, Button, Text } from '@chakra-ui/react'
+import Link from 'next/link'
 import { parseIfIpfs } from '../../common/utils/ipfs'
 import { useNftMetadata } from '../nft/nft-metadata'
 
 type Props = {
   tokenUri: string
+  collectionId: string
+  tokenId: string
 }
 
-export default function HomeNftCard({ tokenUri }: Props) {
+export default function HomeNftCard({
+  tokenUri,
+  collectionId,
+  tokenId,
+}: Props) {
   const { data: metadata } = useNftMetadata(tokenUri)
 
   return (
@@ -35,7 +42,9 @@ export default function HomeNftCard({ tokenUri }: Props) {
 
       {/* <Text fontSize={'2xl'}>{data.price} ETH</Text> */}
 
-      <Button colorScheme={'blackAlpha'}>View NFT</Button>
+      <Link href={`/collection/${collectionId}/${tokenId}`} passHref>
+        <Button colorScheme={'blackAlpha'}>View NFT</Button>
+      </Link>
     </Box>
   )
 }
