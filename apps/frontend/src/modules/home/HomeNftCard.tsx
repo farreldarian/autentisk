@@ -22,13 +22,13 @@ export default function HomeNftCard({
       margin='1'
       padding={6}
       flexBasis={'30%'}
+      background={'blackAlpha.400'}
       borderRadius={'3xl'}
+      {...(metadata && { backgroundImage: parseIfIpfs(metadata.image) })}
       backgroundSize={'cover'}
       backgroundRepeat={'no-repeat'}
-      background={'blackAlpha.400'}
       backgroundBlendMode='overlay'
       backgroundPosition={'center'}
-      {...(metadata && { backgroundImage: parseIfIpfs(metadata.image) })}
       display={'flex'}
       flexDir={'column'}
       justifyContent={'flex-end'}
