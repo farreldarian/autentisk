@@ -43,7 +43,7 @@ export default function Collections() {
                     </h1>
                     <p>By {shortenIfAddress(data.id)}</p>
                   </div>
-                  <a href={`collection/${data.name}`}>Explore Collection</a>
+                  <a href={`collection/${data.id}`}>Explore Collection</a>
                 </Box>
               </Box>
             ))}
