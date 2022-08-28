@@ -12,7 +12,6 @@ import { shortenIfAddress } from '@usedapp/core'
 import { GetStaticPaths, GetStaticProps } from 'next'
 import Image from 'next/image'
 import NextLink from 'next/link'
-import { FaEthereum } from 'react-icons/fa'
 import { SiIpfs } from 'react-icons/si'
 import { useTokenPageQuery } from '../../../../generated/graphql'
 import { parseIfIpfs } from '../../../common/utils/ipfs'
@@ -156,7 +155,15 @@ export default function TokenPage({ collectionAddress, tokenId }: Props) {
                   target='_blank'
                   variant={'ghost'}
                   colorScheme='blackAlpha'
-                  leftIcon={<FaEthereum size='24' />}
+                  leftIcon={
+                    <Image
+                      objectFit='contain'
+                      width={'24px'}
+                      height={'24px'}
+                      alt='polygon-icon'
+                      src={require('/public/polygon-matic-logo.png')}
+                    />
+                  }
                 >
                   View on explorer
                 </Button>

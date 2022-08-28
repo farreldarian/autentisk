@@ -54,9 +54,7 @@ export default function OnSaleState(props: Props) {
   return (
     <Box>
       <Text>Price</Text>
-      <Heading>
-        {price} {currency.symbol}
-      </Heading>
+      <Heading>{price} MATIC</Heading>
 
       {account && (
         <TxButton

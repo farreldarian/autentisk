@@ -125,9 +125,9 @@ export default function SellState(props: Props) {
           ref={priceInput}
         />
 
-        <InputRightElement width='16'>
+        <InputRightElement width='20'>
           <Tag px='3' py='2'>
-            <Text>ETH</Text>
+            <Text>MATIC</Text>
           </Tag>
         </InputRightElement>
       </InputGroup>
