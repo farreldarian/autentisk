@@ -1,4 +1,4 @@
-IPFS_GATEWAY = 'https://ipfs.infura.io/ipfs/'
+IPFS_GATEWAY = 'https://autentisk.infura-ipfs.io/ipfs/'
 
 
 def parse_if_ipfs(uri: str):
