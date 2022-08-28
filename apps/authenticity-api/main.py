@@ -93,7 +93,18 @@ async def root(tokenUri: str = None):
         print("[Data is New]")
 
     image_url = get_image_url(tokenUri)
-    image = load_image(image_url)
+    retries = 1
+    while True:
+        try:
+            image = load_image(image_url)
+            break
+        except Exception:
+            print(f"Failed loading image, retrying {retries}")
+            if retries <= 5:
+                retries += 1
+                continue
+            else:
+                raise Exception
     print("Encoding image... ", end="")
     query_vec = encode(image)
     print("[Done]")
