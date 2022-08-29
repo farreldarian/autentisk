@@ -189,7 +189,7 @@ export default function TokenPage({ collectionAddress, tokenId }: Props) {
 
               <Divider mt='3' />
 
-              <NFTHistorySection tokenId={tokenId} />
+              <NFTHistorySection tokenId={`${collectionAddress}-${tokenId}`} />
             </Box>
           </Grid>
         </Box>
