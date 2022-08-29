@@ -1408,7 +1408,7 @@ export function useUserCollectionsQuery(options: Omit<Urql.UseQueryArgs<UserColl
   return Urql.useQuery<UserCollectionsQuery>({ query: UserCollectionsDocument, ...options });
 };
 export const GetAskHistoriesDocument = gql`
-    query getAskHistories($tokenId: String!) {
+    query GetAskHistories($tokenId: String!) {
   askHistories(where: {token: $tokenId}) {
     createdAt
     id
