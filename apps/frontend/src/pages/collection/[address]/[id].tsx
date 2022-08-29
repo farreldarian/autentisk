@@ -18,6 +18,7 @@ import { parseIfIpfs } from '../../../common/utils/ipfs'
 import Layout from '../../../components/Layout'
 import FixedSaleBox from '../../../modules/fixed-sale/FixedSaleBox/FixedSaleBox'
 import { useNftMetadata } from '../../../modules/nft/nft-metadata'
+import NFTHistorySection from '../../../modules/nft/NFTHistorySection'
 
 export const getStaticPaths: GetStaticPaths = () => {
   return {
@@ -185,7 +186,10 @@ export default function TokenPage({ collectionAddress, tokenId }: Props) {
 
             <Box>
               <Heading size='lg'>History</Heading>
+
               <Divider mt='3' />
+
+              <NFTHistorySection tokenId={tokenId} />
             </Box>
           </Grid>
         </Box>

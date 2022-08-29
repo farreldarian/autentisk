@@ -1,0 +1,14 @@
+query getAskHistories($tokenId: String!) {
+  askHistories(where: { token: $tokenId }) {
+    createdAt
+    id
+    price
+    soldAt
+    seller {
+      id
+    }
+    buyer {
+      id
+    }
+  }
+}
