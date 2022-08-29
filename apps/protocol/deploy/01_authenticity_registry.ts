@@ -3,7 +3,7 @@ import { parseEther } from 'ethers/lib/utils'
 import { ethers as _ethers } from 'hardhat'
 import type { DeployFunction } from 'hardhat-deploy/types'
 import type { HardhatRuntimeEnvironment } from 'hardhat/types'
-import { AuthenticityRegistry__factory } from '../typechain'
+import { AuthenticityRegistry__factory, IERC20__factory } from '../typechain'
 import { erc20 } from '../typechain/factories/@openzeppelin/contracts/token'
 
 const LINK_ADDRESS = '0x326c977e6efc84e512bb9c30f76e30c160ed06fb'
@@ -65,9 +65,9 @@ const func: DeployFunction = async function (hre: HardhatRuntimeEnvironment) {
   })
 
   console.log('Sending 0.1 LINK')
-  const link = erc20.IERC20__factory.connect(LINK_ADDRESS, deployer)
+  const link = IERC20__factory.connect(LINK_ADDRESS, deployer)
   await link
-    .transfer(registry.address, parseEther('0.1'))
+    .transfer(registry.address, link.balanceOf(deployer.address))
     .then((tx) => tx.wait())
   console.log('Registry is ready to be used!')
 }
