@@ -29,7 +29,7 @@ export default function NFTHistorySection(props: Props) {
         >
           <Box display={'flex'} justifyContent='space-between'>
             <Box>
-              Minted at: {format(parseInt(ask.soldAt) * 1000, 'yyyy/MM/dd')}
+              Created at: {format(parseInt(ask.createdAt) * 1000, 'yyyy/MM/dd')}
               <br />
               Sold at: {format(parseInt(ask.soldAt) * 1000, 'yyyy/MM/dd')}
             </Box>
