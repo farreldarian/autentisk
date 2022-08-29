@@ -46,6 +46,7 @@ export type AccountTokensArgs = {
 export type Account_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
+  collections_?: InputMaybe<Collection_Filter>;
   id?: InputMaybe<Scalars['ID']>;
   id_gt?: InputMaybe<Scalars['ID']>;
   id_gte?: InputMaybe<Scalars['ID']>;
@@ -54,6 +55,7 @@ export type Account_Filter = {
   id_lte?: InputMaybe<Scalars['ID']>;
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
+  tokens_?: InputMaybe<Token_Filter>;
 };
 
 export enum Account_OrderBy {
@@ -88,6 +90,7 @@ export type AskHistory_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   buyer?: InputMaybe<Scalars['String']>;
+  buyer_?: InputMaybe<Account_Filter>;
   buyer_contains?: InputMaybe<Scalars['String']>;
   buyer_contains_nocase?: InputMaybe<Scalars['String']>;
   buyer_ends_with?: InputMaybe<Scalars['String']>;
@@ -116,6 +119,7 @@ export type AskHistory_Filter = {
   createdAt_not?: InputMaybe<Scalars['BigInt']>;
   createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   currency?: InputMaybe<Scalars['String']>;
+  currency_?: InputMaybe<Currency_Filter>;
   currency_contains?: InputMaybe<Scalars['String']>;
   currency_contains_nocase?: InputMaybe<Scalars['String']>;
   currency_ends_with?: InputMaybe<Scalars['String']>;
@@ -152,6 +156,7 @@ export type AskHistory_Filter = {
   price_not?: InputMaybe<Scalars['BigDecimal']>;
   price_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
   seller?: InputMaybe<Scalars['String']>;
+  seller_?: InputMaybe<Account_Filter>;
   seller_contains?: InputMaybe<Scalars['String']>;
   seller_contains_nocase?: InputMaybe<Scalars['String']>;
   seller_ends_with?: InputMaybe<Scalars['String']>;
@@ -180,6 +185,7 @@ export type AskHistory_Filter = {
   soldAt_not?: InputMaybe<Scalars['BigInt']>;
   soldAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   token?: InputMaybe<Scalars['String']>;
+  token_?: InputMaybe<Token_Filter>;
   token_contains?: InputMaybe<Scalars['String']>;
   token_contains_nocase?: InputMaybe<Scalars['String']>;
   token_ends_with?: InputMaybe<Scalars['String']>;
@@ -224,6 +230,7 @@ export type Ask_Filter = {
   createdAt_not?: InputMaybe<Scalars['BigInt']>;
   createdAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   currency?: InputMaybe<Scalars['String']>;
+  currency_?: InputMaybe<Currency_Filter>;
   currency_contains?: InputMaybe<Scalars['String']>;
   currency_contains_nocase?: InputMaybe<Scalars['String']>;
   currency_ends_with?: InputMaybe<Scalars['String']>;
@@ -260,6 +267,7 @@ export type Ask_Filter = {
   price_not?: InputMaybe<Scalars['BigDecimal']>;
   price_not_in?: InputMaybe<Array<Scalars['BigDecimal']>>;
   seller?: InputMaybe<Scalars['String']>;
+  seller_?: InputMaybe<Account_Filter>;
   seller_contains?: InputMaybe<Scalars['String']>;
   seller_contains_nocase?: InputMaybe<Scalars['String']>;
   seller_ends_with?: InputMaybe<Scalars['String']>;
@@ -280,6 +288,7 @@ export type Ask_Filter = {
   seller_starts_with?: InputMaybe<Scalars['String']>;
   seller_starts_with_nocase?: InputMaybe<Scalars['String']>;
   token?: InputMaybe<Scalars['String']>;
+  token_?: InputMaybe<Token_Filter>;
   token_contains?: InputMaybe<Scalars['String']>;
   token_contains_nocase?: InputMaybe<Scalars['String']>;
   token_ends_with?: InputMaybe<Scalars['String']>;
@@ -330,6 +339,7 @@ export type AuthenticityRequest_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   collection?: InputMaybe<Scalars['String']>;
+  collection_?: InputMaybe<Collection_Filter>;
   collection_contains?: InputMaybe<Scalars['String']>;
   collection_contains_nocase?: InputMaybe<Scalars['String']>;
   collection_ends_with?: InputMaybe<Scalars['String']>;
@@ -480,6 +490,7 @@ export type Collection_Filter = {
   name_starts_with?: InputMaybe<Scalars['String']>;
   name_starts_with_nocase?: InputMaybe<Scalars['String']>;
   owner?: InputMaybe<Scalars['String']>;
+  owner_?: InputMaybe<Account_Filter>;
   owner_contains?: InputMaybe<Scalars['String']>;
   owner_contains_nocase?: InputMaybe<Scalars['String']>;
   owner_ends_with?: InputMaybe<Scalars['String']>;
@@ -519,6 +530,7 @@ export type Collection_Filter = {
   symbol_not_starts_with_nocase?: InputMaybe<Scalars['String']>;
   symbol_starts_with?: InputMaybe<Scalars['String']>;
   symbol_starts_with_nocase?: InputMaybe<Scalars['String']>;
+  tokens_?: InputMaybe<Token_Filter>;
 };
 
 export enum Collection_OrderBy {
@@ -1007,6 +1019,7 @@ export type TokenMetadata_Filter = {
   name_starts_with?: InputMaybe<Scalars['String']>;
   name_starts_with_nocase?: InputMaybe<Scalars['String']>;
   token?: InputMaybe<Scalars['String']>;
+  token_?: InputMaybe<Token_Filter>;
   token_contains?: InputMaybe<Scalars['String']>;
   token_contains_nocase?: InputMaybe<Scalars['String']>;
   token_ends_with?: InputMaybe<Scalars['String']>;
@@ -1040,6 +1053,7 @@ export type Token_Filter = {
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
   collection?: InputMaybe<Scalars['String']>;
+  collection_?: InputMaybe<Collection_Filter>;
   collection_contains?: InputMaybe<Scalars['String']>;
   collection_contains_nocase?: InputMaybe<Scalars['String']>;
   collection_ends_with?: InputMaybe<Scalars['String']>;
@@ -1068,6 +1082,7 @@ export type Token_Filter = {
   id_not?: InputMaybe<Scalars['ID']>;
   id_not_in?: InputMaybe<Array<Scalars['ID']>>;
   metadata?: InputMaybe<Scalars['String']>;
+  metadata_?: InputMaybe<TokenMetadata_Filter>;
   metadata_contains?: InputMaybe<Scalars['String']>;
   metadata_contains_nocase?: InputMaybe<Scalars['String']>;
   metadata_ends_with?: InputMaybe<Scalars['String']>;
@@ -1096,6 +1111,7 @@ export type Token_Filter = {
   mintedAt_not?: InputMaybe<Scalars['BigInt']>;
   mintedAt_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   owner?: InputMaybe<Scalars['String']>;
+  owner_?: InputMaybe<Account_Filter>;
   owner_contains?: InputMaybe<Scalars['String']>;
   owner_contains_nocase?: InputMaybe<Scalars['String']>;
   owner_ends_with?: InputMaybe<Scalars['String']>;
@@ -1161,6 +1177,8 @@ export type _Block_ = {
   hash?: Maybe<Scalars['Bytes']>;
   /** The block number */
   number: Scalars['Int'];
+  /** Timestamp of the block if available, format depends on the chain */
+  timestamp?: Maybe<Scalars['String']>;
 };
 
 /** The type for the top-level _meta field */
@@ -1229,6 +1247,13 @@ export type UserCollectionsQueryVariables = Exact<{
 
 
 export type UserCollectionsQuery = { __typename?: 'Query', collections: Array<{ __typename?: 'Collection', id: string, name: string }> };
+
+export type GetAskHistoriesQueryVariables = Exact<{
+  tokenId: Scalars['String'];
+}>;
+
+
+export type GetAskHistoriesQuery = { __typename?: 'Query', askHistories: Array<{ __typename?: 'AskHistory', createdAt: any, id: string, price: any, soldAt?: any | null, seller: { __typename?: 'Account', id: string }, buyer?: { __typename?: 'Account', id: string } | null }> };
 
 export type TokenPageQueryVariables = Exact<{
   id: Scalars['ID'];
@@ -1381,6 +1406,26 @@ export const UserCollectionsDocument = gql`
 
 export function useUserCollectionsQuery(options: Omit<Urql.UseQueryArgs<UserCollectionsQueryVariables>, 'query'>) {
   return Urql.useQuery<UserCollectionsQuery>({ query: UserCollectionsDocument, ...options });
+};
+export const GetAskHistoriesDocument = gql`
+    query getAskHistories($tokenId: String!) {
+  askHistories(where: {token: $tokenId}) {
+    createdAt
+    id
+    price
+    soldAt
+    seller {
+      id
+    }
+    buyer {
+      id
+    }
+  }
+}
+    `;
+
+export function useGetAskHistoriesQuery(options: Omit<Urql.UseQueryArgs<GetAskHistoriesQueryVariables>, 'query'>) {
+  return Urql.useQuery<GetAskHistoriesQuery>({ query: GetAskHistoriesDocument, ...options });
 };
 export const TokenPageDocument = gql`
     query TokenPage($id: ID!) {
