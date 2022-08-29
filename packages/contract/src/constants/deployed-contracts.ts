@@ -1,12 +1,12 @@
 export default {
   [80001]: {
     'Autentisk': {
-      address: "0xdF7076077d2Fe9445CB6966D7a38Dd239fF157ed",
-      startBlock: 26964974,
+      address: "0x9C33771adcD6bf289c71a690f5b3857Ec4fA7773",
+      startBlock: 27822381,
     },
     'AuthenticityRegistry': {
-      address: "0x32B3Ca8A6Ebd34814934a02CfbB6ba3B3A0E71c8",
-      startBlock: 26964971,
+      address: "0xE592bEB81b7D9A629095620568301Bcf477A8026",
+      startBlock: 27822351,
     },
   }
 }
