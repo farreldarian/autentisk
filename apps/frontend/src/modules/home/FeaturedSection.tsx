@@ -64,16 +64,22 @@ export default function FeaturedSection({
                 Created By
               </Text>
 
-              <Box
-                padding={3}
-                borderRadius={'xl'}
-                shadow='lg'
-                cursor={'pointer'}
-                transition='150ms ease-in-out'
-                _hover={{ bg: 'white', shadow: 'xl' }}
+              <a
+                href={`https://mumbai.polygonscan.com/address/${owner}`}
+                target='_blank'
+                rel='noreferrer'
               >
-                {shortenIfAddress(owner)}
-              </Box>
+                <Box
+                  padding={3}
+                  borderRadius={'xl'}
+                  shadow='lg'
+                  cursor={'pointer'}
+                  transition='150ms ease-in-out'
+                  _hover={{ bg: 'white', shadow: 'xl' }}
+                >
+                  {shortenIfAddress(owner)}
+                </Box>
+              </a>
             </Box>
 
             <Box gap={'3'} display='flex' flexDir={'column'}>
