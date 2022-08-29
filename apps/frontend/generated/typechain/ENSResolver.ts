@@ -17,6 +17,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface ENSResolverInterface extends utils.Interface {
@@ -26,7 +27,10 @@ export interface ENSResolverInterface extends utils.Interface {
 
   getFunction(nameOrSignatureOrTopic: "addr"): FunctionFragment;
 
-  encodeFunctionData(functionFragment: "addr", values: [BytesLike]): string;
+  encodeFunctionData(
+    functionFragment: "addr",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "addr", data: BytesLike): Result;
 
@@ -60,24 +64,36 @@ export interface ENSResolver extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    addr(node: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    addr(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
   };
 
-  addr(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+  addr(
+    node: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   callStatic: {
-    addr(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+    addr(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<string>;
   };
 
   filters: {};
 
   estimateGas: {
-    addr(node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    addr(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     addr(
-      node: BytesLike,
+      node: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

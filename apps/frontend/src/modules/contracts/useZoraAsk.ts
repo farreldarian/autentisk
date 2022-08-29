@@ -1,33 +1,34 @@
 import { constants } from 'ethers'
 import { useEffect, useState } from 'react'
-import { useContractWrite, useNetwork } from 'wagmi'
+import { useDeprecatedContractWrite, useNetwork } from 'wagmi'
 import {
-  UseContractWriteArgs,
-  UseContractWriteConfig,
-} from 'wagmi/dist/declarations/src/hooks/contracts/useContractWrite'
+  UseDeprecatedContractWriteArgs,
+  UseDeprecatedContractWriteConfig,
+} from 'wagmi/dist/declarations/src/hooks/contracts/useDeprecatedContractWrite'
 import { AsksV1_1__factory } from '../../../generated/typechain'
 import { ZORA_ASK_ADDRESSES } from './addresses'
 
 export function useZoraAsk(
   functionName: string,
   args: any,
-  overrides?: Omit<UseContractWriteArgs & UseContractWriteConfig, 'args'>
+  overrides?: Partial<
+    UseDeprecatedContractWriteArgs & UseDeprecatedContractWriteConfig
+  >
 ) {
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
 
   const [address, setAddress] = useState<string>(constants.AddressZero)
   useEffect(() => {
-    if (!activeChain?.id) return
+    if (!chain?.id) return
 
-    setAddress(ZORA_ASK_ADDRESSES[activeChain.id])
-  }, [activeChain?.id])
+    setAddress(ZORA_ASK_ADDRESSES[chain.id])
+  }, [chain?.id])
 
-  return useContractWrite(
-    {
-      addressOrName: address,
-      contractInterface: AsksV1_1__factory.abi,
-    },
+  return useDeprecatedContractWrite({
+    addressOrName: address,
+    contractInterface: AsksV1_1__factory.abi,
     functionName,
-    { args, ...overrides }
-  )
+    args,
+    ...overrides,
+  })
 }

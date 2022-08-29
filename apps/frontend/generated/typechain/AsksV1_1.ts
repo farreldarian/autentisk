@@ -25,15 +25,16 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export declare namespace AsksV1_1 {
   export type AskStruct = {
-    seller: string;
-    sellerFundsRecipient: string;
-    askCurrency: string;
-    findersFeeBps: BigNumberish;
-    askPrice: BigNumberish;
+    seller: PromiseOrValue<string>;
+    sellerFundsRecipient: PromiseOrValue<string>;
+    askCurrency: PromiseOrValue<string>;
+    findersFeeBps: PromiseOrValue<BigNumberish>;
+    askPrice: PromiseOrValue<BigNumberish>;
   };
 
   export type AskStructOutput = [string, string, string, number, BigNumber] & {
@@ -47,9 +48,9 @@ export declare namespace AsksV1_1 {
 
 export declare namespace UniversalExchangeEventV1 {
   export type ExchangeDetailsStruct = {
-    tokenContract: string;
-    tokenId: BigNumberish;
-    amount: BigNumberish;
+    tokenContract: PromiseOrValue<string>;
+    tokenId: PromiseOrValue<BigNumberish>;
+    amount: PromiseOrValue<BigNumberish>;
   };
 
   export type ExchangeDetailsStructOutput = [string, BigNumber, BigNumber] & {
@@ -91,19 +92,31 @@ export interface AsksV1_1Interface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "_handleRoyaltyEnginePayout",
-    values: [string, BigNumberish, BigNumberish, string]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "askForNFT",
-    values: [string, BigNumberish]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "cancelAsk",
-    values: [string, BigNumberish]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "createAsk",
-    values: [string, BigNumberish, BigNumberish, string, string, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "erc20TransferHelper",
@@ -115,17 +128,28 @@ export interface AsksV1_1Interface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "fillAsk",
-    values: [string, BigNumberish, string, BigNumberish, string]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(functionFragment: "name", values?: undefined): string;
   encodeFunctionData(functionFragment: "registrar", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setAskPrice",
-    values: [string, BigNumberish, BigNumberish, string]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setRoyaltyEngineAddress",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(
@@ -282,16 +306,16 @@ export interface AsksV1_1 extends BaseContract {
 
   functions: {
     _handleRoyaltyEnginePayout(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _amount: BigNumberish,
-      _payoutCurrency: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _payoutCurrency: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     askForNFT(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [string, string, string, number, BigNumber] & {
@@ -304,19 +328,19 @@ export interface AsksV1_1 extends BaseContract {
     >;
 
     cancelAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     createAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
-      _sellerFundsRecipient: string,
-      _findersFeeBps: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
+      _sellerFundsRecipient: PromiseOrValue<string>,
+      _findersFeeBps: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     erc20TransferHelper(overrides?: CallOverrides): Promise<[string]>;
@@ -324,12 +348,12 @@ export interface AsksV1_1 extends BaseContract {
     erc721TransferHelper(overrides?: CallOverrides): Promise<[string]>;
 
     fillAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _fillCurrency: string,
-      _fillAmount: BigNumberish,
-      _finder: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _fillCurrency: PromiseOrValue<string>,
+      _fillAmount: PromiseOrValue<BigNumberish>,
+      _finder: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     name(overrides?: CallOverrides): Promise<[string]>;
@@ -337,30 +361,30 @@ export interface AsksV1_1 extends BaseContract {
     registrar(overrides?: CallOverrides): Promise<[string]>;
 
     setAskPrice(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setRoyaltyEngineAddress(
-      _royaltyEngine: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _royaltyEngine: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   _handleRoyaltyEnginePayout(
-    _tokenContract: string,
-    _tokenId: BigNumberish,
-    _amount: BigNumberish,
-    _payoutCurrency: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _tokenContract: PromiseOrValue<string>,
+    _tokenId: PromiseOrValue<BigNumberish>,
+    _amount: PromiseOrValue<BigNumberish>,
+    _payoutCurrency: PromiseOrValue<string>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   askForNFT(
-    arg0: string,
-    arg1: BigNumberish,
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<BigNumberish>,
     overrides?: CallOverrides
   ): Promise<
     [string, string, string, number, BigNumber] & {
@@ -373,19 +397,19 @@ export interface AsksV1_1 extends BaseContract {
   >;
 
   cancelAsk(
-    _tokenContract: string,
-    _tokenId: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _tokenContract: PromiseOrValue<string>,
+    _tokenId: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   createAsk(
-    _tokenContract: string,
-    _tokenId: BigNumberish,
-    _askPrice: BigNumberish,
-    _askCurrency: string,
-    _sellerFundsRecipient: string,
-    _findersFeeBps: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _tokenContract: PromiseOrValue<string>,
+    _tokenId: PromiseOrValue<BigNumberish>,
+    _askPrice: PromiseOrValue<BigNumberish>,
+    _askCurrency: PromiseOrValue<string>,
+    _sellerFundsRecipient: PromiseOrValue<string>,
+    _findersFeeBps: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   erc20TransferHelper(overrides?: CallOverrides): Promise<string>;
@@ -393,12 +417,12 @@ export interface AsksV1_1 extends BaseContract {
   erc721TransferHelper(overrides?: CallOverrides): Promise<string>;
 
   fillAsk(
-    _tokenContract: string,
-    _tokenId: BigNumberish,
-    _fillCurrency: string,
-    _fillAmount: BigNumberish,
-    _finder: string,
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    _tokenContract: PromiseOrValue<string>,
+    _tokenId: PromiseOrValue<BigNumberish>,
+    _fillCurrency: PromiseOrValue<string>,
+    _fillAmount: PromiseOrValue<BigNumberish>,
+    _finder: PromiseOrValue<string>,
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   name(overrides?: CallOverrides): Promise<string>;
@@ -406,30 +430,30 @@ export interface AsksV1_1 extends BaseContract {
   registrar(overrides?: CallOverrides): Promise<string>;
 
   setAskPrice(
-    _tokenContract: string,
-    _tokenId: BigNumberish,
-    _askPrice: BigNumberish,
-    _askCurrency: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _tokenContract: PromiseOrValue<string>,
+    _tokenId: PromiseOrValue<BigNumberish>,
+    _askPrice: PromiseOrValue<BigNumberish>,
+    _askCurrency: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setRoyaltyEngineAddress(
-    _royaltyEngine: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _royaltyEngine: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     _handleRoyaltyEnginePayout(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _amount: BigNumberish,
-      _payoutCurrency: string,
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _payoutCurrency: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     askForNFT(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<
       [string, string, string, number, BigNumber] & {
@@ -442,18 +466,18 @@ export interface AsksV1_1 extends BaseContract {
     >;
 
     cancelAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     createAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
-      _sellerFundsRecipient: string,
-      _findersFeeBps: BigNumberish,
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
+      _sellerFundsRecipient: PromiseOrValue<string>,
+      _findersFeeBps: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -462,11 +486,11 @@ export interface AsksV1_1 extends BaseContract {
     erc721TransferHelper(overrides?: CallOverrides): Promise<string>;
 
     fillAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _fillCurrency: string,
-      _fillAmount: BigNumberish,
-      _finder: string,
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _fillCurrency: PromiseOrValue<string>,
+      _fillAmount: PromiseOrValue<BigNumberish>,
+      _finder: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -475,90 +499,90 @@ export interface AsksV1_1 extends BaseContract {
     registrar(overrides?: CallOverrides): Promise<string>;
 
     setAskPrice(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setRoyaltyEngineAddress(
-      _royaltyEngine: string,
+      _royaltyEngine: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
     "AskCanceled(address,uint256,tuple)"(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       ask?: null
     ): AskCanceledEventFilter;
     AskCanceled(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       ask?: null
     ): AskCanceledEventFilter;
 
     "AskCreated(address,uint256,tuple)"(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       ask?: null
     ): AskCreatedEventFilter;
     AskCreated(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       ask?: null
     ): AskCreatedEventFilter;
 
     "AskFilled(address,uint256,address,address,tuple)"(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
-      buyer?: string | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
+      buyer?: PromiseOrValue<string> | null,
       finder?: null,
       ask?: null
     ): AskFilledEventFilter;
     AskFilled(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
-      buyer?: string | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
+      buyer?: PromiseOrValue<string> | null,
       finder?: null,
       ask?: null
     ): AskFilledEventFilter;
 
     "AskPriceUpdated(address,uint256,tuple)"(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       ask?: null
     ): AskPriceUpdatedEventFilter;
     AskPriceUpdated(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       ask?: null
     ): AskPriceUpdatedEventFilter;
 
     "ExchangeExecuted(address,address,tuple,tuple)"(
-      userA?: string | null,
-      userB?: string | null,
+      userA?: PromiseOrValue<string> | null,
+      userB?: PromiseOrValue<string> | null,
       a?: null,
       b?: null
     ): ExchangeExecutedEventFilter;
     ExchangeExecuted(
-      userA?: string | null,
-      userB?: string | null,
+      userA?: PromiseOrValue<string> | null,
+      userB?: PromiseOrValue<string> | null,
       a?: null,
       b?: null
     ): ExchangeExecutedEventFilter;
 
     "RoyaltyPayout(address,uint256,address,uint256)"(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       recipient?: null,
       amount?: null
     ): RoyaltyPayoutEventFilter;
     RoyaltyPayout(
-      tokenContract?: string | null,
-      tokenId?: BigNumberish | null,
+      tokenContract?: PromiseOrValue<string> | null,
+      tokenId?: PromiseOrValue<BigNumberish> | null,
       recipient?: null,
       amount?: null
     ): RoyaltyPayoutEventFilter;
@@ -566,33 +590,33 @@ export interface AsksV1_1 extends BaseContract {
 
   estimateGas: {
     _handleRoyaltyEnginePayout(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _amount: BigNumberish,
-      _payoutCurrency: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _payoutCurrency: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     askForNFT(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     cancelAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     createAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
-      _sellerFundsRecipient: string,
-      _findersFeeBps: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
+      _sellerFundsRecipient: PromiseOrValue<string>,
+      _findersFeeBps: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     erc20TransferHelper(overrides?: CallOverrides): Promise<BigNumber>;
@@ -600,12 +624,12 @@ export interface AsksV1_1 extends BaseContract {
     erc721TransferHelper(overrides?: CallOverrides): Promise<BigNumber>;
 
     fillAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _fillCurrency: string,
-      _fillAmount: BigNumberish,
-      _finder: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _fillCurrency: PromiseOrValue<string>,
+      _fillAmount: PromiseOrValue<BigNumberish>,
+      _finder: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     name(overrides?: CallOverrides): Promise<BigNumber>;
@@ -613,48 +637,48 @@ export interface AsksV1_1 extends BaseContract {
     registrar(overrides?: CallOverrides): Promise<BigNumber>;
 
     setAskPrice(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setRoyaltyEngineAddress(
-      _royaltyEngine: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _royaltyEngine: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     _handleRoyaltyEnginePayout(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _amount: BigNumberish,
-      _payoutCurrency: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _amount: PromiseOrValue<BigNumberish>,
+      _payoutCurrency: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     askForNFT(
-      arg0: string,
-      arg1: BigNumberish,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     cancelAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     createAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
-      _sellerFundsRecipient: string,
-      _findersFeeBps: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
+      _sellerFundsRecipient: PromiseOrValue<string>,
+      _findersFeeBps: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     erc20TransferHelper(
@@ -666,12 +690,12 @@ export interface AsksV1_1 extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     fillAsk(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _fillCurrency: string,
-      _fillAmount: BigNumberish,
-      _finder: string,
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _fillCurrency: PromiseOrValue<string>,
+      _fillAmount: PromiseOrValue<BigNumberish>,
+      _finder: PromiseOrValue<string>,
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     name(overrides?: CallOverrides): Promise<PopulatedTransaction>;
@@ -679,16 +703,16 @@ export interface AsksV1_1 extends BaseContract {
     registrar(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setAskPrice(
-      _tokenContract: string,
-      _tokenId: BigNumberish,
-      _askPrice: BigNumberish,
-      _askCurrency: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _tokenContract: PromiseOrValue<string>,
+      _tokenId: PromiseOrValue<BigNumberish>,
+      _askPrice: PromiseOrValue<BigNumberish>,
+      _askCurrency: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setRoyaltyEngineAddress(
-      _royaltyEngine: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _royaltyEngine: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

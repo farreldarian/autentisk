@@ -20,6 +20,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface ChainlinkRequestInterfaceInterface extends utils.Interface {
@@ -34,19 +35,24 @@ export interface ChainlinkRequestInterfaceInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "cancelOracleRequest",
-    values: [BytesLike, BigNumberish, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "oracleRequest",
     values: [
-      string,
-      BigNumberish,
-      BytesLike,
-      string,
-      BytesLike,
-      BigNumberish,
-      BigNumberish,
-      BytesLike
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
     ]
   ): string;
 
@@ -90,64 +96,64 @@ export interface ChainlinkRequestInterface extends BaseContract {
 
   functions: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   cancelOracleRequest(
-    requestId: BytesLike,
-    payment: BigNumberish,
-    callbackFunctionId: BytesLike,
-    expiration: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    requestId: PromiseOrValue<BytesLike>,
+    payment: PromiseOrValue<BigNumberish>,
+    callbackFunctionId: PromiseOrValue<BytesLike>,
+    expiration: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   oracleRequest(
-    sender: string,
-    requestPrice: BigNumberish,
-    serviceAgreementID: BytesLike,
-    callbackAddress: string,
-    callbackFunctionId: BytesLike,
-    nonce: BigNumberish,
-    dataVersion: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    sender: PromiseOrValue<string>,
+    requestPrice: PromiseOrValue<BigNumberish>,
+    serviceAgreementID: PromiseOrValue<BytesLike>,
+    callbackAddress: PromiseOrValue<string>,
+    callbackFunctionId: PromiseOrValue<BytesLike>,
+    nonce: PromiseOrValue<BigNumberish>,
+    dataVersion: PromiseOrValue<BigNumberish>,
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
@@ -156,45 +162,45 @@ export interface ChainlinkRequestInterface extends BaseContract {
 
   estimateGas: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

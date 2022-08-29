@@ -19,12 +19,12 @@ export default function TxButton(props: Props) {
     ...rest
   } = props
 
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
   const { isLoading } = useWaitForTransaction({ hash: txHash })
   const isMining = status === 'success' && isLoading
 
   function redirectToTxPage() {
-    const url = activeChain?.blockExplorers?.etherscan.url
+    const url = chain?.blockExplorers?.etherscan?.url
     if (!url || !txHash) return
     window.open(`${url}/tx/${txHash}`)
   }

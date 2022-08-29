@@ -4,7 +4,7 @@ import { useNetwork } from 'wagmi'
 export default function useAddress(addresses: {
   [chainId: number]: string
 }): string {
-  const { activeChain } = useNetwork()
-  if (!activeChain) return constants.AddressZero
-  return addresses[activeChain.id]
+  const { chain } = useNetwork()
+  if (!chain) return constants.AddressZero
+  return addresses[chain.id]
 }

@@ -9,6 +9,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface ChainlinkClientInterface extends utils.Interface {
@@ -90,19 +91,25 @@ export interface ChainlinkClient extends BaseContract {
 
   filters: {
     "ChainlinkCancelled(bytes32)"(
-      id?: BytesLike | null
+      id?: PromiseOrValue<BytesLike> | null
     ): ChainlinkCancelledEventFilter;
-    ChainlinkCancelled(id?: BytesLike | null): ChainlinkCancelledEventFilter;
+    ChainlinkCancelled(
+      id?: PromiseOrValue<BytesLike> | null
+    ): ChainlinkCancelledEventFilter;
 
     "ChainlinkFulfilled(bytes32)"(
-      id?: BytesLike | null
+      id?: PromiseOrValue<BytesLike> | null
     ): ChainlinkFulfilledEventFilter;
-    ChainlinkFulfilled(id?: BytesLike | null): ChainlinkFulfilledEventFilter;
+    ChainlinkFulfilled(
+      id?: PromiseOrValue<BytesLike> | null
+    ): ChainlinkFulfilledEventFilter;
 
     "ChainlinkRequested(bytes32)"(
-      id?: BytesLike | null
+      id?: PromiseOrValue<BytesLike> | null
     ): ChainlinkRequestedEventFilter;
-    ChainlinkRequested(id?: BytesLike | null): ChainlinkRequestedEventFilter;
+    ChainlinkRequested(
+      id?: PromiseOrValue<BytesLike> | null
+    ): ChainlinkRequestedEventFilter;
   };
 
   estimateGas: {};

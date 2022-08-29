@@ -24,6 +24,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface ZoraModuleManagerInterface extends utils.Interface {
@@ -58,7 +59,7 @@ export interface ZoraModuleManagerInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "isModuleApproved",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "moduleFeeToken",
@@ -66,41 +67,44 @@ export interface ZoraModuleManagerInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "moduleRegistered",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "registerModule",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(functionFragment: "registrar", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "setApprovalForModule",
-    values: [string, boolean]
+    values: [PromiseOrValue<string>, PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
     functionFragment: "setApprovalForModuleBySig",
     values: [
-      string,
-      string,
-      boolean,
-      BigNumberish,
-      BigNumberish,
-      BytesLike,
-      BytesLike
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<boolean>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "setBatchApprovalForModules",
-    values: [string[], boolean]
+    values: [PromiseOrValue<string>[], PromiseOrValue<boolean>]
   ): string;
   encodeFunctionData(
     functionFragment: "setRegistrar",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
-  encodeFunctionData(functionFragment: "sigNonces", values: [string]): string;
+  encodeFunctionData(
+    functionFragment: "sigNonces",
+    values: [PromiseOrValue<string>]
+  ): string;
   encodeFunctionData(
     functionFragment: "userApprovals",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(
@@ -216,302 +220,330 @@ export interface ZoraModuleManager extends BaseContract {
 
   functions: {
     isModuleApproved(
-      _user: string,
-      _module: string,
+      _user: PromiseOrValue<string>,
+      _module: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     moduleFeeToken(overrides?: CallOverrides): Promise<[string]>;
 
     moduleRegistered(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     registerModule(
-      _module: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     registrar(overrides?: CallOverrides): Promise<[string]>;
 
     setApprovalForModule(
-      _module: string,
-      _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setApprovalForModuleBySig(
-      _module: string,
-      _user: string,
-      _approved: boolean,
-      _deadline: BigNumberish,
-      _v: BigNumberish,
-      _r: BytesLike,
-      _s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      _user: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
+      _deadline: PromiseOrValue<BigNumberish>,
+      _v: PromiseOrValue<BigNumberish>,
+      _r: PromiseOrValue<BytesLike>,
+      _s: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setBatchApprovalForModules(
-      _modules: string[],
-      _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _modules: PromiseOrValue<string>[],
+      _approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setRegistrar(
-      _registrar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _registrar: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    sigNonces(arg0: string, overrides?: CallOverrides): Promise<[BigNumber]>;
+    sigNonces(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
 
     userApprovals(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
   };
 
   isModuleApproved(
-    _user: string,
-    _module: string,
+    _user: PromiseOrValue<string>,
+    _module: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   moduleFeeToken(overrides?: CallOverrides): Promise<string>;
 
-  moduleRegistered(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+  moduleRegistered(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   registerModule(
-    _module: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _module: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   registrar(overrides?: CallOverrides): Promise<string>;
 
   setApprovalForModule(
-    _module: string,
-    _approved: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _module: PromiseOrValue<string>,
+    _approved: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setApprovalForModuleBySig(
-    _module: string,
-    _user: string,
-    _approved: boolean,
-    _deadline: BigNumberish,
-    _v: BigNumberish,
-    _r: BytesLike,
-    _s: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _module: PromiseOrValue<string>,
+    _user: PromiseOrValue<string>,
+    _approved: PromiseOrValue<boolean>,
+    _deadline: PromiseOrValue<BigNumberish>,
+    _v: PromiseOrValue<BigNumberish>,
+    _r: PromiseOrValue<BytesLike>,
+    _s: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setBatchApprovalForModules(
-    _modules: string[],
-    _approved: boolean,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _modules: PromiseOrValue<string>[],
+    _approved: PromiseOrValue<boolean>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setRegistrar(
-    _registrar: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _registrar: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  sigNonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+  sigNonces(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   userApprovals(
-    arg0: string,
-    arg1: string,
+    arg0: PromiseOrValue<string>,
+    arg1: PromiseOrValue<string>,
     overrides?: CallOverrides
   ): Promise<boolean>;
 
   callStatic: {
     isModuleApproved(
-      _user: string,
-      _module: string,
+      _user: PromiseOrValue<string>,
+      _module: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     moduleFeeToken(overrides?: CallOverrides): Promise<string>;
 
-    moduleRegistered(arg0: string, overrides?: CallOverrides): Promise<boolean>;
+    moduleRegistered(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<boolean>;
 
-    registerModule(_module: string, overrides?: CallOverrides): Promise<void>;
+    registerModule(
+      _module: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     registrar(overrides?: CallOverrides): Promise<string>;
 
     setApprovalForModule(
-      _module: string,
-      _approved: boolean,
+      _module: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setApprovalForModuleBySig(
-      _module: string,
-      _user: string,
-      _approved: boolean,
-      _deadline: BigNumberish,
-      _v: BigNumberish,
-      _r: BytesLike,
-      _s: BytesLike,
+      _module: PromiseOrValue<string>,
+      _user: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
+      _deadline: PromiseOrValue<BigNumberish>,
+      _v: PromiseOrValue<BigNumberish>,
+      _r: PromiseOrValue<BytesLike>,
+      _s: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setBatchApprovalForModules(
-      _modules: string[],
-      _approved: boolean,
+      _modules: PromiseOrValue<string>[],
+      _approved: PromiseOrValue<boolean>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    setRegistrar(_registrar: string, overrides?: CallOverrides): Promise<void>;
+    setRegistrar(
+      _registrar: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
-    sigNonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    sigNonces(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     userApprovals(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
   };
 
   filters: {
     "ModuleApprovalSet(address,address,bool)"(
-      user?: string | null,
-      module?: string | null,
+      user?: PromiseOrValue<string> | null,
+      module?: PromiseOrValue<string> | null,
       approved?: null
     ): ModuleApprovalSetEventFilter;
     ModuleApprovalSet(
-      user?: string | null,
-      module?: string | null,
+      user?: PromiseOrValue<string> | null,
+      module?: PromiseOrValue<string> | null,
       approved?: null
     ): ModuleApprovalSetEventFilter;
 
     "ModuleRegistered(address)"(
-      module?: string | null
+      module?: PromiseOrValue<string> | null
     ): ModuleRegisteredEventFilter;
-    ModuleRegistered(module?: string | null): ModuleRegisteredEventFilter;
+    ModuleRegistered(
+      module?: PromiseOrValue<string> | null
+    ): ModuleRegisteredEventFilter;
 
     "RegistrarChanged(address)"(
-      newRegistrar?: string | null
+      newRegistrar?: PromiseOrValue<string> | null
     ): RegistrarChangedEventFilter;
-    RegistrarChanged(newRegistrar?: string | null): RegistrarChangedEventFilter;
+    RegistrarChanged(
+      newRegistrar?: PromiseOrValue<string> | null
+    ): RegistrarChangedEventFilter;
   };
 
   estimateGas: {
     isModuleApproved(
-      _user: string,
-      _module: string,
+      _user: PromiseOrValue<string>,
+      _module: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     moduleFeeToken(overrides?: CallOverrides): Promise<BigNumber>;
 
     moduleRegistered(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     registerModule(
-      _module: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     registrar(overrides?: CallOverrides): Promise<BigNumber>;
 
     setApprovalForModule(
-      _module: string,
-      _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setApprovalForModuleBySig(
-      _module: string,
-      _user: string,
-      _approved: boolean,
-      _deadline: BigNumberish,
-      _v: BigNumberish,
-      _r: BytesLike,
-      _s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      _user: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
+      _deadline: PromiseOrValue<BigNumberish>,
+      _v: PromiseOrValue<BigNumberish>,
+      _r: PromiseOrValue<BytesLike>,
+      _s: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setBatchApprovalForModules(
-      _modules: string[],
-      _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _modules: PromiseOrValue<string>[],
+      _approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setRegistrar(
-      _registrar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _registrar: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    sigNonces(arg0: string, overrides?: CallOverrides): Promise<BigNumber>;
+    sigNonces(
+      arg0: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     userApprovals(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     isModuleApproved(
-      _user: string,
-      _module: string,
+      _user: PromiseOrValue<string>,
+      _module: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     moduleFeeToken(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     moduleRegistered(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     registerModule(
-      _module: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     registrar(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     setApprovalForModule(
-      _module: string,
-      _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setApprovalForModuleBySig(
-      _module: string,
-      _user: string,
-      _approved: boolean,
-      _deadline: BigNumberish,
-      _v: BigNumberish,
-      _r: BytesLike,
-      _s: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _module: PromiseOrValue<string>,
+      _user: PromiseOrValue<string>,
+      _approved: PromiseOrValue<boolean>,
+      _deadline: PromiseOrValue<BigNumberish>,
+      _v: PromiseOrValue<BigNumberish>,
+      _r: PromiseOrValue<BytesLike>,
+      _s: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setBatchApprovalForModules(
-      _modules: string[],
-      _approved: boolean,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _modules: PromiseOrValue<string>[],
+      _approved: PromiseOrValue<boolean>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setRegistrar(
-      _registrar: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _registrar: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     sigNonces(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     userApprovals(
-      arg0: string,
-      arg1: string,
+      arg0: PromiseOrValue<string>,
+      arg1: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };

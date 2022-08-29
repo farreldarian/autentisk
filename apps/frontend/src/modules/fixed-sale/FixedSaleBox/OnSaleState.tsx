@@ -22,7 +22,7 @@ interface Props {
 export default function OnSaleState(props: Props) {
   const { price, collectionAddress, tokenId, currency, refetchQuery } = props
 
-  const { data: account } = useAccount()
+  const { address } = useAccount()
 
   const toast = useToast()
   const [tx, setTx] = useState<string | undefined>()
@@ -56,7 +56,7 @@ export default function OnSaleState(props: Props) {
       <Text>Price</Text>
       <Heading>{price} MATIC</Heading>
 
-      {account && (
+      {address && (
         <TxButton
           txHash={tx}
           status={status}

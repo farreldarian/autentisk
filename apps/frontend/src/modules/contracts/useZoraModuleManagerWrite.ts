@@ -1,25 +1,23 @@
 import { constants } from 'ethers'
 import { useEffect, useState } from 'react'
-import { useContractWrite, useNetwork } from 'wagmi'
+import { useDeprecatedContractWrite, useNetwork } from 'wagmi'
 import { ZoraModuleManager__factory } from '../../../generated/typechain'
 import { ZORA_MODULE_MANAGER } from './addresses'
 
 export function useZoraModuleManagerWrite(functionName: string, args: any) {
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
 
   const [address, setAddress] = useState<string>(constants.AddressZero)
   useEffect(() => {
-    if (!activeChain?.id) return
+    if (!chain?.id) return
 
-    setAddress(ZORA_MODULE_MANAGER[activeChain.id])
-  }, [activeChain?.id])
+    setAddress(ZORA_MODULE_MANAGER[chain.id])
+  }, [chain?.id])
 
-  return useContractWrite(
-    {
-      addressOrName: address,
-      contractInterface: ZoraModuleManager__factory.abi,
-    },
+  return useDeprecatedContractWrite({
+    addressOrName: address,
+    contractInterface: ZoraModuleManager__factory.abi,
     functionName,
-    { args }
-  )
+    args,
+  })
 }

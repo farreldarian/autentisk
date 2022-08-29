@@ -4,7 +4,7 @@ import CreateCollectionForm from '../../components/CreateCollectionForm'
 import Layout from '../../components/Layout'
 
 export default function Create() {
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
 
   return (
     <Layout>
@@ -15,9 +15,7 @@ export default function Create() {
         align='center'
         justify={'center'}
       >
-        {activeChain?.id && !activeChain?.unsupported && (
-          <CreateCollectionForm />
-        )}
+        {chain?.id && !chain?.unsupported && <CreateCollectionForm />}
       </Flex>
     </Layout>
   )

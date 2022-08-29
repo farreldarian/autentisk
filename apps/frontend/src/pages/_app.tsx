@@ -1,21 +1,17 @@
 import { ChakraProvider } from '@chakra-ui/react'
-import {
-  apiProvider,
-  configureChains,
-  getDefaultWallets,
-  RainbowKitProvider,
-} from '@rainbow-me/rainbowkit'
+import { getDefaultWallets, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import '@rainbow-me/rainbowkit/styles.css'
 import { RecoilRoot } from 'recoil'
 import { SWRConfig } from 'swr'
 import { Provider as UrqlProvider } from 'urql'
-import { chain, createClient, Provider } from 'wagmi'
+import { chain, configureChains, createClient, WagmiConfig } from 'wagmi'
+import { alchemyProvider } from 'wagmi/providers/alchemy'
 import { client as urqlClient } from '../modules/graphql/urql'
 import theme from '../theme'
 
 const { chains, provider } = configureChains(
   [chain.polygonMumbai],
-  [apiProvider.alchemy('u1p24el2wUqSKUJapyVeH91YDfVok-ur')]
+  [alchemyProvider({ apiKey: 'u1p24el2wUqSKUJapyVeH91YDfVok-ur' })]
 )
 
 const { connectors } = getDefaultWallets({
@@ -33,7 +29,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <RecoilRoot>
       <UrqlProvider value={urqlClient}>
-        <Provider client={client}>
+        <WagmiConfig client={client}>
           <SWRConfig
             value={{
               fetcher: (resource, init) =>
@@ -46,7 +42,7 @@ function MyApp({ Component, pageProps }) {
               </ChakraProvider>
             </RainbowKitProvider>
           </SWRConfig>
-        </Provider>
+        </WagmiConfig>
       </UrqlProvider>
     </RecoilRoot>
   )

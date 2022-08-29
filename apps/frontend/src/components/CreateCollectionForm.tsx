@@ -25,7 +25,7 @@ export default function CreateCollectionForm() {
     const symbol = e.target['symbol'].value
 
     try {
-      const tx = await writeAsync({ args: [name, symbol] })
+      const tx = await writeAsync?.({ args: [name, symbol] })
       setTx(tx.hash)
       toast({ status: 'success', title: `Submitted transaction` })
     } catch (e) {

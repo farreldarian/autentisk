@@ -23,6 +23,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface AutentiskInterface extends utils.Interface {
@@ -57,15 +58,24 @@ export interface AutentiskInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "createCollection",
-    values: [string, string]
+    values: [PromiseOrValue<string>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "fulfillMint",
-    values: [string, string, string]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "mint",
-    values: [string, string, string, string]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -74,7 +84,7 @@ export interface AutentiskInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "s_collectionOwners",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "s_totalCollection",
@@ -82,7 +92,7 @@ export interface AutentiskInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(
@@ -193,104 +203,107 @@ export interface Autentisk extends BaseContract {
     AUTHENTICITY_REGISTRY(overrides?: CallOverrides): Promise<[string]>;
 
     createCollection(
-      name: string,
-      symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      name: PromiseOrValue<string>,
+      symbol: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     fulfillMint(
-      collection: string,
-      to: string,
-      tokenURI: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     mint(
-      collection: string,
-      to: string,
-      tokenURI: string,
-      encodedTokenURI: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      encodedTokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     s_collectionOwners(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[string]>;
 
     s_totalCollection(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   AUTHENTICITY_REGISTRY(overrides?: CallOverrides): Promise<string>;
 
   createCollection(
-    name: string,
-    symbol: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    name: PromiseOrValue<string>,
+    symbol: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   fulfillMint(
-    collection: string,
-    to: string,
-    tokenURI: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    collection: PromiseOrValue<string>,
+    to: PromiseOrValue<string>,
+    tokenURI: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   mint(
-    collection: string,
-    to: string,
-    tokenURI: string,
-    encodedTokenURI: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    collection: PromiseOrValue<string>,
+    to: PromiseOrValue<string>,
+    tokenURI: PromiseOrValue<string>,
+    encodedTokenURI: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  s_collectionOwners(arg0: string, overrides?: CallOverrides): Promise<string>;
+  s_collectionOwners(
+    arg0: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   s_totalCollection(overrides?: CallOverrides): Promise<BigNumber>;
 
   transferOwnership(
-    newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     AUTHENTICITY_REGISTRY(overrides?: CallOverrides): Promise<string>;
 
     createCollection(
-      name: string,
-      symbol: string,
+      name: PromiseOrValue<string>,
+      symbol: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     fulfillMint(
-      collection: string,
-      to: string,
-      tokenURI: string,
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     mint(
-      collection: string,
-      to: string,
-      tokenURI: string,
-      encodedTokenURI: string,
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      encodedTokenURI: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -299,40 +312,40 @@ export interface Autentisk extends BaseContract {
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
     s_collectionOwners(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     s_totalCollection(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: string,
+      newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
   };
 
   filters: {
     "AuthenticityRegistryCreated(address)"(
-      registry?: string | null
+      registry?: PromiseOrValue<string> | null
     ): AuthenticityRegistryCreatedEventFilter;
     AuthenticityRegistryCreated(
-      registry?: string | null
+      registry?: PromiseOrValue<string> | null
     ): AuthenticityRegistryCreatedEventFilter;
 
     "CollectionCreated(address)"(
-      collectionAddress?: string | null
+      collectionAddress?: PromiseOrValue<string> | null
     ): CollectionCreatedEventFilter;
     CollectionCreated(
-      collectionAddress?: string | null
+      collectionAddress?: PromiseOrValue<string> | null
     ): CollectionCreatedEventFilter;
 
     "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
   };
 
@@ -340,42 +353,42 @@ export interface Autentisk extends BaseContract {
     AUTHENTICITY_REGISTRY(overrides?: CallOverrides): Promise<BigNumber>;
 
     createCollection(
-      name: string,
-      symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      name: PromiseOrValue<string>,
+      symbol: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     fulfillMint(
-      collection: string,
-      to: string,
-      tokenURI: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     mint(
-      collection: string,
-      to: string,
-      tokenURI: string,
-      encodedTokenURI: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      encodedTokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     s_collectionOwners(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     s_totalCollection(overrides?: CallOverrides): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -385,42 +398,42 @@ export interface Autentisk extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     createCollection(
-      name: string,
-      symbol: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      name: PromiseOrValue<string>,
+      symbol: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     fulfillMint(
-      collection: string,
-      to: string,
-      tokenURI: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     mint(
-      collection: string,
-      to: string,
-      tokenURI: string,
-      encodedTokenURI: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      collection: PromiseOrValue<string>,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      encodedTokenURI: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     s_collectionOwners(
-      arg0: string,
+      arg0: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     s_totalCollection(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

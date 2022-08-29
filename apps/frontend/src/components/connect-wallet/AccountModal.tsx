@@ -12,7 +12,6 @@ import {
 import { shortenIfAddress } from '@usedapp/core'
 import { useMemo } from 'react'
 import { HiLogout } from 'react-icons/hi'
-import { useNetwork } from 'wagmi'
 interface AccountModalProps {
   isOpen: boolean
   onClose: () => void
@@ -30,8 +29,6 @@ export default function AccountModal({
   balance,
   account,
 }: AccountModalProps) {
-  const { activeChain } = useNetwork()
-
   const wrongNetwork = useMemo(() => {
     return chainId !== 4
   }, [chainId])

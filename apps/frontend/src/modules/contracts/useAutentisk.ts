@@ -1,7 +1,7 @@
 import { getDeployment } from 'contract'
 import { constants } from 'ethers'
 import { useEffect, useState } from 'react'
-import { useContractWrite, useNetwork } from 'wagmi'
+import { useDeprecatedContractWrite, useNetwork } from 'wagmi'
 import { Autentisk__factory } from '../../../generated/typechain'
 
 export async function getAutentiskAddress(chainId?: number) {
@@ -12,19 +12,17 @@ export async function getAutentiskAddress(chainId?: number) {
 }
 
 export function useAutentisk(functionName: string, args: any) {
-  const { activeChain } = useNetwork()
+  const { chain } = useNetwork()
 
   const [address, setAddress] = useState<string>(constants.AddressZero)
   useEffect(() => {
-    getAutentiskAddress(activeChain?.id ?? 80001).then(setAddress)
-  }, [activeChain?.id])
+    getAutentiskAddress(chain?.id ?? 80001).then(setAddress)
+  }, [chain?.id])
 
-  return useContractWrite(
-    {
-      addressOrName: address,
-      contractInterface: Autentisk__factory.abi,
-    },
+  return useDeprecatedContractWrite({
+    addressOrName: address,
+    contractInterface: Autentisk__factory.abi,
     functionName,
-    { args }
-  )
+    args,
+  })
 }

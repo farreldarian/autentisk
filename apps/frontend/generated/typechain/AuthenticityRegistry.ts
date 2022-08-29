@@ -24,6 +24,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface AuthenticityRegistryInterface extends utils.Interface {
@@ -69,11 +70,15 @@ export interface AuthenticityRegistryInterface extends utils.Interface {
   encodeFunctionData(functionFragment: "AUTENTISK", values?: undefined): string;
   encodeFunctionData(
     functionFragment: "checkAuthenticity",
-    values: [string, string, string]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<string>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "fulfillAuthenticity",
-    values: [BytesLike, BigNumberish]
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(functionFragment: "owner", values?: undefined): string;
   encodeFunctionData(
@@ -82,11 +87,11 @@ export interface AuthenticityRegistryInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "s_autentics",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "s_authenticityRequests",
-    values: [BytesLike]
+    values: [PromiseOrValue<BytesLike>]
   ): string;
   encodeFunctionData(
     functionFragment: "s_classifierUrl",
@@ -101,19 +106,23 @@ export interface AuthenticityRegistryInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "setClassifierUrl",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "setOracle",
-    values: [string, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "transferOwnership",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawToken",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
 
   decodeFunctionResult(functionFragment: "AUTENTISK", data: BytesLike): Result;
@@ -308,28 +317,31 @@ export interface AuthenticityRegistry extends BaseContract {
     AUTENTISK(overrides?: CallOverrides): Promise<[string]>;
 
     checkAuthenticity(
-      to: string,
-      tokenURI: string,
-      collection: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      collection: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     fulfillAuthenticity(
-      requestId: BytesLike,
-      similarity: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      similarity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     owner(overrides?: CallOverrides): Promise<[string]>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    s_autentics(arg0: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    s_autentics(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     s_authenticityRequests(
-      arg0: BytesLike,
+      arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<
       [string, string, string] & {
@@ -350,53 +362,56 @@ export interface AuthenticityRegistry extends BaseContract {
     s_similarityThreshold(overrides?: CallOverrides): Promise<[BigNumber]>;
 
     setClassifierUrl(
-      value: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      value: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setOracle(
-      _oracle: string,
-      _jobId: BytesLike,
-      _fee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _oracle: PromiseOrValue<string>,
+      _jobId: PromiseOrValue<BytesLike>,
+      _fee: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     withdrawToken(
-      token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      token: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
   };
 
   AUTENTISK(overrides?: CallOverrides): Promise<string>;
 
   checkAuthenticity(
-    to: string,
-    tokenURI: string,
-    collection: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    to: PromiseOrValue<string>,
+    tokenURI: PromiseOrValue<string>,
+    collection: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   fulfillAuthenticity(
-    requestId: BytesLike,
-    similarity: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    requestId: PromiseOrValue<BytesLike>,
+    similarity: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   owner(overrides?: CallOverrides): Promise<string>;
 
   renounceOwnership(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  s_autentics(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+  s_autentics(
+    arg0: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   s_authenticityRequests(
-    arg0: BytesLike,
+    arg0: PromiseOrValue<BytesLike>,
     overrides?: CallOverrides
   ): Promise<
     [string, string, string] & {
@@ -417,40 +432,40 @@ export interface AuthenticityRegistry extends BaseContract {
   s_similarityThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
   setClassifierUrl(
-    value: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    value: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setOracle(
-    _oracle: string,
-    _jobId: BytesLike,
-    _fee: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    _oracle: PromiseOrValue<string>,
+    _jobId: PromiseOrValue<BytesLike>,
+    _fee: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   transferOwnership(
-    newOwner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    newOwner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   withdrawToken(
-    token: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    token: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   callStatic: {
     AUTENTISK(overrides?: CallOverrides): Promise<string>;
 
     checkAuthenticity(
-      to: string,
-      tokenURI: string,
-      collection: string,
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      collection: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<string>;
 
     fulfillAuthenticity(
-      requestId: BytesLike,
-      similarity: BigNumberish,
+      requestId: PromiseOrValue<BytesLike>,
+      similarity: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -458,10 +473,13 @@ export interface AuthenticityRegistry extends BaseContract {
 
     renounceOwnership(overrides?: CallOverrides): Promise<void>;
 
-    s_autentics(arg0: BytesLike, overrides?: CallOverrides): Promise<string>;
+    s_autentics(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     s_authenticityRequests(
-      arg0: BytesLike,
+      arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<
       [string, string, string] & {
@@ -481,21 +499,27 @@ export interface AuthenticityRegistry extends BaseContract {
 
     s_similarityThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
-    setClassifierUrl(value: string, overrides?: CallOverrides): Promise<void>;
+    setClassifierUrl(
+      value: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
 
     setOracle(
-      _oracle: string,
-      _jobId: BytesLike,
-      _fee: BigNumberish,
+      _oracle: PromiseOrValue<string>,
+      _jobId: PromiseOrValue<BytesLike>,
+      _fee: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     transferOwnership(
-      newOwner: string,
+      newOwner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    withdrawToken(token: string, overrides?: CallOverrides): Promise<void>;
+    withdrawToken(
+      token: PromiseOrValue<string>,
+      overrides?: CallOverrides
+    ): Promise<void>;
   };
 
   filters: {
@@ -522,19 +546,25 @@ export interface AuthenticityRegistry extends BaseContract {
     ): AuthenticityRequestedEventFilter;
 
     "ChainlinkCancelled(bytes32)"(
-      id?: BytesLike | null
+      id?: PromiseOrValue<BytesLike> | null
     ): ChainlinkCancelledEventFilter;
-    ChainlinkCancelled(id?: BytesLike | null): ChainlinkCancelledEventFilter;
+    ChainlinkCancelled(
+      id?: PromiseOrValue<BytesLike> | null
+    ): ChainlinkCancelledEventFilter;
 
     "ChainlinkFulfilled(bytes32)"(
-      id?: BytesLike | null
+      id?: PromiseOrValue<BytesLike> | null
     ): ChainlinkFulfilledEventFilter;
-    ChainlinkFulfilled(id?: BytesLike | null): ChainlinkFulfilledEventFilter;
+    ChainlinkFulfilled(
+      id?: PromiseOrValue<BytesLike> | null
+    ): ChainlinkFulfilledEventFilter;
 
     "ChainlinkRequested(bytes32)"(
-      id?: BytesLike | null
+      id?: PromiseOrValue<BytesLike> | null
     ): ChainlinkRequestedEventFilter;
-    ChainlinkRequested(id?: BytesLike | null): ChainlinkRequestedEventFilter;
+    ChainlinkRequested(
+      id?: PromiseOrValue<BytesLike> | null
+    ): ChainlinkRequestedEventFilter;
 
     "ClassifierUrlChanged(string)"(
       value?: null
@@ -553,12 +583,12 @@ export interface AuthenticityRegistry extends BaseContract {
     ): OracleChangedEventFilter;
 
     "OwnershipTransferred(address,address)"(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
     OwnershipTransferred(
-      previousOwner?: string | null,
-      newOwner?: string | null
+      previousOwner?: PromiseOrValue<string> | null,
+      newOwner?: PromiseOrValue<string> | null
     ): OwnershipTransferredEventFilter;
   };
 
@@ -566,28 +596,31 @@ export interface AuthenticityRegistry extends BaseContract {
     AUTENTISK(overrides?: CallOverrides): Promise<BigNumber>;
 
     checkAuthenticity(
-      to: string,
-      tokenURI: string,
-      collection: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      collection: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     fulfillAuthenticity(
-      requestId: BytesLike,
-      similarity: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      similarity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     owner(overrides?: CallOverrides): Promise<BigNumber>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    s_autentics(arg0: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    s_autentics(
+      arg0: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     s_authenticityRequests(
-      arg0: BytesLike,
+      arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
@@ -602,25 +635,25 @@ export interface AuthenticityRegistry extends BaseContract {
     s_similarityThreshold(overrides?: CallOverrides): Promise<BigNumber>;
 
     setClassifierUrl(
-      value: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      value: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setOracle(
-      _oracle: string,
-      _jobId: BytesLike,
-      _fee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _oracle: PromiseOrValue<string>,
+      _jobId: PromiseOrValue<BytesLike>,
+      _fee: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     withdrawToken(
-      token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      token: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
   };
 
@@ -628,31 +661,31 @@ export interface AuthenticityRegistry extends BaseContract {
     AUTENTISK(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     checkAuthenticity(
-      to: string,
-      tokenURI: string,
-      collection: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      tokenURI: PromiseOrValue<string>,
+      collection: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     fulfillAuthenticity(
-      requestId: BytesLike,
-      similarity: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      similarity: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     owner(overrides?: CallOverrides): Promise<PopulatedTransaction>;
 
     renounceOwnership(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     s_autentics(
-      arg0: BytesLike,
+      arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     s_authenticityRequests(
-      arg0: BytesLike,
+      arg0: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
@@ -669,25 +702,25 @@ export interface AuthenticityRegistry extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     setClassifierUrl(
-      value: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      value: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setOracle(
-      _oracle: string,
-      _jobId: BytesLike,
-      _fee: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      _oracle: PromiseOrValue<string>,
+      _jobId: PromiseOrValue<BytesLike>,
+      _fee: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     transferOwnership(
-      newOwner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      newOwner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawToken(
-      token: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      token: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
   };
 }

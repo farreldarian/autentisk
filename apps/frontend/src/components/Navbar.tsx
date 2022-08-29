@@ -15,9 +15,9 @@ import { useMemo, useState } from 'react'
 import { useAccount } from 'wagmi'
 
 const Navbar = () => {
-  const { data: account } = useAccount()
+  const { address } = useAccount()
 
-  const connected = useMemo(() => !isNil(account?.address), [account?.address])
+  const connected = useMemo(() => !isNil(address), [address])
   const isMobile = useBreakpointValue({ base: true, md: false })
   const [drawerOpen, setDrawerOpen] = useState(false)
 

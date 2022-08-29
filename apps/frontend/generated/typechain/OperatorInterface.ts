@@ -21,6 +21,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface OperatorInterfaceInterface extends utils.Interface {
@@ -59,32 +60,37 @@ export interface OperatorInterfaceInterface extends utils.Interface {
 
   encodeFunctionData(
     functionFragment: "cancelOracleRequest",
-    values: [BytesLike, BigNumberish, BytesLike, BigNumberish]
+    values: [
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "distributeFunds",
-    values: [string[], BigNumberish[]]
+    values: [PromiseOrValue<string>[], PromiseOrValue<BigNumberish>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "fulfillOracleRequest",
     values: [
-      BytesLike,
-      BigNumberish,
-      string,
-      BytesLike,
-      BigNumberish,
-      BytesLike
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "fulfillOracleRequest2",
     values: [
-      BytesLike,
-      BigNumberish,
-      string,
-      BytesLike,
-      BigNumberish,
-      BytesLike
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
     ]
   ): string;
   encodeFunctionData(
@@ -97,44 +103,48 @@ export interface OperatorInterfaceInterface extends utils.Interface {
   ): string;
   encodeFunctionData(
     functionFragment: "isAuthorizedSender",
-    values: [string]
+    values: [PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "operatorRequest",
     values: [
-      string,
-      BigNumberish,
-      BytesLike,
-      BytesLike,
-      BigNumberish,
-      BigNumberish,
-      BytesLike
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "oracleRequest",
     values: [
-      string,
-      BigNumberish,
-      BytesLike,
-      string,
-      BytesLike,
-      BigNumberish,
-      BigNumberish,
-      BytesLike
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<string>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
     ]
   ): string;
   encodeFunctionData(
     functionFragment: "ownerTransferAndCall",
-    values: [string, BigNumberish, BytesLike]
+    values: [
+      PromiseOrValue<string>,
+      PromiseOrValue<BigNumberish>,
+      PromiseOrValue<BytesLike>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setAuthorizedSenders",
-    values: [string[]]
+    values: [PromiseOrValue<string>[]]
   ): string;
   encodeFunctionData(
     functionFragment: "withdraw",
-    values: [string, BigNumberish]
+    values: [PromiseOrValue<string>, PromiseOrValue<BigNumberish>]
   ): string;
   encodeFunctionData(
     functionFragment: "withdrawable",
@@ -222,215 +232,218 @@ export interface OperatorInterface extends BaseContract {
 
   functions: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     distributeFunds(
-      receivers: string[],
-      amounts: BigNumberish[],
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      receivers: PromiseOrValue<string>[],
+      amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     fulfillOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     fulfillOracleRequest2(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getAuthorizedSenders(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     getForwarder(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     isAuthorizedSender(
-      node: string,
+      node: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<[boolean]>;
 
     operatorRequest(
-      sender: string,
-      payment: BigNumberish,
-      specId: BytesLike,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      payment: PromiseOrValue<BigNumberish>,
+      specId: PromiseOrValue<BytesLike>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     ownerTransferAndCall(
-      to: string,
-      value: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setAuthorizedSenders(
-      senders: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      senders: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     withdraw(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      recipient: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     withdrawable(overrides?: CallOverrides): Promise<[BigNumber]>;
   };
 
   cancelOracleRequest(
-    requestId: BytesLike,
-    payment: BigNumberish,
-    callbackFunctionId: BytesLike,
-    expiration: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    requestId: PromiseOrValue<BytesLike>,
+    payment: PromiseOrValue<BigNumberish>,
+    callbackFunctionId: PromiseOrValue<BytesLike>,
+    expiration: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   distributeFunds(
-    receivers: string[],
-    amounts: BigNumberish[],
-    overrides?: PayableOverrides & { from?: string | Promise<string> }
+    receivers: PromiseOrValue<string>[],
+    amounts: PromiseOrValue<BigNumberish>[],
+    overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   fulfillOracleRequest(
-    requestId: BytesLike,
-    payment: BigNumberish,
-    callbackAddress: string,
-    callbackFunctionId: BytesLike,
-    expiration: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    requestId: PromiseOrValue<BytesLike>,
+    payment: PromiseOrValue<BigNumberish>,
+    callbackAddress: PromiseOrValue<string>,
+    callbackFunctionId: PromiseOrValue<BytesLike>,
+    expiration: PromiseOrValue<BigNumberish>,
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   fulfillOracleRequest2(
-    requestId: BytesLike,
-    payment: BigNumberish,
-    callbackAddress: string,
-    callbackFunctionId: BytesLike,
-    expiration: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    requestId: PromiseOrValue<BytesLike>,
+    payment: PromiseOrValue<BigNumberish>,
+    callbackAddress: PromiseOrValue<string>,
+    callbackFunctionId: PromiseOrValue<BytesLike>,
+    expiration: PromiseOrValue<BigNumberish>,
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getAuthorizedSenders(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   getForwarder(
-    overrides?: Overrides & { from?: string | Promise<string> }
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  isAuthorizedSender(node: string, overrides?: CallOverrides): Promise<boolean>;
+  isAuthorizedSender(
+    node: PromiseOrValue<string>,
+    overrides?: CallOverrides
+  ): Promise<boolean>;
 
   operatorRequest(
-    sender: string,
-    payment: BigNumberish,
-    specId: BytesLike,
-    callbackFunctionId: BytesLike,
-    nonce: BigNumberish,
-    dataVersion: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    sender: PromiseOrValue<string>,
+    payment: PromiseOrValue<BigNumberish>,
+    specId: PromiseOrValue<BytesLike>,
+    callbackFunctionId: PromiseOrValue<BytesLike>,
+    nonce: PromiseOrValue<BigNumberish>,
+    dataVersion: PromiseOrValue<BigNumberish>,
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   oracleRequest(
-    sender: string,
-    requestPrice: BigNumberish,
-    serviceAgreementID: BytesLike,
-    callbackAddress: string,
-    callbackFunctionId: BytesLike,
-    nonce: BigNumberish,
-    dataVersion: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    sender: PromiseOrValue<string>,
+    requestPrice: PromiseOrValue<BigNumberish>,
+    serviceAgreementID: PromiseOrValue<BytesLike>,
+    callbackAddress: PromiseOrValue<string>,
+    callbackFunctionId: PromiseOrValue<BytesLike>,
+    nonce: PromiseOrValue<BigNumberish>,
+    dataVersion: PromiseOrValue<BigNumberish>,
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   ownerTransferAndCall(
-    to: string,
-    value: BigNumberish,
-    data: BytesLike,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    to: PromiseOrValue<string>,
+    value: PromiseOrValue<BigNumberish>,
+    data: PromiseOrValue<BytesLike>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setAuthorizedSenders(
-    senders: string[],
-    overrides?: Overrides & { from?: string | Promise<string> }
+    senders: PromiseOrValue<string>[],
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   withdraw(
-    recipient: string,
-    amount: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    recipient: PromiseOrValue<string>,
+    amount: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   withdrawable(overrides?: CallOverrides): Promise<BigNumber>;
 
   callStatic: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     distributeFunds(
-      receivers: string[],
-      amounts: BigNumberish[],
+      receivers: PromiseOrValue<string>[],
+      amounts: PromiseOrValue<BigNumberish>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     fulfillOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     fulfillOracleRequest2(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
@@ -439,48 +452,48 @@ export interface OperatorInterface extends BaseContract {
     getForwarder(overrides?: CallOverrides): Promise<string>;
 
     isAuthorizedSender(
-      node: string,
+      node: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     operatorRequest(
-      sender: string,
-      payment: BigNumberish,
-      specId: BytesLike,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
+      sender: PromiseOrValue<string>,
+      payment: PromiseOrValue<BigNumberish>,
+      specId: PromiseOrValue<BytesLike>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     ownerTransferAndCall(
-      to: string,
-      value: BigNumberish,
-      data: BytesLike,
+      to: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<boolean>;
 
     setAuthorizedSenders(
-      senders: string[],
+      senders: PromiseOrValue<string>[],
       overrides?: CallOverrides
     ): Promise<void>;
 
     withdraw(
-      recipient: string,
-      amount: BigNumberish,
+      recipient: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
@@ -491,91 +504,91 @@ export interface OperatorInterface extends BaseContract {
 
   estimateGas: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     distributeFunds(
-      receivers: string[],
-      amounts: BigNumberish[],
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      receivers: PromiseOrValue<string>[],
+      amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     fulfillOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     fulfillOracleRequest2(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getAuthorizedSenders(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     getForwarder(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     isAuthorizedSender(
-      node: string,
+      node: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<BigNumber>;
 
     operatorRequest(
-      sender: string,
-      payment: BigNumberish,
-      specId: BytesLike,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      payment: PromiseOrValue<BigNumberish>,
+      specId: PromiseOrValue<BytesLike>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     ownerTransferAndCall(
-      to: string,
-      value: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setAuthorizedSenders(
-      senders: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      senders: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     withdraw(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      recipient: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     withdrawable(overrides?: CallOverrides): Promise<BigNumber>;
@@ -583,91 +596,91 @@ export interface OperatorInterface extends BaseContract {
 
   populateTransaction: {
     cancelOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     distributeFunds(
-      receivers: string[],
-      amounts: BigNumberish[],
-      overrides?: PayableOverrides & { from?: string | Promise<string> }
+      receivers: PromiseOrValue<string>[],
+      amounts: PromiseOrValue<BigNumberish>[],
+      overrides?: PayableOverrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     fulfillOracleRequest(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     fulfillOracleRequest2(
-      requestId: BytesLike,
-      payment: BigNumberish,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      expiration: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      requestId: PromiseOrValue<BytesLike>,
+      payment: PromiseOrValue<BigNumberish>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      expiration: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getAuthorizedSenders(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     getForwarder(
-      overrides?: Overrides & { from?: string | Promise<string> }
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     isAuthorizedSender(
-      node: string,
+      node: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     operatorRequest(
-      sender: string,
-      payment: BigNumberish,
-      specId: BytesLike,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      payment: PromiseOrValue<BigNumberish>,
+      specId: PromiseOrValue<BytesLike>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     oracleRequest(
-      sender: string,
-      requestPrice: BigNumberish,
-      serviceAgreementID: BytesLike,
-      callbackAddress: string,
-      callbackFunctionId: BytesLike,
-      nonce: BigNumberish,
-      dataVersion: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      sender: PromiseOrValue<string>,
+      requestPrice: PromiseOrValue<BigNumberish>,
+      serviceAgreementID: PromiseOrValue<BytesLike>,
+      callbackAddress: PromiseOrValue<string>,
+      callbackFunctionId: PromiseOrValue<BytesLike>,
+      nonce: PromiseOrValue<BigNumberish>,
+      dataVersion: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     ownerTransferAndCall(
-      to: string,
-      value: BigNumberish,
-      data: BytesLike,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      to: PromiseOrValue<string>,
+      value: PromiseOrValue<BigNumberish>,
+      data: PromiseOrValue<BytesLike>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setAuthorizedSenders(
-      senders: string[],
-      overrides?: Overrides & { from?: string | Promise<string> }
+      senders: PromiseOrValue<string>[],
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     withdraw(
-      recipient: string,
-      amount: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      recipient: PromiseOrValue<string>,
+      amount: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     withdrawable(overrides?: CallOverrides): Promise<PopulatedTransaction>;

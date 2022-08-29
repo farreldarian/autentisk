@@ -24,6 +24,7 @@ import type {
   TypedEvent,
   TypedListener,
   OnEvent,
+  PromiseOrValue,
 } from "./common";
 
 export interface ENSInterfaceInterface extends utils.Interface {
@@ -48,25 +49,38 @@ export interface ENSInterfaceInterface extends utils.Interface {
       | "ttl"
   ): FunctionFragment;
 
-  encodeFunctionData(functionFragment: "owner", values: [BytesLike]): string;
-  encodeFunctionData(functionFragment: "resolver", values: [BytesLike]): string;
+  encodeFunctionData(
+    functionFragment: "owner",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
+  encodeFunctionData(
+    functionFragment: "resolver",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
   encodeFunctionData(
     functionFragment: "setOwner",
-    values: [BytesLike, string]
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "setResolver",
-    values: [BytesLike, string]
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<string>]
   ): string;
   encodeFunctionData(
     functionFragment: "setSubnodeOwner",
-    values: [BytesLike, BytesLike, string]
+    values: [
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<BytesLike>,
+      PromiseOrValue<string>
+    ]
   ): string;
   encodeFunctionData(
     functionFragment: "setTTL",
-    values: [BytesLike, BigNumberish]
+    values: [PromiseOrValue<BytesLike>, PromiseOrValue<BigNumberish>]
   ): string;
-  encodeFunctionData(functionFragment: "ttl", values: [BytesLike]): string;
+  encodeFunctionData(
+    functionFragment: "ttl",
+    values: [PromiseOrValue<BytesLike>]
+  ): string;
 
   decodeFunctionResult(functionFragment: "owner", data: BytesLike): Result;
   decodeFunctionResult(functionFragment: "resolver", data: BytesLike): Result;
@@ -161,207 +175,249 @@ export interface ENSInterface extends BaseContract {
   removeListener: OnEvent<this>;
 
   functions: {
-    owner(node: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    owner(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
-    resolver(node: BytesLike, overrides?: CallOverrides): Promise<[string]>;
+    resolver(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[string]>;
 
     setOwner(
-      node: BytesLike,
-      owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setResolver(
-      node: BytesLike,
-      resolver: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      resolver: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setSubnodeOwner(
-      node: BytesLike,
-      label: BytesLike,
-      owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      label: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
     setTTL(
-      node: BytesLike,
-      ttl: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      ttl: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<ContractTransaction>;
 
-    ttl(node: BytesLike, overrides?: CallOverrides): Promise<[BigNumber]>;
+    ttl(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<[BigNumber]>;
   };
 
-  owner(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+  owner(
+    node: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
-  resolver(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+  resolver(
+    node: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<string>;
 
   setOwner(
-    node: BytesLike,
-    owner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    node: PromiseOrValue<BytesLike>,
+    owner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setResolver(
-    node: BytesLike,
-    resolver: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    node: PromiseOrValue<BytesLike>,
+    resolver: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setSubnodeOwner(
-    node: BytesLike,
-    label: BytesLike,
-    owner: string,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    node: PromiseOrValue<BytesLike>,
+    label: PromiseOrValue<BytesLike>,
+    owner: PromiseOrValue<string>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
   setTTL(
-    node: BytesLike,
-    ttl: BigNumberish,
-    overrides?: Overrides & { from?: string | Promise<string> }
+    node: PromiseOrValue<BytesLike>,
+    ttl: PromiseOrValue<BigNumberish>,
+    overrides?: Overrides & { from?: PromiseOrValue<string> }
   ): Promise<ContractTransaction>;
 
-  ttl(node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+  ttl(
+    node: PromiseOrValue<BytesLike>,
+    overrides?: CallOverrides
+  ): Promise<BigNumber>;
 
   callStatic: {
-    owner(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+    owner(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
-    resolver(node: BytesLike, overrides?: CallOverrides): Promise<string>;
+    resolver(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<string>;
 
     setOwner(
-      node: BytesLike,
-      owner: string,
+      node: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setResolver(
-      node: BytesLike,
-      resolver: string,
+      node: PromiseOrValue<BytesLike>,
+      resolver: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setSubnodeOwner(
-      node: BytesLike,
-      label: BytesLike,
-      owner: string,
+      node: PromiseOrValue<BytesLike>,
+      label: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
       overrides?: CallOverrides
     ): Promise<void>;
 
     setTTL(
-      node: BytesLike,
-      ttl: BigNumberish,
+      node: PromiseOrValue<BytesLike>,
+      ttl: PromiseOrValue<BigNumberish>,
       overrides?: CallOverrides
     ): Promise<void>;
 
-    ttl(node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    ttl(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   filters: {
     "NewOwner(bytes32,bytes32,address)"(
-      node?: BytesLike | null,
-      label?: BytesLike | null,
+      node?: PromiseOrValue<BytesLike> | null,
+      label?: PromiseOrValue<BytesLike> | null,
       owner?: null
     ): NewOwnerEventFilter;
     NewOwner(
-      node?: BytesLike | null,
-      label?: BytesLike | null,
+      node?: PromiseOrValue<BytesLike> | null,
+      label?: PromiseOrValue<BytesLike> | null,
       owner?: null
     ): NewOwnerEventFilter;
 
     "NewResolver(bytes32,address)"(
-      node?: BytesLike | null,
+      node?: PromiseOrValue<BytesLike> | null,
       resolver?: null
     ): NewResolverEventFilter;
     NewResolver(
-      node?: BytesLike | null,
+      node?: PromiseOrValue<BytesLike> | null,
       resolver?: null
     ): NewResolverEventFilter;
 
     "NewTTL(bytes32,uint64)"(
-      node?: BytesLike | null,
+      node?: PromiseOrValue<BytesLike> | null,
       ttl?: null
     ): NewTTLEventFilter;
-    NewTTL(node?: BytesLike | null, ttl?: null): NewTTLEventFilter;
+    NewTTL(
+      node?: PromiseOrValue<BytesLike> | null,
+      ttl?: null
+    ): NewTTLEventFilter;
 
     "Transfer(bytes32,address)"(
-      node?: BytesLike | null,
+      node?: PromiseOrValue<BytesLike> | null,
       owner?: null
     ): TransferEventFilter;
-    Transfer(node?: BytesLike | null, owner?: null): TransferEventFilter;
+    Transfer(
+      node?: PromiseOrValue<BytesLike> | null,
+      owner?: null
+    ): TransferEventFilter;
   };
 
   estimateGas: {
-    owner(node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    owner(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
-    resolver(node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    resolver(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
 
     setOwner(
-      node: BytesLike,
-      owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setResolver(
-      node: BytesLike,
-      resolver: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      resolver: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setSubnodeOwner(
-      node: BytesLike,
-      label: BytesLike,
-      owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      label: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
     setTTL(
-      node: BytesLike,
-      ttl: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      ttl: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<BigNumber>;
 
-    ttl(node: BytesLike, overrides?: CallOverrides): Promise<BigNumber>;
+    ttl(
+      node: PromiseOrValue<BytesLike>,
+      overrides?: CallOverrides
+    ): Promise<BigNumber>;
   };
 
   populateTransaction: {
     owner(
-      node: BytesLike,
+      node: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     resolver(
-      node: BytesLike,
+      node: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
 
     setOwner(
-      node: BytesLike,
-      owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setResolver(
-      node: BytesLike,
-      resolver: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      resolver: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setSubnodeOwner(
-      node: BytesLike,
-      label: BytesLike,
-      owner: string,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      label: PromiseOrValue<BytesLike>,
+      owner: PromiseOrValue<string>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     setTTL(
-      node: BytesLike,
-      ttl: BigNumberish,
-      overrides?: Overrides & { from?: string | Promise<string> }
+      node: PromiseOrValue<BytesLike>,
+      ttl: PromiseOrValue<BigNumberish>,
+      overrides?: Overrides & { from?: PromiseOrValue<string> }
     ): Promise<PopulatedTransaction>;
 
     ttl(
-      node: BytesLike,
+      node: PromiseOrValue<BytesLike>,
       overrides?: CallOverrides
     ): Promise<PopulatedTransaction>;
   };
