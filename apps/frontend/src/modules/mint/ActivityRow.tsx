@@ -55,12 +55,14 @@ export default function ActivityRow(props: Props) {
       </Td>
       <Td>
         <Skeleton isLoaded={!!data}>
-          {data && (
+          {data ? (
             <Flex gap='3' alignItems={'center'}>
-              <ActivityRowImage
-                src={data.original.imageUrl}
-                alt='orginal-image'
-              />
+              {!data.error && (
+                <ActivityRowImage
+                  src={data.original.imageUrl}
+                  alt='orginal-image'
+                />
+              )}
 
               {similarity && (
                 <Text
@@ -71,6 +73,8 @@ export default function ActivityRow(props: Props) {
                 </Text>
               )}
             </Flex>
+          ) : (
+            <></>
           )}
         </Skeleton>
 
